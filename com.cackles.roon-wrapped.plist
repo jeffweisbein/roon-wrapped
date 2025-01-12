@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.cackles.roon-wrapped</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/jeff/.nvm/versions/node/v20.11.1/bin/npm</string>
+        <string>run</string>
+        <string>server</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>/usr/local/var/roon-wrapped/output.log</string>
+    <key>StandardErrorPath</key>
+    <string>/usr/local/var/roon-wrapped/error.log</string>
+    <key>WorkingDirectory</key>
+    <string>/Users/jeff/Documents/GitHub/roon-wrapped</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/Users/jeff/.nvm/versions/node/v20.11.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>HOME</key>
+        <string>/Users/jeff</string>
+        <key>NODE_ENV</key>
+        <string>production</string>
+        <key>PWD</key>
+        <string>/Users/jeff/Documents/GitHub/roon-wrapped</string>
+    </dict>
+    <key>UserName</key>
+    <string>jeff</string>
+    <key>GroupName</key>
+    <string>staff</string>
+    <key>ProcessType</key>
+    <string>Interactive</string>
+</dict>
+</plist> 
