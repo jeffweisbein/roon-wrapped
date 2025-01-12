@@ -2,10 +2,10 @@
 
 A beautiful visualization of your Roon music listening history, inspired by Spotify Wrapped. This application connects to your Roon Core and generates personalized insights about your music listening habits.
 
+![Roon-Wrapped-01-11-2025_07_08_PM](https://github.com/user-attachments/assets/d7a2ffe6-eeb3-4808-bcaf-c78255bbab74)
 ![Roon-Wrapped-01-11-2025_07_06_PM (1)](https://github.com/user-attachments/assets/8312472d-70c9-429b-84f0-7df7949fe3ab)
 ![Roon-Wrapped-01-11-2025_07_06_PM (2)](https://github.com/user-attachments/assets/8ef898a8-f576-44a7-84a7-2f117d78920f)
 ![Roon-Wrapped-01-11-2025_07_06_PM (3)](https://github.com/user-attachments/assets/06502259-afe6-47bc-b6f0-7ddcca2be96b)
-![Roon-Wrapped-01-11-2025_07_08_PM](https://github.com/user-attachments/assets/d7a2ffe6-eeb3-4808-bcaf-c78255bbab74)
 
 
 ## Features
