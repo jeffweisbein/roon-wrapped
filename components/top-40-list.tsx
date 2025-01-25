@@ -12,6 +12,7 @@ import {
   Mic2,
   Music2,
 } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 
 interface TopItem {
   name: string;
@@ -28,11 +29,18 @@ export function Top40List({ type }: Top40ListProps) {
   const [items, setItems] = useState<TopItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const zone = searchParams.get('zone');
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('/api/history/top-40');
+        setLoading(true);
+        const url = new URL('/api/history/top-40', window.location.origin);
+        if (zone) {
+          url.searchParams.set('zone', zone);
+        }
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error('Failed to fetch top 40 data');
         }
@@ -46,7 +54,7 @@ export function Top40List({ type }: Top40ListProps) {
     }
 
     fetchData();
-  }, [type]);
+  }, [type, zone]);
 
   if (loading) {
     return (
@@ -68,7 +76,7 @@ export function Top40List({ type }: Top40ListProps) {
   if (!items.length) {
     return (
       <div className="flex items-center justify-center h-48 text-neutral-400">
-        No data available
+        No data available {zone ? `for zone "${zone}"` : ''}
       </div>
     );
   }

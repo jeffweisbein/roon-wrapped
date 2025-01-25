@@ -8,6 +8,7 @@ interface PlayedItem {
   album: string;
   image_key?: string;
   timestamp: number;
+  zone?: string;
 }
 
 interface TopItem {
@@ -16,10 +17,13 @@ interface TopItem {
   image_key?: string;
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   console.log('Top 40 API endpoint called');
   
   try {
+    const { searchParams } = new URL(request.url);
+    const zone = searchParams.get('zone');
+
     // Read the listening history file
     const historyPath = path.join(process.cwd(), 'data', 'listening-history.json');
     console.log('Reading history file from:', historyPath);
@@ -35,6 +39,8 @@ export async function GET() {
     // Process artists
     const artistCounts = new Map<string, { count: number; image_key?: string }>();
     historyData.forEach((item) => {
+      if (zone && item.zone !== zone) return;
+      
       if (item.artist) {
         const currentCount = artistCounts.get(item.artist)?.count || 0;
         artistCounts.set(item.artist, {
@@ -47,7 +53,9 @@ export async function GET() {
     // Process albums
     const albumCounts = new Map<string, { count: number; artist: string; image_key?: string }>();
     historyData.forEach((item) => {
-      if (item.album) {
+      if (zone && item.zone !== zone) return;
+      
+      if (item.album && item.artist) {
         const key = `${item.album}|${item.artist}`;
         const currentCount = albumCounts.get(key)?.count || 0;
         albumCounts.set(key, {
@@ -61,6 +69,8 @@ export async function GET() {
     // Process tracks
     const trackCounts = new Map<string, { count: number; artist: string; image_key?: string }>();
     historyData.forEach((item) => {
+      if (zone && item.zone !== zone) return;
+      
       if (item.title) {
         const key = `${item.title}|${item.artist}`;
         const currentCount = trackCounts.get(key)?.count || 0;
@@ -71,6 +81,9 @@ export async function GET() {
         });
       }
     });
+
+    // Get unique zones
+    const zones = Array.from(new Set(historyData.map(item => item.zone))).sort();
 
     // Convert to arrays and sort
     const topArtists = Array.from(artistCounts.entries())
@@ -102,11 +115,13 @@ export async function GET() {
     console.log('- Artists:', topArtists.length);
     console.log('- Albums:', topAlbums.length);
     console.log('- Tracks:', topTracks.length);
+    console.log('- Zones:', zones.length);
 
     return NextResponse.json({
       artists: topArtists,
       albums: topAlbums,
       tracks: topTracks,
+      zones,
     });
   } catch (error) {
     console.error('Error processing top 40:', error);
