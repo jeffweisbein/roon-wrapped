@@ -95,8 +95,34 @@ class RoonConnection {
                     const lastId = this.lastTrackIds[zone.zone_id];
                     const trackKey = `${zone.zone_id}-${trackId}`;
                     
+                    // Check if this is a repeat play of the same track
+                    if (trackId === lastId && zone.state === 'playing') {
+                        const startTime = this.trackStartTimes[trackKey];
+                        const currentTime = Date.now();
+                        const playDuration = currentTime - startTime;
+                        const trackInfo = this[trackKey];
+                        
+                        // If the track has played for longer than its duration, it's likely a repeat
+                        if (trackInfo && trackInfo.duration && playDuration >= trackInfo.duration * 1000) {
+                            console.log('[Roon] Detected repeat play:', {
+                                zone: zone.display_name,
+                                title: track.two_line.line1,
+                                artist: track.two_line.line2,
+                                playDuration: Math.round(playDuration / 1000),
+                                trackDuration: trackInfo.duration
+                            });
+                            
+                            // Log the completed play
+                            if (this.shouldLogTrack(playDuration, trackInfo.duration)) {
+                                this.logTrackToHistory(trackInfo);
+                            }
+                            
+                            // Reset the start time for the new play
+                            this.trackStartTimes[trackKey] = currentTime;
+                        }
+                    }
                     // Track has changed
-                    if (trackId !== lastId) {
+                    else if (trackId !== lastId) {
                         console.log('[Roon] New track detected:', {
                             zone: zone.display_name,
                             title: track.two_line.line1,

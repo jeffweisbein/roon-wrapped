@@ -42,8 +42,33 @@ module.exports = function(roonConnection) {
         }
     });
 
+    // Connect endpoint
+    router.post('/api/roon/connect', async (req, res, next) => {
+        try {
+            if (!roonConnection) {
+                return res.status(503).json({
+                    success: false,
+                    error: 'Roon connection not initialized'
+                });
+            }
+
+            // Start discovery if not connected
+            if (!roonConnection.isConnected()) {
+                console.log('[Roon] Starting discovery...');
+                roonConnection.roon.start_discovery();
+            }
+
+            res.json({
+                success: true,
+                message: 'Discovery started'
+            });
+        } catch (error) {
+            next(error);
+        }
+    });
+
     // Wrapped data endpoint
-    router.get('/api/roon/wrapped', async (req, res, next) => {
+    router.get('/api/history/wrapped', async (req, res, next) => {
         try {
             const wrappedData = await historyService.getWrappedData();
             res.json(wrappedData);

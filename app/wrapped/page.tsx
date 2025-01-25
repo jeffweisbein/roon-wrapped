@@ -143,7 +143,7 @@ export default function WrappedPage() {
         });
 
         // Fetch wrapped data
-        const wrappedResponse = await fetch('/api/roon/wrapped', {
+        const wrappedResponse = await fetch('/api/history/wrapped', {
           cache: 'no-store',
           headers: {
             'Cache-Control': 'no-cache',
