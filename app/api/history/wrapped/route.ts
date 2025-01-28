@@ -1,4 +1,7 @@
-import { NextResponse } from 'next/server';
+import {
+  NextRequest,
+  NextResponse,
+} from 'next/server';
 
 const ROON_SERVER_PORT = process.env.ROON_SERVER_PORT || '3003';
 const ROON_SERVER_HOST = process.env.ROON_SERVER_HOST || 'localhost';
@@ -6,9 +9,12 @@ const ROON_SERVER_HOST = process.env.ROON_SERVER_HOST || 'localhost';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const url = `http://${ROON_SERVER_HOST}:${ROON_SERVER_PORT}/api/history/wrapped`;
+    const searchParams = request.nextUrl.searchParams;
+    const period = searchParams.get('period') || 'all';
+    
+    const url = `http://${ROON_SERVER_HOST}:${ROON_SERVER_PORT}/api/history/wrapped?period=${period}`;
     console.log(`Fetching wrapped data from: ${url}`);
     
     const response = await fetch(url, {

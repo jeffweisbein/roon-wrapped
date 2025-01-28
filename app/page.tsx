@@ -36,20 +36,9 @@ export default function Home() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       
-      const outerData = await response.json();
-      
-      if (!outerData.success) {
-        throw new Error(outerData.error || 'Server returned error');
-      }
-      
-      // Parse the nested JSON string in data
-      const innerData = JSON.parse(outerData.data);
-      
-      if (!innerData.success) {
-        throw new Error(innerData.error || 'Roon server returned error');
-      }
-      
-      setConnectionStatus(innerData.isConnected ? 'connected' : 'disconnected');
+      const data = await response.json();
+      console.log('Roon status response:', data);
+      setConnectionStatus(data.connected ? 'connected' : 'disconnected');
       setError(null);
     } catch (error) {
       console.error('Error checking connection status:', error);

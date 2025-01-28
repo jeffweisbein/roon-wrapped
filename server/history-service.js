@@ -5,398 +5,284 @@ class HistoryService {
     constructor() {
         this.tracks = [];
         this.historyFile = path.join(__dirname, '../data/listening-history.json');
-        this.isSaving = false;
         this.initialized = false;
-        this.saveDebounceTimeout = null;
-        this.saveQueue = [];
     }
 
     async initialize() {
         if (this.initialized) return;
 
         try {
-            // Ensure data directory exists
-            const dataDir = path.dirname(this.historyFile);
-            if (!fs.existsSync(dataDir)) {
-                fs.mkdirSync(dataDir, { recursive: true });
-            }
-
             // Load existing history
             try {
                 const data = fs.readFileSync(this.historyFile, 'utf8');
                 this.tracks = JSON.parse(data);
-                console.log(`Loaded ${this.tracks.length} tracks from history`);
-
-                // Validate tracks
-                this.tracks = this.tracks.filter(track => this.isValidTrack(track));
-                console.log(`Found ${this.tracks.length} valid tracks`);
-
-                await this.cleanupHistory();
+                console.log(`[History] Loaded ${this.tracks.length} tracks from ${this.historyFile}`);
             } catch (err) {
                 if (err.code !== 'ENOENT') {
-                    console.error('Error loading history:', err);
+                    console.error('[History] Error loading history:', err);
                 }
                 this.tracks = [];
             }
 
             this.initialized = true;
         } catch (err) {
-            console.error('Failed to initialize history service:', err);
+            console.error('[History] Failed to initialize:', err);
             throw err;
         }
-    }
-
-    isValidTrack(track) {
-        return (
-            typeof track === 'object' &&
-            typeof track.artist === 'string' &&
-            typeof track.title === 'string' &&
-            typeof track.album === 'string' &&
-            typeof track.timestamp === 'number' &&
-            typeof track.duration === 'number' &&
-            typeof track.zone === 'string'
-        );
-    }
-
-    async cleanupHistory() {
-        // Remove duplicates based on artist, title, and timestamp
-        const seen = new Set();
-        this.tracks = this.tracks.filter(track => {
-            const key = `${track.artist}-${track.title}-${track.timestamp}`;
-            if (seen.has(key)) return false;
-            seen.add(key);
-            return true;
-        });
-
-        // Sort by timestamp descending
-        this.tracks.sort((a, b) => b.timestamp - a.timestamp);
     }
 
     async addTrack(track) {
-        if (!this.isValidTrack(track)) {
-            throw new Error('Invalid track data');
+        if (!track.title || !track.artist || !track.timestamp) {
+            console.error('[History] Invalid track:', track);
+            return;
         }
 
-        this.saveQueue.push(track);
+        console.log('[History] Adding track:', {
+            title: track.title,
+            artist: track.artist,
+            timestamp: new Date(track.timestamp).toISOString()
+        });
+
+        // Add to start of array
         this.tracks.unshift(track);
 
-        // Debounce save operations
-        if (this.saveDebounceTimeout) {
-            clearTimeout(this.saveDebounceTimeout);
-        }
-
-        this.saveDebounceTimeout = setTimeout(() => {
-            this.processSaveQueue().catch(err => {
-                console.error('Error processing save queue:', err);
-            });
-        }, 5000);
-    }
-
-    async processSaveQueue() {
-        if (this.isSaving || this.saveQueue.length === 0) return;
-
-        this.isSaving = true;
+        // Save immediately
         try {
-            await fs.promises.writeFile(this.historyFile, JSON.stringify(this.tracks, null, 2));
-            this.saveQueue = [];
+            await fs.promises.writeFile(
+                this.historyFile, 
+                JSON.stringify(this.tracks, null, 2)
+            );
         } catch (err) {
-            console.error('Error saving history:', err);
-            throw err;
-        } finally {
-            this.isSaving = false;
+            console.error('[History] Error saving:', err);
         }
     }
 
-    getWrappedData() {
-        // Calculate time of day patterns
-        const timeOfDay = {
-            morning: 0,   // 6am - 12pm
-            afternoon: 0, // 12pm - 5pm
-            evening: 0,   // 5pm - 10pm
-            night: 0      // 10pm - 6am
-        };
+    getTracks() {
+        return this.tracks;
+    }
 
-        // Calculate day of week patterns
-        const dayOfWeek = {
-            sunday: 0,
-            monday: 0,
-            tuesday: 0,
-            wednesday: 0,
-            thursday: 0,
-            friday: 0,
-            saturday: 0
-        };
+    saveTracks(tracks) {
+        this.tracks = tracks;
+        return fs.promises.writeFile(
+            this.historyFile, 
+            JSON.stringify(tracks, null, 2)
+        );
+    }
 
-        // Calculate hourly patterns for peak hour
-        const hourlyPlays = new Array(24).fill(0);
-        let totalPlaytime = 0;
-        let peakHour = 0;
-
-        this.tracks.forEach(track => {
-            const date = new Date(track.timestamp);
+    getWrappedData(period = 'all') {
+        console.log('[History] Getting wrapped data for period:', period);
+        
+        // Filter tracks based on time period
+        const now = Date.now();
+        const filteredTracks = this.tracks.filter(track => {
+            if (period === 'all') return true;
             
-            // Time of day
-            const hour = date.getHours();
-            if (hour >= 6 && hour < 12) timeOfDay.morning++;
-            else if (hour >= 12 && hour < 17) timeOfDay.afternoon++;
-            else if (hour >= 17 && hour < 22) timeOfDay.evening++;
-            else timeOfDay.night++;
-
-            // Day of week
-            const day = date.getDay();
-            switch(day) {
-                case 0: dayOfWeek.sunday++; break;
-                case 1: dayOfWeek.monday++; break;
-                case 2: dayOfWeek.tuesday++; break;
-                case 3: dayOfWeek.wednesday++; break;
-                case 4: dayOfWeek.thursday++; break;
-                case 5: dayOfWeek.friday++; break;
-                case 6: dayOfWeek.saturday++; break;
+            // Ensure timestamp is a number
+            const trackTime = typeof track.timestamp === 'string' ? new Date(track.timestamp).getTime() : track.timestamp;
+            const daysDiff = (now - trackTime) / (1000 * 60 * 60 * 24);
+            
+            const periodDays = parseInt(period);
+            if (isNaN(periodDays)) {
+                console.error('[History] Invalid period:', period);
+                return true; // Default to including all tracks if period is invalid
             }
+            
+            const included = daysDiff <= periodDays;
+            console.log('[History] Track:', {
+                title: track.title,
+                timestamp: track.timestamp,
+                trackTime,
+                daysDiff,
+                included
+            });
+            
+            return included;
+        });
 
-            // Hourly plays and playtime
-            hourlyPlays[hour]++;
-            if (track.duration) {
-                totalPlaytime += Math.round(track.duration / 60); // Convert seconds to minutes
+        console.log(`[History] Filtered ${this.tracks.length} tracks down to ${filteredTracks.length} tracks`);
+
+        // Normalize artist names
+        const normalizeArtist = (artist) => {
+            if (!artist) return '';
+            const normalized = artist.trim().toLowerCase();
+            if (normalized.includes('blink') && normalized.includes('182')) {
+                return 'blink-182';
+            }
+            return artist.trim();
+        };
+
+        // Get top artists with latest artwork
+        const artistCounts = {};
+        const artistLatestImage = {};
+        const artistLatestTimestamp = {};
+
+        filteredTracks.forEach(track => {
+            const normalizedArtist = normalizeArtist(track.artist);
+            artistCounts[normalizedArtist] = (artistCounts[normalizedArtist] || 0) + 1;
+            
+            // Update image only if this track is more recent
+            if (!artistLatestTimestamp[normalizedArtist] || track.timestamp > artistLatestTimestamp[normalizedArtist]) {
+                artistLatestImage[normalizedArtist] = track.image_key;
+                artistLatestTimestamp[normalizedArtist] = track.timestamp;
             }
         });
 
-        // Find peak hour
-        let maxPlays = 0;
-        hourlyPlays.forEach((plays, hour) => {
-            if (plays > maxPlays) {
-                maxPlays = plays;
-                peakHour = hour;
+        // Format top items
+        const topArtists = Object.entries(artistCounts)
+            .sort(([,a], [,b]) => b - a)
+            .slice(0, 10)
+            .map(([name, count]) => ({ 
+                name, 
+                artist: name, 
+                count,
+                image_key: artistLatestImage[name]
+            }));
+
+        // Get top albums
+        const albumCounts = {};
+        const albumImages = {};
+        const albumArtists = {};
+        filteredTracks.forEach(track => {
+            if (track.album) {
+                albumCounts[track.album] = (albumCounts[track.album] || 0) + 1;
+                if (track.image_key) {
+                    albumImages[track.album] = track.image_key;
+                }
+                albumArtists[track.album] = normalizeArtist(track.artist);
             }
         });
 
-        // Calculate daily average
-        const firstPlay = this.tracks[this.tracks.length - 1]?.timestamp;
-        const lastPlay = this.tracks[0]?.timestamp;
-        const totalDays = firstPlay && lastPlay ? 
-            Math.ceil((lastPlay - firstPlay) / (1000 * 60 * 60 * 24)) : 1;
-        const dailyAverage = Math.round(this.tracks.length / totalDays);
+        const topAlbums = Object.entries(albumCounts)
+            .sort(([,a], [,b]) => b - a)
+            .slice(0, 10)
+            .map(([name, count]) => ({ 
+                name, 
+                album: name, 
+                artist: albumArtists[name] || "",
+                count,
+                image_key: albumImages[name]
+            }));
 
-        // Get top items
-        const topArtists = this.getTopItems(track => track.artist);
-        const topAlbums = this.getTopItems(track => track.album);
-        const topTracks = this.getTopItems(track => track.title);
+        // Get top tracks
+        const trackCounts = {};
+        const trackImages = {};
+        filteredTracks.forEach(track => {
+            const normalizedArtist = normalizeArtist(track.artist);
+            const key = `${track.title} - ${normalizedArtist}`;
+            trackCounts[key] = (trackCounts[key] || 0) + 1;
+            if (track.image_key) {
+                trackImages[key] = track.image_key;
+            }
+        });
+
+        const topTracks = Object.entries(trackCounts)
+            .sort(([,a], [,b]) => b - a)
+            .slice(0, 10)
+            .map(([name, count]) => {
+                const [title, artist] = name.split(" - ");
+                return { 
+                    name, 
+                    title, 
+                    artist, 
+                    count,
+                    image_key: trackImages[name]
+                };
+            });
+
+        // Calculate patterns based on filtered tracks
+        const calculatePatternsForTracks = (tracks) => {
+            const hourCounts = new Array(24).fill(0);
+            const dayOfWeek = {
+                sunday: 0,
+                monday: 0,
+                tuesday: 0,
+                wednesday: 0,
+                thursday: 0,
+                friday: 0,
+                saturday: 0
+            };
+
+            tracks.forEach(track => {
+                const date = new Date(track.timestamp);
+                const hour = date.getHours();
+                const day = date.getDay();
+                
+                hourCounts[hour]++;
+                const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+                dayOfWeek[days[day]]++;
+            });
+
+            return {
+                timeOfDay: {
+                    morning: hourCounts.slice(6, 12).reduce((a, b) => a + b, 0),   // 6 AM - 11:59 AM
+                    afternoon: hourCounts.slice(12, 18).reduce((a, b) => a + b, 0), // 12 PM - 5:59 PM
+                    evening: hourCounts.slice(18, 24).reduce((a, b) => a + b, 0),   // 6 PM - 11:59 PM
+                    night: hourCounts.slice(0, 6).reduce((a, b) => a + b, 0)        // 12 AM - 5:59 AM
+                },
+                dayOfWeek
+            };
+        };
+
+        // Calculate streak based on filtered tracks
+        const calculateStreakForTracks = (tracks) => {
+            if (tracks.length === 0) return 0;
+            
+            const today = new Date().setHours(0, 0, 0, 0);
+            let currentStreak = 0;
+            let streakDate = today;
+
+            // Get unique dates and sort them in descending order
+            const playDates = new Set(
+                tracks.map(track => 
+                    new Date(track.timestamp).setHours(0, 0, 0, 0)
+                )
+            );
+            const sortedDates = Array.from(playDates).sort((a, b) => b - a);
+
+            // Calculate streak
+            for (let date of sortedDates) {
+                if (date === streakDate) {
+                    currentStreak++;
+                    streakDate -= 86400000; // Subtract one day in milliseconds
+                } else {
+                    break;
+                }
+            }
+
+            return currentStreak;
+        };
+
+        // Calculate peak hour based on filtered tracks
+        const calculatePeakHourForTracks = (tracks) => {
+            if (tracks.length === 0) return 0;
+            
+            const hourCounts = new Array(24).fill(0);
+            
+            tracks.forEach(track => {
+                const hour = new Date(track.timestamp).getHours();
+                hourCounts[hour]++;
+            });
+
+            return hourCounts.indexOf(Math.max(...hourCounts));
+        };
 
         return {
-            totalPlays: this.tracks.length,
-            uniqueArtists: new Set(this.tracks.map(track => track.artist)).size,
-            uniqueAlbums: new Set(this.tracks.map(track => track.album)).size,
-            uniqueTracks: new Set(this.tracks.map(track => track.title)).size,
-            totalPlaytime,
-            dailyAverage,
-            peakHour,
-            currentStreak: this.calculateCurrentStreak(),
-            patterns: {
-                timeOfDay,
-                dayOfWeek,
-                hourlyPlays
-            },
-            topArtists: topArtists.slice(0, 10),
-            topAlbums: topAlbums.slice(0, 10),
-            topTracks: topTracks.slice(0, 10)
+            totalPlays: filteredTracks.length,
+            uniqueArtists: Object.keys(artistCounts).length,
+            uniqueAlbums: Object.keys(albumCounts).length,
+            uniqueTracks: Object.keys(trackCounts).length,
+            totalPlaytime: filteredTracks.reduce((total, track) => total + (track.length || 0), 0),
+            dailyAverage: Math.round(filteredTracks.length / (filteredTracks.length > 0 ? Math.ceil((now - filteredTracks[filteredTracks.length - 1].timestamp) / (24 * 60 * 60 * 1000)) : 1) * 10) / 10,
+            currentStreak: calculateStreakForTracks(filteredTracks),
+            peakHour: calculatePeakHourForTracks(filteredTracks),
+            topArtists,
+            topAlbums,
+            topTracks,
+            topGenres: [], // Placeholder since we don't have genre data yet
+            patterns: calculatePatternsForTracks(filteredTracks)
         };
-    }
-
-    calculateCurrentStreak() {
-        if (this.tracks.length === 0) return 0;
-
-        let streak = 1;
-        const today = new Date().setHours(0, 0, 0, 0);
-        let currentDate = new Date(this.tracks[0].timestamp).setHours(0, 0, 0, 0);
-        let lastDate = currentDate;
-
-        // Get unique dates from tracks
-        const dates = new Set();
-        for (const track of this.tracks) {
-            const date = new Date(track.timestamp).setHours(0, 0, 0, 0);
-            dates.add(date);
-        }
-
-        // Convert to array and sort descending
-        const sortedDates = Array.from(dates).sort((a, b) => b - a);
-
-        // Count consecutive days
-        for (let i = 1; i < sortedDates.length; i++) {
-            const diff = sortedDates[i - 1] - sortedDates[i];
-            if (diff > 24 * 60 * 60 * 1000) break;
-            streak++;
-        }
-
-        return streak;
-    }
-
-    getTopItems(getKey) {
-        const counts = {};
-        
-        // Helper function to normalize artist names
-        const normalizeArtistName = (name) => {
-            if (typeof name === 'string') {
-                const lowerName = name.toLowerCase();
-                if (lowerName.includes('blink')) {
-                    return 'blink-182';
-                }
-                // Handle Binmonkey's blink-182 covers
-                if (lowerName === 'binmonkey') {
-                    return 'blink-182';
-                }
-            }
-            return name;
-        };
-        
-        // Determine what we're aggregating by
-        const sampleKey = getKey(this.tracks[0]);
-        const isArtistAggregation = sampleKey === this.tracks[0].artist;
-        const isAlbumAggregation = sampleKey === this.tracks[0].album;
-        const isTitleAggregation = sampleKey === this.tracks[0].title;
-        
-        this.tracks.forEach(track => {
-            // Check if this is a Binmonkey track playing blink-182 songs
-            const isBindmonkeyBlink = track.artist === 'Binmonkey' && track.album.toLowerCase().includes('blink-182');
-            
-            // Normalize artist name in the track object for aggregation
-            const normalizedArtist = normalizeArtistName(track.artist);
-            
-            let rawKey = getKey(track);
-            
-            // If we're getting the artist or it's a Binmonkey blink-182 cover, normalize it
-            if (isArtistAggregation || isBindmonkeyBlink) {
-                rawKey = normalizeArtistName(rawKey);
-            }
-            
-            // For albums by blink-182, ensure consistent hyphen
-            if (typeof rawKey === 'string' && rawKey.toLowerCase().includes('blink')) {
-                rawKey = rawKey.replace(/[\u2010-\u2015]/g, '-');
-            }
-            
-            // Create composite key for albums that includes artist
-            let key;
-            let displayName = rawKey;
-            let displayArtist = isBindmonkeyBlink ? 'blink-182' : track.artist;
-            
-            if (isAlbumAggregation) {
-                // Special handling for Taylor Swift albums
-                if (track.artist === 'Taylor Swift') {
-                    console.log('Processing Taylor Swift track:', {
-                        title: track.title,
-                        originalAlbum: track.album,
-                        rawKey: rawKey
-                    });
-                    
-                    // Map known Taylor Swift songs to their correct albums
-                    const songToAlbum = {
-                        'Cruel Summer': 'Lover',
-                        "Don't Blame Me": 'reputation',
-                        'Look What You Made Me Do': 'reputation',
-                        'Ready for It?': 'reputation',
-                        'Delicate': 'reputation',
-                        'Gorgeous': 'reputation',
-                        'End Game': 'reputation',
-                        'Getaway Car': 'reputation',
-                        'Dancing with Our Hands Tied': 'reputation',
-                        'Dress': 'reputation',
-                        'This Is Why We Can\'t Have Nice Things': 'reputation',
-                        'Call It What You Want': 'reputation',
-                        'New Year\'s Day': 'reputation',
-                        'ME!': 'Lover',
-                        'You Need to Calm Down': 'Lover',
-                        'The Man': 'Lover',
-                        'I Think He Knows': 'Lover',
-                        'Paper Rings': 'Lover',
-                        'London Boy': 'Lover',
-                        'Soon You\'ll Get Better': 'Lover',
-                        'Afterglow': 'Lover',
-                        'Daylight': 'Lover',
-                        'I Forgot That You Existed': 'Lover',
-                        'Miss Americana & The Heartbreak Prince': 'Lover',
-                        'Cornelia Street': 'Lover',
-                        'Death By A Thousand Cuts': 'Lover',
-                        'False God': 'Lover',
-                        'You Need To Calm Down': 'Lover',
-                        'Afterglow': 'Lover',
-                        'ME! (feat. Brendon Urie of Panic! At The Disco)': 'Lover',
-                        'It\'s Nice To Have A Friend': 'Lover'
-                    };
-                    
-                    // If the title contains "Live at The Eras Tour", use the original album name
-                    if (track.title.includes('Live at The Eras Tour')) {
-                        const originalAlbum = track.title.split('/')[0].trim();
-                        rawKey = originalAlbum;
-                        displayName = originalAlbum;
-                        console.log('Eras Tour track, using original album:', originalAlbum);
-                    }
-                    // Handle cases where songs are incorrectly attributed to the album "Taylor Swift"
-                    else if (rawKey === 'Taylor Swift') {
-                        // Check if we know the correct album for this song
-                        const correctAlbum = songToAlbum[track.title];
-                        if (correctAlbum) {
-                            rawKey = correctAlbum;
-                            displayName = correctAlbum;
-                            console.log('Fixed incorrect album attribution:', { title: track.title, correctAlbum });
-                        }
-                        // If the title contains "Fearless", it's from that album
-                        else if (track.title.toLowerCase().includes('fearless')) {
-                            rawKey = 'Fearless';
-                            displayName = 'Fearless';
-                            console.log('Fixed Fearless attribution');
-                        }
-                    }
-                    // Handle deluxe versions and special editions
-                    const oldKey = rawKey;
-                    rawKey = rawKey.replace(/ \(Deluxe[^)]*\)/i, '')
-                                 .replace(/ \(Taylor's Version[^)]*\)/i, '')
-                                 .replace(/ \(Special Edition\)/i, '')
-                                 .trim();
-                    displayName = rawKey;
-                    if (oldKey !== rawKey) {
-                        console.log('Normalized album name:', { from: oldKey, to: rawKey });
-                    }
-                }
-                key = `${rawKey.toLowerCase()}|${normalizedArtist.toLowerCase()}`;
-            } else if (isTitleAggregation) {
-                // For titles, create a composite key that includes the normalized artist
-                key = `${rawKey.toLowerCase()}|${normalizedArtist.toLowerCase()}`;
-            } else {
-                key = typeof rawKey === 'string' ? rawKey.toLowerCase() : rawKey;
-            }
-            
-            if (!counts[key]) {
-                counts[key] = {
-                    count: 0,
-                    name: displayName,
-                    artist: displayArtist,
-                    album: track.album,
-                    title: track.title,
-                    image_key: null
-                };
-            }
-            counts[key].count++;
-            // Update image_key if we don't have one yet and this track has one
-            if (!counts[key].image_key && track.image_key) {
-                counts[key].image_key = track.image_key;
-            }
-            // Only update title from the most recent play, keep the normalized album name
-            counts[key].title = track.title;
-            // Ensure we keep the correct artist display name
-            counts[key].artist = displayArtist;
-        });
-        
-        // Add some debug logging
-        if (isArtistAggregation) {
-            console.log('Artist aggregation results:', Object.entries(counts)
-                .filter(([key, value]) => value.name.toLowerCase().includes('blink'))
-                .map(([key, value]) => ({ key, name: value.name, count: value.count })));
-        }
-        
-        return Object.values(counts)
-            .sort((a, b) => b.count - a.count);
     }
 }
 
-// Export a singleton instance
 const historyService = new HistoryService();
-module.exports = { historyService, HistoryService }; 
+module.exports = { historyService }; 

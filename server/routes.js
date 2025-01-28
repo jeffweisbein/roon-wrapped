@@ -1,122 +1,92 @@
 const express = require('express');
 const router = express.Router();
+const { roonConnection } = require('./roon-connection');
 const { historyService } = require('./history-service');
 
-module.exports = function(roonConnection) {
-    // Image endpoint
-    router.get('/api/roon/image/:key', async (req, res) => {
-        try {
-            const { content_type, image } = await roonConnection.getImage(req.params.key);
-            res.writeHead(200, {
-                'Content-Length': image.length,
-                'Content-Type': content_type
-            });
-            res.write(image);
-            res.end();
-        } catch (error) {
-            res.status(500).end();
-        }
-    });
+// Health check
+router.get('/api/health', (req, res) => {
+    res.json({ status: 'ok' });
+});
 
-    // Roon status endpoint
-    router.get('/api/roon/status', (req, res, next) => {
-        try {
-            if (!roonConnection) {
-                return res.status(503).json({
-                    success: false,
-                    error: 'Roon connection not initialized'
-                });
-            }
-
-            const isConnected = roonConnection.isConnected();
-            const state = roonConnection.getDetailedState();
-            
-            res.json({
-                success: true,
-                isConnected,
-                state,
-                timestamp: new Date().toISOString()
-            });
-        } catch (error) {
-            next(error);
-        }
-    });
-
-    // Connect endpoint
-    router.post('/api/roon/connect', async (req, res, next) => {
-        try {
-            if (!roonConnection) {
-                return res.status(503).json({
-                    success: false,
-                    error: 'Roon connection not initialized'
-                });
-            }
-
-            // Start discovery if not connected
-            if (!roonConnection.isConnected()) {
-                console.log('[Roon] Starting discovery...');
-                roonConnection.roon.start_discovery();
-            }
-
-            res.json({
-                success: true,
-                message: 'Discovery started'
-            });
-        } catch (error) {
-            next(error);
-        }
-    });
-
-    // Wrapped data endpoint
-    router.get('/api/history/wrapped', async (req, res, next) => {
-        try {
-            const wrappedData = await historyService.getWrappedData();
-            res.json(wrappedData);
-        } catch (error) {
-            next(error);
-        }
-    });
-
-    // Health check endpoint
-    router.get('/health', (req, res, next) => {
-        try {
-            const state = roonConnection.getDetailedState();
-            res.json({
-                success: true,
-                status: 'ok',
-                roon: {
-                    isConnected: roonConnection.isConnected(),
-                    state: state
-                },
-                uptime: process.uptime(),
-                timestamp: new Date().toISOString()
-            });
-        } catch (error) {
-            next(error);
-        }
-    });
-
-    // Error handling middleware
-    const errorHandler = (err, req, res, next) => {
-        console.error('Error in route handler:', err);
-        res.status(500).json({
-            success: false,
-            error: err.message || 'Internal server error',
-            details: process.env.NODE_ENV === 'development' ? err.stack : undefined
+// Roon status
+router.get('/api/roon/status', (req, res) => {
+    try {
+        const state = roonConnection.getDetailedState();
+        console.log('[Routes] Roon status:', state);
+        res.json({
+            connected: state.connected,
+            core_name: state.core_name
         });
-    };
+    } catch (err) {
+        console.error('[Routes] Error getting Roon status:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
 
-    // Catch-all for unhandled routes - should be second to last
-    router.use((req, res) => {
-        res.status(404).json({
-            success: false,
-            error: 'Not Found',
-            message: `Route ${req.method} ${req.url} not found`
-        });
-    });
+// Connect to Roon
+router.post('/api/roon/connect', (req, res) => {
+    try {
+        if (!roonConnection.isConnected()) {
+            roonConnection.start();
+        }
+        res.json({ success: true });
+    } catch (err) {
+        console.error('[Routes] Error connecting to Roon:', err);
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
 
-    // Apply error handler last
-    router.use(errorHandler);
+// Now playing
+router.get('/api/roon/now-playing', (req, res) => {
+    try {
+        const nowPlaying = roonConnection.getNowPlaying();
+        res.json({ success: true, data: nowPlaying });
+    } catch (err) {
+        console.error('[Routes] Error getting now playing:', err);
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
 
-    return router;
-}; 
+// Get wrapped data
+router.get('/api/history/wrapped', async (req, res) => {
+    try {
+        await historyService.initialize();
+        const period = req.query.period || 'all';
+        const data = historyService.getWrappedData(period);
+        res.json(data);
+    } catch (err) {
+        console.error('[Routes] Error getting wrapped data:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Get Roon image
+router.get('/api/roon/image/:key', async (req, res) => {
+    try {
+        if (!roonConnection.isConnected()) {
+            return res.status(503).json({ error: 'Roon not connected' });
+        }
+
+        const imageKey = req.params.key;
+        const image = await roonConnection.getImage(imageKey);
+        
+        if (!image) {
+            return res.status(404).json({ error: 'Image not found' });
+        }
+
+        res.set('Content-Type', image.content_type);
+        res.set('Cache-Control', 'public, max-age=31536000, immutable');
+        res.send(image.image);
+    } catch (err) {
+        console.error('[Routes] Error getting image:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Error handler
+router.use((err, req, res, next) => {
+    console.error('[Routes] Unhandled error:', err);
+    res.status(500).json({ success: false, error: err.message });
+});
+
+module.exports = router; 

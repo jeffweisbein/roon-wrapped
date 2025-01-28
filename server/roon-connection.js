@@ -1,277 +1,172 @@
 const RoonApi = require('node-roon-api');
-const RoonApiImage = require('node-roon-api-image');
 const RoonApiTransport = require('node-roon-api-transport');
-const config = require('./config');
+const RoonApiImage = require('node-roon-api-image');
 const { historyService } = require('./history-service');
 
 class RoonConnection {
     constructor() {
-        this.core = null;
-        this.image = null;
-        this.transport = null;
-        this.lastReconnectAttempt = 0;
-        this.reconnectInterval = 5000; // 5 seconds
-        this.lastTrackIds = {}; // Track last played song per zone
-        this.trackStartTimes = {}; // Track when each song started playing
-        
-        // Initialize history service
-        historyService.initialize().then(() => {
-            console.log('[Roon] History service initialized');
-        }).catch(err => {
-            console.error('[Roon] Error initializing history service:', err);
-        });
-        
+        // Track currently playing song
+        this.currentTrack = null;
+        this.trackTimer = null;
+
+        // Initialize Roon API with required info
         this.roon = new RoonApi({
-            extension_id: config.roon.extensionId,
-            display_name: config.roon.displayName,
-            display_version: config.roon.displayVersion,
-            publisher: config.roon.publisher,
-            email: config.roon.email,
-            website: config.roon.website,
-            core_paired: (core) => {
-                console.log('[Roon] Core paired:', core.display_name);
+            extension_id: process.env.ROON_EXTENSION_ID || 'com.roonwrapped',
+            display_name: process.env.ROON_DISPLAY_NAME || 'Roon Wrapped',
+            display_version: "1.0.0",
+            publisher: "Jeff",
+            email: "jeff@example.com",
+            log_level: "none",
+            core_paired: core => {
+                console.log("[Roon] Core paired:", core.display_name);
                 this.core = core;
-                this.image = core.services.RoonApiImage;
                 this.transport = core.services.RoonApiTransport;
                 
-                if (this.transport) {
-                    console.log('[Roon] Transport service initialized');
-                    this.transport.subscribe_zones((response, data) => {
-                        if (response === "Changed") {
-                            // Handle different types of changes
-                            if (data.zones_changed) {
-                                console.log('[Roon] Zones changed:', data.zones_changed.map(z => z.display_name));
-                                this.processZoneUpdate({ zones: data.zones_changed });
-                            }
-                            if (data.zones_added) {
-                                console.log('[Roon] Zones added:', data.zones_added.map(z => z.display_name));
-                                this.processZoneUpdate({ zones: data.zones_added });
-                            }
-                            // We'll ignore seek changes as they don't indicate new tracks
-                        } else if (response === "Subscribed") {
-                            console.log('[Roon] Initial zone subscription');
-                            this.processZoneUpdate(data);
-                        }
-                    });
-                    
-                    // Get initial zones
-                    this.transport.get_zones((error, zones) => {
-                        if (!error && zones) {
-                            console.log('[Roon] Initial zones loaded');
-                            this.processZoneUpdate({ zones });
-                        }
-                    });
-                } else {
-                    console.error('[Roon] Transport service not available');
-                }
+                // Subscribe to zone updates
+                this.transport.subscribe_zones((response, msg) => {
+                    if (response === "Subscribed") {
+                        console.log("[Roon] Subscribed to zone updates");
+                    } else if (response === "Changed") {
+                        this.handleZoneUpdate(msg);
+                    }
+                });
             },
-            core_unpaired: (core) => {
-                console.log('[Roon] Core unpaired:', core.display_name);
+            core_unpaired: core => {
+                console.log("[Roon] Core unpaired");
                 this.core = null;
-                this.image = null;
                 this.transport = null;
             }
         });
 
+        this.core = null;
+        this.transport = null;
+
+        // Initialize required services
         this.roon.init_services({
-            required_services: [RoonApiImage, RoonApiTransport]
+            required_services: [RoonApiTransport, RoonApiImage],
+            provided_services: []
         });
 
-        console.log('[Roon] Starting discovery...');
-        this.roon.start_discovery();
+        // Start discovery immediately
+        this.start();
     }
 
-    processZoneUpdate(data) {
-        if (!data || !data.zones) return;
-        
-        const zones = Array.isArray(data.zones) ? data.zones : Object.values(data.zones);
-        
-        try {
-            for (const zone of zones) {
-                // Process any zone with now_playing info
-                if (zone.now_playing) {
-                    const track = zone.now_playing;
-                    const trackId = `${track.two_line.line1}-${track.two_line.line2}-${zone.zone_id}`;
-                    const lastId = this.lastTrackIds[zone.zone_id];
-                    const trackKey = `${zone.zone_id}-${trackId}`;
-                    
-                    // Check if this is a repeat play of the same track
-                    if (trackId === lastId && zone.state === 'playing') {
-                        const startTime = this.trackStartTimes[trackKey];
-                        const currentTime = Date.now();
-                        const playDuration = currentTime - startTime;
-                        const trackInfo = this[trackKey];
-                        
-                        // If the track has played for longer than its duration, it's likely a repeat
-                        if (trackInfo && trackInfo.duration && playDuration >= trackInfo.duration * 1000) {
-                            console.log('[Roon] Detected repeat play:', {
-                                zone: zone.display_name,
-                                title: track.two_line.line1,
-                                artist: track.two_line.line2,
-                                playDuration: Math.round(playDuration / 1000),
-                                trackDuration: trackInfo.duration
-                            });
-                            
-                            // Log the completed play
-                            if (this.shouldLogTrack(playDuration, trackInfo.duration)) {
-                                this.logTrackToHistory(trackInfo);
-                            }
-                            
-                            // Reset the start time for the new play
-                            this.trackStartTimes[trackKey] = currentTime;
-                        }
-                    }
-                    // Track has changed
-                    else if (trackId !== lastId) {
-                        console.log('[Roon] New track detected:', {
-                            zone: zone.display_name,
-                            title: track.two_line.line1,
-                            artist: track.two_line.line2,
-                            state: zone.state
-                        });
-                        
-                        // If previous track was playing, check if it should be logged
-                        if (lastId && this.trackStartTimes[`${zone.zone_id}-${lastId}`]) {
-                            const startTime = this.trackStartTimes[`${zone.zone_id}-${lastId}`];
-                            const playDuration = Date.now() - startTime;
-                            const lastTrack = this.getLastTrackInfo(zone.zone_id);
-                            
-                            if (lastTrack && this.shouldLogTrack(playDuration, lastTrack.duration)) {
-                                this.logTrackToHistory(lastTrack);
-                            }
-                            
-                            // Clean up the start time for the previous track
-                            delete this.trackStartTimes[`${zone.zone_id}-${lastId}`];
-                        }
-                        
-                        // Start timing for new track if it's playing
-                        if (zone.state === 'playing') {
-                            this.trackStartTimes[trackKey] = Date.now();
-                            // Store track info for later logging
-                            this.lastTrackIds[zone.zone_id] = trackId;
-                            this[trackKey] = {
-                                title: track.two_line.line1,
-                                artist: track.two_line.line2,
-                                album: track.three_line.line3,
-                                image_key: track.image_key,
-                                duration: track.length,
-                                zone: zone.display_name,
-                            };
-                        }
-                    }
-                    // Track state changed to stopped/paused
-                    else if (zone.state !== 'playing' && this.trackStartTimes[trackKey]) {
-                        const startTime = this.trackStartTimes[trackKey];
-                        const playDuration = Date.now() - startTime;
-                        const trackInfo = this[trackKey];
-                        
-                        if (trackInfo && this.shouldLogTrack(playDuration, trackInfo.duration)) {
-                            this.logTrackToHistory(trackInfo);
-                        }
-                        
-                        // Clean up
-                        delete this.trackStartTimes[trackKey];
-                        delete this[trackKey];
-                    }
-                }
-            }
-        } catch (error) {
-            console.error('[Roon] Error processing zone update:', error);
-        }
-    }
-
-    shouldLogTrack(playDuration, trackDuration) {
-        const thirtySeconds = 30 * 1000; // 30 seconds in milliseconds
-        const thirtyPercent = trackDuration * 1000 * 0.3; // 30% of track duration in milliseconds
-        return playDuration >= Math.min(thirtySeconds, thirtyPercent);
-    }
-
-    getLastTrackInfo(zoneId) {
-        const lastId = this.lastTrackIds[zoneId];
-        if (!lastId) return null;
-        return this[`${zoneId}-${lastId}`];
-    }
-
-    logTrackToHistory(trackInfo) {
-        const historyEntry = {
-            ...trackInfo,
-            timestamp: Date.now()
-        };
-        console.log('[Roon] Adding track to history:', historyEntry);
-        historyService.addTrack(historyEntry).catch(err => {
-            console.error('[Roon] Error adding track to history:', err);
-        });
-    }
-
-    attemptReconnect() {
-        const now = Date.now();
-        if (now - this.lastReconnectAttempt < this.reconnectInterval) {
-            return;
-        }
-        
-        this.lastReconnectAttempt = now;
-        console.log('[Roon] Attempting to reconnect...');
-        
-        if (this.roon) {
+    start() {
+        if (!this.isConnected()) {
+            console.log("[Roon] Starting discovery...");
             this.roon.start_discovery();
         }
     }
 
-    isConnected() {
-        const connected = Boolean(this.core && this.image);
-        if (!connected) {
-            this.attemptReconnect();
+    cleanup() {
+        if (this.roon) {
+            console.log("[Roon] Cleaning up connection...");
+            this.roon.stop_discovery();
         }
-        return connected;
     }
 
-    getConnectionStatus() {
-        const status = {
-            connected: this.isConnected(),
-            services: {
-                image: Boolean(this.image)
+    handleZoneUpdate(msg) {
+        if (!msg.zones_changed) return;
+        
+        msg.zones_changed.forEach(zone => {
+            if (zone.state === "playing" && zone.now_playing) {
+                const track = {
+                    title: zone.now_playing.three_line.line1,
+                    artist: zone.now_playing.three_line.line2,
+                    album: zone.now_playing.three_line.line3,
+                    length: zone.now_playing.length,
+                    image_key: zone.now_playing.image_key
+                };
+
+                // If this is a new track, start tracking it
+                const trackKey = `${track.title}-${track.artist}`;
+                if (!this.currentTrack || this.currentTrack.key !== trackKey) {
+                    console.log("[Roon] New track started:", track);
+                    
+                    // Clear any existing timer
+                    if (this.trackTimer) {
+                        clearTimeout(this.trackTimer);
+                    }
+
+                    // Start tracking this track
+                    this.currentTrack = {
+                        ...track,
+                        key: trackKey,
+                        startTime: Date.now()
+                    };
+
+                    // Set timer for 20 seconds
+                    this.trackTimer = setTimeout(() => {
+                        console.log("[Roon] Track played for 20s, logging:", this.currentTrack);
+                        historyService.addTrack({
+                            ...this.currentTrack,
+                            timestamp: Date.now()
+                        });
+                    }, 20 * 1000);
+                }
+            } else if (zone.state !== "playing" && this.trackTimer) {
+                // If playback stopped, clear the timer
+                clearTimeout(this.trackTimer);
+                this.trackTimer = null;
+                this.currentTrack = null;
             }
-        };
-        console.log('[Roon] Connection status:', status);
-        return status;
-    }
-
-    async getImage(key) {
-        if (!this.isConnected()) {
-            throw new Error('Image service not available');
-        }
-
-        if (!this.image) {
-            throw new Error('Image service not available');
-        }
-
-        return new Promise((resolve, reject) => {
-            this.image.get_image(key, { scale: 'fit', width: 300, height: 300, format: 'image/jpeg' }, (error, content_type, image) => {
-                if (error) {
-                    reject(error);
-                    return;
-                }
-                if (!image) {
-                    reject(new Error('Image not found'));
-                    return;
-                }
-                resolve({ content_type, image });
-            });
         });
     }
 
+    isConnected() {
+        const connected = !!(this.core && this.transport);
+        console.log('[Roon] Connection check:', { core: !!this.core, transport: !!this.transport, connected });
+        return connected;
+    }
+
     getDetailedState() {
-        const state = {
-            core: {
-                present: Boolean(this.core),
-                name: this.core?.display_name
-            },
-            services: {
-                image: Boolean(this.image)
-            }
+        return {
+            connected: this.isConnected(),
+            core_name: this.core?.display_name || null
         };
-        console.log('[Roon] Detailed state:', state);
-        return state;
+    }
+
+    getNowPlaying() {
+        if (!this.transport || !this.transport._zones) return null;
+
+        const playingZone = Object.values(this.transport._zones).find(zone => 
+            zone.state === "playing" && zone.now_playing
+        );
+
+        if (!playingZone) return null;
+
+        const { now_playing } = playingZone;
+        return {
+            title: now_playing.three_line.line1,
+            artist: now_playing.three_line.line2,
+            album: now_playing.three_line.line3,
+            length: now_playing.length,
+            image_key: now_playing.image_key,
+            seek_position: now_playing.seek_position,
+            zone_name: playingZone.display_name
+        };
+    }
+
+    async getImage(image_key) {
+        if (!this.core) return null;
+
+        return new Promise((resolve, reject) => {
+            this.core.services.RoonApiImage.get_image(
+                image_key,
+                { scale: 'fit', width: 300, height: 300, format: 'image/jpeg' },
+                (error, contentType, image) => {
+                    if (error) {
+                        console.error('[Roon] Error getting image:', error);
+                        reject(error);
+                    } else {
+                        resolve({
+                            content_type: contentType,
+                            image: image
+                        });
+                    }
+                }
+            );
+        });
     }
 }
 

@@ -1,6 +1,7 @@
 'use client';
 
 import React, {
+  useCallback,
   useEffect,
   useState,
 } from 'react';
@@ -16,6 +17,8 @@ import {
 } from 'chart.js';
 import { Loader2 } from 'lucide-react';
 import { Bar } from 'react-chartjs-2';
+
+import { TimePeriodSelector } from '@/components/ui/time-period-selector';
 
 interface WrappedData {
   totalPlays: number;
@@ -104,79 +107,78 @@ export default function WrappedPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [connectionStatus, setConnectionStatus] = useState({ connected: false, transport: false });
+  const [timePeriod, setTimePeriod] = useState('all');
 
-  useEffect(() => {
-    async function loadData() {
-      try {
-        setLoading(true);
-        setError(null);
+  const loadData = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
 
-        // Check connection status
-        const statusResponse = await fetch('/api/roon/status', {
-          cache: 'no-store',
-          headers: {
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
-          }
-        });
-        
-        if (!statusResponse.ok) {
-          throw new Error(`HTTP error! status: ${statusResponse.status}`);
+      // Check connection status
+      const statusResponse = await fetch('/api/roon/status', {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
         }
-        
-        const outerData = await statusResponse.json();
-        
-        if (!outerData.success) {
-          throw new Error(outerData.error || 'Server returned error');
-        }
-        
-        // Parse the nested JSON string in data
-        const innerData = JSON.parse(outerData.data);
-        
-        if (!innerData.success) {
-          throw new Error(innerData.error || 'Roon server returned error');
-        }
-        
-        setConnectionStatus({
-          connected: innerData.isConnected,
-          transport: true
-        });
-
-        // Fetch wrapped data
-        const wrappedResponse = await fetch('/api/history/wrapped', {
-          cache: 'no-store',
-          headers: {
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
-          }
-        });
-        
-        const wrappedData = await wrappedResponse.json();
-        if (!wrappedResponse.ok) {
-          throw new Error(wrappedData.error || 'Failed to fetch wrapped data');
-        }
-        
-        // Validate required data and ensure arrays exist
-        if (!wrappedData || typeof wrappedData.totalPlays !== 'number') {
-          throw new Error('Invalid wrapped data format');
-        }
-
-        // Ensure arrays exist
-        wrappedData.topArtists = wrappedData.topArtists || [];
-        wrappedData.topAlbums = wrappedData.topAlbums || [];
-        wrappedData.topTracks = wrappedData.topTracks || [];
-        wrappedData.topGenres = wrappedData.topGenres || [];
-
-        setWrappedData(wrappedData);
-      } catch (err) {
-        console.error('Error loading data:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load wrapped data');
-      } finally {
-        setLoading(false);
+      });
+      
+      if (!statusResponse.ok) {
+        throw new Error(`HTTP error! status: ${statusResponse.status}`);
       }
-    }
+      
+      const statusData = await statusResponse.json();
+      
+      if (!statusData.success) {
+        throw new Error(statusData.error || 'Server returned error');
+      }
+      
+      setConnectionStatus({
+        connected: statusData.data.connected,
+        transport: true
+      });
 
+      // Fetch wrapped data with time period
+      const wrappedResponse = await fetch(`/api/history/wrapped?period=${timePeriod}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      });
+      
+      if (!wrappedResponse.ok) {
+        throw new Error(`HTTP error! status: ${wrappedResponse.status}`);
+      }
+      
+      const data = await wrappedResponse.json();
+      
+      if (!data || typeof data.totalPlays !== 'number') {
+        throw new Error('Invalid wrapped data format');
+      }
+
+      // Ensure arrays exist
+      data.topArtists = data.topArtists || [];
+      data.topAlbums = data.topAlbums || [];
+      data.topTracks = data.topTracks || [];
+      data.topGenres = data.topGenres || [];
+
+      setWrappedData(data);
+    } catch (err) {
+      console.error('Error loading data:', err);
+      setError(err instanceof Error ? err.message : 'Failed to load wrapped data');
+    } finally {
+      setLoading(false);
+    }
+  }, [timePeriod]); // Add timePeriod as a dependency
+
+  // Initial load
+  useEffect(() => {
     loadData();
+  }, [loadData]); // This will re-run when loadData changes (which happens when timePeriod changes)
+
+  const handleTimePeriodChange = useCallback((newPeriod: string) => {
+    setTimePeriod(newPeriod);
   }, []);
 
   // Format time periods
@@ -193,8 +195,8 @@ export default function WrappedPage() {
         wrappedData.patterns.timeOfDay.evening,
         wrappedData.patterns.timeOfDay.night
       ],
-      backgroundColor: 'rgba(147, 51, 234, 0.5)',
-      borderColor: 'rgb(147, 51, 234)',
+      backgroundColor: 'rgba(168, 85, 247, 0.6)',
+      borderColor: 'rgb(168, 85, 247)',
       borderWidth: 1,
     }],
   } : null;
@@ -211,8 +213,8 @@ export default function WrappedPage() {
         wrappedData.patterns.dayOfWeek.friday,
         wrappedData.patterns.dayOfWeek.saturday
       ],
-      backgroundColor: 'rgba(59, 130, 246, 0.5)',
-      borderColor: 'rgb(59, 130, 246)',
+      backgroundColor: 'rgba(56, 189, 248, 0.6)',
+      borderColor: 'rgb(56, 189, 248)',
       borderWidth: 1,
     }],
   } : null;
@@ -243,21 +245,25 @@ export default function WrappedPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-800 text-white p-8">
       <div className="max-w-6xl mx-auto space-y-8">
-        {/* Connection Status */}
+        {/* Header with Connection Status and Time Period Selector */}
         <div className="flex items-center justify-between">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-300 via-amber-400 to-yellow-500 bg-clip-text text-transparent">
-            Roon Wrapped
-          </h1>
-          <div className={`flex items-center gap-2 px-3 py-1.5 rounded ${
-            connectionStatus.connected 
-              ? 'bg-green-500/10 text-green-400 border border-green-500/20' 
-              : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50'
-          }`}>
-            <div className={`h-2 w-2 rounded-full ${connectionStatus.connected ? 'bg-green-500' : 'bg-red-500'}`} />
-            <span>
-              {connectionStatus.connected ? 'Connected to Roon' : 'Disconnected'}
-            </span>
+          <div className="flex items-center gap-4">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-300 via-amber-400 to-yellow-500 bg-clip-text text-transparent">
+              Roon Wrapped
+            </h1>
+            <div className={`flex items-center gap-2 px-3 py-1.5 rounded ${
+              connectionStatus.connected 
+                ? 'bg-green-500/10 text-green-400 border border-green-500/20' 
+                : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50'
+            }`}>
+              <div className={`h-2 w-2 rounded-full ${connectionStatus.connected ? 'bg-green-500' : 'bg-red-500'}`} />
+              {connectionStatus.connected ? 'Connected' : 'Disconnected'}
+            </div>
           </div>
+          <TimePeriodSelector
+            value={timePeriod}
+            onValueChange={handleTimePeriodChange}
+          />
         </div>
         
         {/* Wrapped Data Section */}
@@ -265,53 +271,53 @@ export default function WrappedPage() {
           <>
             {/* Basic Stats */}
             <div className="space-y-6">
-              <h2 className="text-2xl font-semibold bg-gradient-to-r from-sky-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">Stats</h2>
+              <h2 className="text-2xl font-semibold bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-500 bg-clip-text text-transparent">Stats</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-400 mb-2">Total Plays</div>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
+                  <div className="text-zinc-300 mb-2">Total Plays</div>
+                  <div className="text-3xl font-bold bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">
                     {wrappedData.totalPlays}
                   </div>
                 </div>
                 <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-400 mb-2">Unique Artists</div>
-                  <div className="text-2xl font-bold">
+                  <div className="text-zinc-300 mb-2">Unique Artists</div>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
                     {wrappedData.uniqueArtists}
                   </div>
                 </div>
                 <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-400 mb-2">Unique Albums</div>
-                  <div className="text-2xl font-bold">
+                  <div className="text-zinc-300 mb-2">Unique Albums</div>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
                     {wrappedData.uniqueAlbums}
                   </div>
                 </div>
                 <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-400 mb-2">Unique Tracks</div>
-                  <div className="text-2xl font-bold">
+                  <div className="text-zinc-300 mb-2">Unique Tracks</div>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-green-400 bg-clip-text text-transparent">
                     {wrappedData.uniqueTracks}
                   </div>
                 </div>
                 <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-400 mb-2">Total Playtime</div>
-                  <div className="text-2xl font-bold">
-                    {Math.round(wrappedData.totalPlaytime)} minutes
+                  <div className="text-zinc-300 mb-2">Total Playtime</div>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-yellow-400 bg-clip-text text-transparent">
+                    {Math.round(wrappedData.totalPlaytime / 60)} minutes
                   </div>
                 </div>
                 <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-400 mb-2">Daily Average</div>
-                  <div className="text-2xl font-bold">
+                  <div className="text-zinc-300 mb-2">Daily Average</div>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
                     {Math.round(wrappedData.dailyAverage)} tracks
                   </div>
                 </div>
                 <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-400 mb-2">Current Streak</div>
-                  <div className="text-2xl font-bold">
+                  <div className="text-zinc-300 mb-2">Current Streak</div>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-rose-400 to-red-400 bg-clip-text text-transparent">
                     {wrappedData.currentStreak} days
                   </div>
                 </div>
                 <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-400 mb-2">Peak Hour</div>
-                  <div className="text-2xl font-bold">
+                  <div className="text-zinc-300 mb-2">Peak Hour</div>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
                     {formatHour(wrappedData.peakHour)}
                   </div>
                 </div>
