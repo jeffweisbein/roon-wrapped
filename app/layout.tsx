@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import { SiteNav } from '@/components/site-nav';
-import { Toaster } from '@/components/ui/toaster';
+import { Toaster } from '@/src/components/ui/toaster';
 
 const inter = Inter({ subsets: ['latin'] })
 
