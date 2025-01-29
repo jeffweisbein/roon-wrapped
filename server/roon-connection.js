@@ -68,8 +68,11 @@ class RoonConnection {
     handleZoneUpdate(msg) {
         if (!msg.zones_changed) return;
         
-        msg.zones_changed.forEach(zone => {
+        msg.zones_changed.forEach(async zone => {
             if (zone.state === "playing" && zone.now_playing) {
+                // Ensure history service is initialized
+                await historyService.initialize();
+
                 const track = {
                     title: zone.now_playing.three_line.line1,
                     artist: zone.now_playing.three_line.line2,
@@ -96,9 +99,9 @@ class RoonConnection {
                     };
 
                     // Set timer for 20 seconds
-                    this.trackTimer = setTimeout(() => {
+                    this.trackTimer = setTimeout(async () => {
                         console.log("[Roon] Track played for 20s, logging:", this.currentTrack);
-                        historyService.addTrack({
+                        await historyService.addTrack({
                             ...this.currentTrack,
                             timestamp: Date.now()
                         });

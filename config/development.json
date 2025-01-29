@@ -1,0 +1,29 @@
+{
+  "roon": {
+    "extension_id": "roon_wrapped",
+    "display_name": "Roon Wrapped",
+    "display_version": "1.0.0",
+    "publisher": "cackles",
+    "email": "jeff@hypelab.digital",
+    "website": "https://hypelab.digital"
+  },
+  "server": {
+    "port": 3003,
+    "host": "localhost",
+    "cors": {
+      "origin": ["http://localhost:3000"],
+      "methods": ["GET", "POST", "PUT", "DELETE"]
+    }
+  },
+  "history": {
+    "dataPath": "data/listening-history.json",
+    "backupPath": "data/backups",
+    "backupInterval": 3600000
+  },
+  "logging": {
+    "level": "debug",
+    "dir": "logs",
+    "maxSize": "5242880",
+    "maxFiles": 5
+  }
+} 

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { log } from '@/server/utils/logger';
+import { log } from '@/app/utils/logger';
 
 export async function GET() {
     try {

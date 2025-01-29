@@ -38,7 +38,7 @@ export default function Home() {
       
       const data = await response.json();
       console.log('Roon status response:', data);
-      setConnectionStatus(data.connected ? 'connected' : 'disconnected');
+      setConnectionStatus(data.data.connected ? 'connected' : 'disconnected');
       setError(null);
     } catch (error) {
       console.error('Error checking connection status:', error);

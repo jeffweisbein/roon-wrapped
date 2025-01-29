@@ -20,7 +20,7 @@ const logFormat = printf(({ level, message, timestamp, ...metadata }) => {
 
 // Create logger instance
 const logger = createLogger({
-    level: config.server.logLevel,
+    level: config.logging.level,
     format: combine(
         timestamp(),
         logFormat
@@ -36,17 +36,17 @@ const logger = createLogger({
         }),
         // File transport for all logs
         new transports.File({
-            filename: path.join(config.server.logDir, 'app.log'),
-            maxsize: 5242880, // 5MB
-            maxFiles: 5,
+            filename: path.join(config.logging.dir, 'app.log'),
+            maxsize: parseInt(config.logging.maxSize),
+            maxFiles: config.logging.maxFiles,
             tailable: true
         }),
         // Separate file for errors
         new transports.File({
-            filename: path.join(config.server.logDir, 'error.log'),
+            filename: path.join(config.logging.dir, 'error.log'),
             level: 'error',
-            maxsize: 5242880, // 5MB
-            maxFiles: 5,
+            maxsize: parseInt(config.logging.maxSize),
+            maxFiles: config.logging.maxFiles,
             tailable: true
         })
     ]
@@ -55,9 +55,9 @@ const logger = createLogger({
 // Handle uncaught exceptions and unhandled rejections
 logger.exceptions.handle(
     new transports.File({
-        filename: path.join(config.server.logDir, 'exceptions.log'),
-        maxsize: 5242880, // 5MB
-        maxFiles: 5,
+        filename: path.join(config.logging.dir, 'exceptions.log'),
+        maxsize: parseInt(config.logging.maxSize),
+        maxFiles: config.logging.maxFiles,
         tailable: true
     })
 );
