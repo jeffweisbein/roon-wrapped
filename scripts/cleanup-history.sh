@@ -3,7 +3,7 @@
 # Configuration
 HISTORY_DIR="data"
 BACKUP_PATTERN="listening-history.json.*"
-MAX_BACKUPS=3  # Keep last 3 backups
+MAX_BACKUPS=7  # Keep last 7 backups
 
 # Find all backup files and sort by modification time (newest first)
 backup_files=$(find "$HISTORY_DIR" -name "$BACKUP_PATTERN" -type f -print0 | \

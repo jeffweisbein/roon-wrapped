@@ -20,21 +20,21 @@ async function createBackup() {
         const backupPath = path.join(backupDir, `listening-history-${timestamp}.json`);
         await fs.copyFile(historyPath, backupPath);
         
-        // Get list of backups and keep only the most recent 3
+        // Get list of backups and keep only the most recent 7 days
         const backups = await fs.readdir(backupDir);
         const sortedBackups = backups
             .filter(file => file.startsWith('listening-history-'))
             .sort((a, b) => b.localeCompare(a));
         
-        // Remove older backups beyond the 3 most recent
-        for (let i = 3; i < sortedBackups.length; i++) {
+        // Remove older backups beyond the 7 most recent
+        for (let i = 7; i < sortedBackups.length; i++) {
             const oldBackup = path.join(backupDir, sortedBackups[i]);
             await fs.unlink(oldBackup);
             console.log(`[Cleanup] Removed old backup: ${sortedBackups[i]}`);
         }
         
         console.log(`[Cleanup] Backup complete: ${path.basename(backupPath)}`);
-        console.log(`[Cleanup] Maintaining ${Math.min(3, sortedBackups.length)} backups`);
+        console.log(`[Cleanup] Maintaining ${Math.min(7, sortedBackups.length)} backups`);
     } catch (error) {
         console.error('[Cleanup] Error during backup:', error);
     }

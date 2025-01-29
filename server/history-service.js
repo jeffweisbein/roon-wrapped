@@ -166,12 +166,20 @@ class HistoryService {
         // Get top tracks
         const trackCounts = {};
         const trackImages = {};
+        const trackAlbums = {};
         filteredTracks.forEach(track => {
             const normalizedArtist = normalizeArtist(track.artist);
             const key = `${track.title} - ${normalizedArtist}`;
             trackCounts[key] = (trackCounts[key] || 0) + 1;
-            if (track.image_key) {
+            
+            // Only update image if we don't have one for this track yet
+            if (!trackImages[key] && track.image_key) {
                 trackImages[key] = track.image_key;
+            }
+            
+            // Store album info
+            if (track.album) {
+                trackAlbums[key] = track.album;
             }
         });
 
@@ -183,7 +191,8 @@ class HistoryService {
                 return { 
                     name, 
                     title, 
-                    artist, 
+                    artist,
+                    album: trackAlbums[name], 
                     count,
                     image_key: trackImages[name]
                 };
@@ -271,7 +280,11 @@ class HistoryService {
             uniqueArtists: Object.keys(artistCounts).length,
             uniqueAlbums: Object.keys(albumCounts).length,
             uniqueTracks: Object.keys(trackCounts).length,
-            totalPlaytime: filteredTracks.reduce((total, track) => total + (track.length || 0), 0),
+            totalPlaytime: filteredTracks.reduce((total, track) => {
+                // Some tracks use duration instead of length
+                const trackDuration = track.length || track.duration || 0;
+                return total + trackDuration;
+            }, 0),
             dailyAverage: Math.round(filteredTracks.length / (filteredTracks.length > 0 ? Math.ceil((now - filteredTracks[filteredTracks.length - 1].timestamp) / (24 * 60 * 60 * 1000)) : 1) * 10) / 10,
             currentStreak: calculateStreakForTracks(filteredTracks),
             peakHour: calculatePeakHourForTracks(filteredTracks),
