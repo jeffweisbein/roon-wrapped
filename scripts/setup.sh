@@ -10,7 +10,7 @@ check_jq() {
     if ! command -v jq &> /dev/null; then
         echo "Warning: jq is not installed. JSON validation will be skipped."
         return 1
-    }
+    fi
     return 0
 }
 
@@ -46,5 +46,4 @@ fi
 # Create .gitkeep in backup directory
 touch "$BACKUP_DIR/.gitkeep"
 
-echo "Setup complete! Directory structure:"
-tree "$DATA_DIR" --noreport 
+echo "Setup complete!" 

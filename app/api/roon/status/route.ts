@@ -1,4 +1,7 @@
-import { NextResponse } from 'next/server';
+import {
+  NextRequest,
+  NextResponse,
+} from 'next/server';
 
 const ROON_SERVER_PORT = process.env.ROON_SERVER_PORT || '3003';
 const ROON_SERVER_HOST = process.env.ROON_SERVER_HOST || 'localhost';
@@ -6,40 +9,26 @@ const ROON_SERVER_HOST = process.env.ROON_SERVER_HOST || 'localhost';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const url = `http://${ROON_SERVER_HOST}:${ROON_SERVER_PORT}/api/roon/status`;
-    console.log(`Checking Roon status at: ${url}`);
-    
-    const response = await fetch(url, {
+    const response = await fetch(`http://${ROON_SERVER_HOST}:${ROON_SERVER_PORT}/api/roon/status`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
       },
-      cache: 'no-store',
-      next: { revalidate: 0 }
     });
 
     if (!response.ok) {
-      console.error(`Failed to fetch Roon status: ${response.status} ${response.statusText}`);
-      return NextResponse.json(
-        { success: false, error: `Failed to fetch Roon status: ${response.status} ${response.statusText}` },
-        { status: response.status }
-      );
+      throw new Error(`Failed to fetch status: ${response.status} ${response.statusText}`);
     }
 
     const data = await response.json();
-    return NextResponse.json({
-      success: true,
-      data: data
-    });
+    console.log('[Frontend API] Roon status:', data);
+    return NextResponse.json(data);
   } catch (error) {
-    console.error('Error checking Roon status:', error);
+    console.error('[Frontend API] Error:', error);
     return NextResponse.json(
-      { 
-        success: false,
-        error: error instanceof Error ? error.message : 'Unknown error'
-      },
+      { error: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

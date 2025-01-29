@@ -12,13 +12,13 @@ router.get('/api/health', (req, res) => {
 router.get('/api/roon/status', (req, res) => {
     try {
         const state = roonConnection.getDetailedState();
-        console.log('[Routes] Roon status:', state);
+        console.log('[Backend] Roon connection state:', state);
         res.json({
             connected: state.connected,
             core_name: state.core_name
         });
     } catch (err) {
-        console.error('[Routes] Error getting Roon status:', err);
+        console.error('[Backend] Error getting Roon status:', err);
         res.status(500).json({ error: err.message });
     }
 });
@@ -52,10 +52,19 @@ router.get('/api/history/wrapped', async (req, res) => {
     try {
         await historyService.initialize();
         const period = req.query.period || 'all';
+        console.log('[Backend] Getting wrapped data for period:', period);
+        
         const data = historyService.getWrappedData(period);
+        console.log('[Backend] Returning data:', {
+            period,
+            totalPlays: data.totalPlays,
+            uniqueArtists: data.uniqueArtists,
+            uniqueTracks: data.uniqueTracks
+        });
+        
         res.json(data);
     } catch (err) {
-        console.error('[Routes] Error getting wrapped data:', err);
+        console.error('[Backend] Error getting wrapped data:', err);
         res.status(500).json({ error: err.message });
     }
 });

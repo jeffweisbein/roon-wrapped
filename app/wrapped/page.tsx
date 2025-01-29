@@ -16,6 +16,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import { Loader2 } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 import { Bar } from 'react-chartjs-2';
 
 import { TimePeriodSelector } from '@/components/ui/time-period-selector';
@@ -103,88 +104,90 @@ const chartOptions = {
 };
 
 export default function WrappedPage() {
+  const searchParams = useSearchParams();
+  const period = searchParams.get('period') || 'all';
   const [wrappedData, setWrappedData] = useState<WrappedData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [connectionStatus, setConnectionStatus] = useState({ connected: false, transport: false });
-  const [timePeriod, setTimePeriod] = useState('all');
 
   const loadData = useCallback(async () => {
     try {
-      setLoading(true);
-      setError(null);
-
-      // Check connection status
-      const statusResponse = await fetch('/api/roon/status', {
+      setIsLoading(true);
+      
+      // First check connection status
+      const statusResponse = await fetch('/api/roon/status');
+      if (statusResponse.ok) {
+        const data = await statusResponse.json();
+        console.log('[Frontend] Roon status:', data);
+        setConnectionStatus({
+          connected: data.connected,
+          transport: true
+        });
+      }
+      
+      console.log('[Frontend] Fetching data for period:', period);
+      
+      const response = await fetch(`/api/history/wrapped?period=${period}`, {
         cache: 'no-store',
         headers: {
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache'
+          'Cache-Control': 'no-cache'
         }
       });
       
-      if (!statusResponse.ok) {
-        throw new Error(`HTTP error! status: ${statusResponse.status}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
       
-      const statusData = await statusResponse.json();
-      
-      if (!statusData.success) {
-        throw new Error(statusData.error || 'Server returned error');
-      }
-      
-      setConnectionStatus({
-        connected: statusData.data.connected,
-        transport: true
-      });
-
-      // Fetch wrapped data with time period
-      const wrappedResponse = await fetch(`/api/history/wrapped?period=${timePeriod}`, {
-        cache: 'no-store',
-        headers: {
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache'
-        }
+      const data = await response.json();
+      console.log('[Frontend] Received data:', {
+        period,
+        totalPlays: data.totalPlays,
+        uniqueArtists: data.uniqueArtists,
+        uniqueTracks: data.uniqueTracks
       });
       
-      if (!wrappedResponse.ok) {
-        throw new Error(`HTTP error! status: ${wrappedResponse.status}`);
-      }
-      
-      const data = await wrappedResponse.json();
-      
-      if (!data || typeof data.totalPlays !== 'number') {
-        throw new Error('Invalid wrapped data format');
-      }
-
-      // Ensure arrays exist
-      data.topArtists = data.topArtists || [];
-      data.topAlbums = data.topAlbums || [];
-      data.topTracks = data.topTracks || [];
-      data.topGenres = data.topGenres || [];
-
       setWrappedData(data);
-    } catch (err) {
-      console.error('Error loading data:', err);
-      setError(err instanceof Error ? err.message : 'Failed to load wrapped data');
+    } catch (error) {
+      console.error('[Frontend] Error loading data:', error);
+      setError(error instanceof Error ? error.message : 'Failed to load wrapped data');
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
-  }, [timePeriod]); // Add timePeriod as a dependency
+  }, [period]);
 
-  // Initial load
+  // Load data when time period changes
   useEffect(() => {
     loadData();
-  }, [loadData]); // This will re-run when loadData changes (which happens when timePeriod changes)
+  }, [loadData]);
 
-  const handleTimePeriodChange = useCallback((newPeriod: string) => {
-    setTimePeriod(newPeriod);
+  // Poll connection status every 30 seconds
+  useEffect(() => {
+    const pollStatus = async () => {
+      try {
+        const response = await fetch('/api/roon/status');
+        if (response.ok) {
+          const data = await response.json();
+          setConnectionStatus({
+            connected: data.connected,
+            transport: true
+          });
+        }
+      } catch (error) {
+        console.error('[Frontend] Error polling status:', error);
+        setConnectionStatus(prev => ({ ...prev, transport: false }));
+      }
+    };
+
+    // Initial check
+    pollStatus();
+
+    // Set up polling interval
+    const interval = setInterval(pollStatus, 30000);
+
+    // Cleanup
+    return () => clearInterval(interval);
   }, []);
-
-  // Format time periods
-  const formatTimePeriod = (period: string) => {
-    return period.charAt(0).toUpperCase() + period.slice(1);
-  };
 
   const timeOfDayChartData = wrappedData ? {
     labels: ['Morning', 'Afternoon', 'Evening', 'Night'],
@@ -219,7 +222,7 @@ export default function WrappedPage() {
     }],
   } : null;
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex h-screen items-center justify-center">
         <div className="text-center">
@@ -260,10 +263,7 @@ export default function WrappedPage() {
               {connectionStatus.connected ? 'Connected' : 'Disconnected'}
             </div>
           </div>
-          <TimePeriodSelector
-            value={timePeriod}
-            onValueChange={handleTimePeriodChange}
-          />
+          <TimePeriodSelector />
         </div>
         
         {/* Wrapped Data Section */}

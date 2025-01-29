@@ -77,29 +77,13 @@ class HistoryService {
         const filteredTracks = this.tracks.filter(track => {
             if (period === 'all') return true;
             
-            // Ensure timestamp is a number
-            const trackTime = typeof track.timestamp === 'string' ? new Date(track.timestamp).getTime() : track.timestamp;
-            const daysDiff = (now - trackTime) / (1000 * 60 * 60 * 24);
-            
+            const daysDiff = (now - track.timestamp) / (1000 * 60 * 60 * 24);
             const periodDays = parseInt(period);
-            if (isNaN(periodDays)) {
-                console.error('[History] Invalid period:', period);
-                return true; // Default to including all tracks if period is invalid
-            }
             
-            const included = daysDiff <= periodDays;
-            console.log('[History] Track:', {
-                title: track.title,
-                timestamp: track.timestamp,
-                trackTime,
-                daysDiff,
-                included
-            });
-            
-            return included;
+            return !isNaN(periodDays) && daysDiff <= periodDays;
         });
 
-        console.log(`[History] Filtered ${this.tracks.length} tracks down to ${filteredTracks.length} tracks`);
+        console.log(`[History] Filtered ${this.tracks.length} tracks down to ${filteredTracks.length} tracks for period ${period}`);
 
         // Normalize artist names
         const normalizeArtist = (artist) => {

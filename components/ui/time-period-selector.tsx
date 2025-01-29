@@ -1,6 +1,12 @@
-'use client';
+"use client";
 
 import * as React from 'react';
+
+import {
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
 
 import {
   Select,
@@ -8,45 +14,62 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './select';
+} from '@/components/ui/select';
 
-export interface TimePeriod {
-  value: string;
-  label: string;
-}
+const TIME_PERIODS = [
+  { value: "7", label: "Last 7 days" },
+  { value: "30", label: "Last 30 days" },
+  { value: "90", label: "Last 90 days" },
+  { value: "180", label: "Last 180 days" },
+  { value: "365", label: "Last year" },
+  { value: "all", label: "All time" },
+] as const;
 
-const TIME_PERIODS: TimePeriod[] = [
-  { value: 'all', label: 'All Time' },
-  { value: '7', label: 'Last 7 Days' },
-  { value: '14', label: 'Last 14 Days' },
-  { value: '30', label: 'Last 30 Days' },
-  { value: '90', label: 'Last 90 Days' },
-];
+export function TimePeriodSelector() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const period = searchParams.get("period") || "all";
 
-interface TimePeriodSelectorProps {
-  value: string;
-  onValueChange: (value: string) => void;
-}
+  const createQueryString = React.useCallback(
+    (params: { [key: string]: string | null }) => {
+      const newSearchParams = new URLSearchParams(searchParams.toString());
+      
+      Object.entries(params).forEach(([key, value]) => {
+        if (value === null) {
+          newSearchParams.delete(key);
+        } else {
+          newSearchParams.set(key, value);
+        }
+      });
+ 
+      return newSearchParams.toString();
+    },
+    [searchParams]
+  );
 
-export function TimePeriodSelector({ value, onValueChange }: TimePeriodSelectorProps) {
   return (
-    <div className="w-[200px]">
-      <Select value={value} onValueChange={onValueChange}>
-        <SelectTrigger className="w-full bg-zinc-800/50 border-zinc-700/50 text-zinc-200">
-          <SelectValue placeholder="Select time period" />
-        </SelectTrigger>
-        <SelectContent className="bg-zinc-800 border-zinc-700 text-zinc-200">
-          {TIME_PERIODS.map((period) => (
-            <SelectItem
-              key={period.value}
-              value={period.value}
-              className="hover:bg-zinc-700/50 focus:bg-zinc-700/50"
-            >
-              {period.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
+    <Select
+      value={period}
+      onValueChange={(value) => {
+        // Update the URL with the new period
+        router.push(
+          `${pathname}?${createQueryString({
+            period: value,
+          })}`
+        );
+      }}
+    >
+      <SelectTrigger className="w-[180px]">
+        <SelectValue placeholder="Select time period" />
+      </SelectTrigger>
+      <SelectContent>
+        {TIME_PERIODS.map((timePeriod) => (
+          <SelectItem key={timePeriod.value} value={timePeriod.value}>
+            {timePeriod.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 } 

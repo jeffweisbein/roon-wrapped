@@ -14,20 +14,23 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const period = searchParams.get('period') || 'all';
     
+    console.log('[Frontend API] Received request for period:', period);
+    
     const url = `http://${ROON_SERVER_HOST}:${ROON_SERVER_PORT}/api/history/wrapped?period=${period}`;
-    console.log(`Fetching wrapped data from: ${url}`);
+    console.log(`[Frontend API] Fetching from backend:`, url);
     
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Cache-Control': 'no-cache'
       },
       cache: 'no-store',
       next: { revalidate: 0 }
     });
 
     if (!response.ok) {
-      console.error(`Failed to fetch wrapped data: ${response.status} ${response.statusText}`);
+      console.error(`[Frontend API] Backend error: ${response.status} ${response.statusText}`);
       return NextResponse.json(
         { error: `Failed to fetch wrapped data: ${response.status} ${response.statusText}` },
         { status: response.status }
@@ -35,13 +38,18 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await response.json();
+    console.log('[Frontend API] Received data from backend:', {
+      period,
+      totalPlays: data.totalPlays,
+      uniqueArtists: data.uniqueArtists,
+      uniqueTracks: data.uniqueTracks
+    });
+    
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error fetching wrapped data:', error);
+    console.error('[Frontend API] Error:', error);
     return NextResponse.json(
-      { 
-        error: error instanceof Error ? error.message : 'Unknown error'
-      },
+      { error: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

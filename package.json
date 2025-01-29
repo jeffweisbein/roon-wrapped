@@ -57,7 +57,7 @@
     "express": "^4.21.2",
     "framer-motion": "^11.17.0",
     "lucide-react": "^0.303.0",
-    "next": "^14.2.22",
+    "next": "^15.1.6",
     "node-roon-api": "github:roonlabs/node-roon-api",
     "node-roon-api-browse": "github:roonlabs/node-roon-api-browse",
     "node-roon-api-image": "github:roonlabs/node-roon-api-image",
