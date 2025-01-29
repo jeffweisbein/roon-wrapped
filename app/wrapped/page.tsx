@@ -20,6 +20,7 @@ import { useSearchParams } from 'next/navigation';
 import { Bar } from 'react-chartjs-2';
 
 import { TimePeriodSelector } from '@/components/ui/time-period-selector';
+import { formatDuration } from '@/src/lib/utils';
 
 interface WrappedData {
   totalPlays: number;
@@ -300,7 +301,7 @@ export default function WrappedPage() {
                 <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
                   <div className="text-zinc-300 mb-2">Total Playtime</div>
                   <div className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-yellow-400 bg-clip-text text-transparent">
-                    {Math.round(wrappedData.totalPlaytime / 60)} minutes
+                    {formatDuration(wrappedData.totalPlaytime)}
                   </div>
                 </div>
                 <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">

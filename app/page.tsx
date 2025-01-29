@@ -15,6 +15,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { TimePeriodSelector } from '@/components/ui/time-period-selector';
+import { formatDuration } from '@/src/lib/utils';
 
 interface Stats {
   totalPlays: number;
@@ -53,10 +54,6 @@ export default function Home() {
       </main>
     );
   }
-
-  // Convert seconds to hours and minutes
-  const hours = Math.floor(stats.totalPlaytime / 3600);
-  const minutes = Math.floor((stats.totalPlaytime % 3600) / 60);
 
   return (
     <main className="container mx-auto p-4">
@@ -99,7 +96,7 @@ export default function Home() {
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">
-              {hours}h {minutes}m
+              {formatDuration(stats.totalPlaytime)}
             </p>
           </CardContent>
         </Card>

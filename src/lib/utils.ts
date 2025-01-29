@@ -13,9 +13,9 @@ export function formatDuration(seconds: number): string {
   const minutes = Math.floor((seconds % 3600) / 60)
   
   if (hours > 0) {
-    return `${hours} hour${hours === 1 ? '' : 's'} ${minutes} minute${minutes === 1 ? '' : 's'}`
+    return `${hours}h ${minutes}m`
   }
-  return `${minutes} minute${minutes === 1 ? '' : 's'}`
+  return `${minutes}m`
 }
 
 export function formatNumber(num: number): string {
