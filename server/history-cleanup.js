@@ -1,51 +1,68 @@
-const { historyService } = require('./history-service');
-const fs = require('fs').promises;
+const fs = require('fs');
 const path = require('path');
+const { historyService } = require('./history-service');
 
-async function createBackup() {
+async function cleanupHistory() {
     try {
-        console.log('[Cleanup] Starting daily backup...');
+        console.log('[Cleanup] Starting history cleanup');
         
-        // Initialize history service if needed
+        // Initialize history service
         await historyService.initialize();
         
-        const historyPath = path.join(__dirname, '../listening-history.json');
-        const backupDir = path.join(__dirname, '../backups');
+        // Get current tracks
+        const tracks = historyService.tracks;
+        console.log(`[Cleanup] Processing ${tracks.length} tracks`);
         
-        // Create backups directory if it doesn't exist
-        await fs.mkdir(backupDir, { recursive: true });
+        // Remove duplicates based on key and timestamp
+        const uniqueTracks = [];
+        const seen = new Set();
         
-        // Create new backup with timestamp
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        const backupPath = path.join(backupDir, `listening-history-${timestamp}.json`);
-        await fs.copyFile(historyPath, backupPath);
+        tracks.forEach(track => {
+            const key = `${track.key}-${track.timestamp}`;
+            if (!seen.has(key)) {
+                seen.add(key);
+                uniqueTracks.push(track);
+            }
+        });
         
-        // Get list of backups and keep only the most recent 7 days
-        const backups = await fs.readdir(backupDir);
-        const sortedBackups = backups
-            .filter(file => file.startsWith('listening-history-'))
-            .sort((a, b) => b.localeCompare(a));
+        console.log(`[Cleanup] Removed ${tracks.length - uniqueTracks.length} duplicate tracks`);
         
-        // Remove older backups beyond the 7 most recent
-        for (let i = 7; i < sortedBackups.length; i++) {
-            const oldBackup = path.join(backupDir, sortedBackups[i]);
-            await fs.unlink(oldBackup);
-            console.log(`[Cleanup] Removed old backup: ${sortedBackups[i]}`);
+        // Sort by timestamp descending
+        uniqueTracks.sort((a, b) => b.timestamp - a.timestamp);
+        
+        // Save cleaned up tracks
+        await historyService.saveTracks(uniqueTracks);
+        console.log('[Cleanup] Saved cleaned up tracks');
+        
+        // Create backup
+        const backupDir = path.join(__dirname, '../data/backups');
+        if (!fs.existsSync(backupDir)) {
+            fs.mkdirSync(backupDir, { recursive: true });
         }
         
-        console.log(`[Cleanup] Backup complete: ${path.basename(backupPath)}`);
-        console.log(`[Cleanup] Maintaining ${Math.min(7, sortedBackups.length)} backups`);
-    } catch (error) {
-        console.error('[Cleanup] Error during backup:', error);
+        const timestamp = new Date().toISOString().replace(/:/g, '-').replace(/\./g, '-');
+        const backupPath = path.join(backupDir, `listening-history-${timestamp}.json`);
+        
+        await fs.promises.copyFile(
+            historyService.historyFile,
+            backupPath
+        );
+        
+        console.log('[Cleanup] Created backup at:', backupPath);
+    } catch (err) {
+        console.error('[Cleanup] Error during cleanup:', err);
     }
 }
 
-// Run backup every 24 hours
-const BACKUP_INTERVAL = 24 * 60 * 60 * 1000;
-setInterval(createBackup, BACKUP_INTERVAL);
+// Run cleanup every day at midnight
+const CronJob = require('cron').CronJob;
+const job = new CronJob('0 0 * * *', cleanupHistory);
 
-// Run initial backup
-createBackup();
+// Start the job
+job.start();
+
+// Also run immediately on startup
+cleanupHistory();
 
 process.on('SIGTERM', () => {
     console.log('[Cleanup] Shutting down backup service...');

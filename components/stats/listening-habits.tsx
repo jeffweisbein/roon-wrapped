@@ -20,37 +20,37 @@ export function ListeningHabits({
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <StatCard
-        title="Total Hours"
+        title="Hours Played"
         value={totalHours.toFixed(1)}
         description="hours of music"
         gradient="from-yellow-400 to-orange-500"
       />
       <StatCard
-        title="Unique Tracks"
+        title="Songs Played"
         value={uniqueTracks.toString()}
         description="different songs"
         gradient="from-orange-400 to-red-500"
       />
       <StatCard
-        title="Daily Average"
+        title="Songs Per Day"
         value={dailyAverageTracks.toFixed(1)}
         description="tracks per day"
         gradient="from-pink-400 to-purple-500"
       />
       <StatCard
-        title="Peak Hour"
+        title="Most Active Time"
         value={peakHour}
         description="most active time"
         gradient="from-purple-400 to-blue-500"
       />
       <StatCard
-        title="Current Streak"
+        title="Play Streak"
         value={currentStreak.toString()}
         description="days in a row"
         gradient="from-blue-400 to-cyan-500"
       />
       <StatCard
-        title="Longest Streak"
+        title="Longest Play Streak"
         value={longestStreak.toString()}
         description="consecutive days"
         gradient="from-cyan-400 to-teal-500"

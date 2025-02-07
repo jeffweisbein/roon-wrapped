@@ -23,26 +23,31 @@ import { TimePeriodSelector } from '@/components/ui/time-period-selector';
 import { formatDuration } from '@/src/lib/utils';
 
 interface WrappedData {
-  totalPlays: number;
-  uniqueArtists: number;
-  uniqueAlbums: number;
-  uniqueTracks: number;
-  totalPlaytime: number;
-  dailyAverage: number;
-  currentStreak: number;
-  peakHour: number;
-  topArtists: Array<{ name: string; artist: string; count: number; image_key?: string }>;
-  topAlbums: Array<{ name: string; artist: string; album: string; count: number; image_key?: string }>;
-  topTracks: Array<{ name: string; artist: string; title: string; count: number; image_key?: string }>;
-  topGenres: Array<{ name: string; count: number }>;
-  patterns: {
+  // Listening Stats
+  totalTracksPlayed: number;
+  uniqueArtistsCount: number;
+  uniqueAlbumsCount: number;
+  uniqueTracksCount: number;
+  totalListeningTimeSeconds: number;
+  averageTracksPerDay: number;
+  currentListeningStreakDays: number;
+  peakListeningHour: number;
+
+  // Top Charts
+  topArtistsByPlays: Array<{ name: string; artist: string; count: number; image_key?: string }>;
+  topAlbumsByPlays: Array<{ name: string; artist: string; album: string; count: number; image_key?: string }>;
+  topTracksByPlays: Array<{ name: string; artist: string; title: string; count: number; image_key?: string }>;
+  topGenresByPlays: Array<{ name: string; count: number }>;
+
+  // Listening Patterns
+  listeningPatterns: {
     timeOfDay: {
-      morning: number;
-      afternoon: number;
-      evening: number;
-      night: number;
+      morningPlays: number;
+      afternoonPlays: number;
+      eveningPlays: number;
+      nightPlays: number;
     };
-    dayOfWeek: {
+    dayOfWeekPlays: {
       sunday: number;
       monday: number;
       tuesday: number;
@@ -141,12 +146,55 @@ export default function WrappedPage() {
       }
       
       const data = await response.json();
-      console.log('[Frontend] Received data:', {
-        period,
-        totalPlays: data.totalPlays,
-        uniqueArtists: data.uniqueArtists,
-        uniqueTracks: data.uniqueTracks
+      console.log('[Frontend] Received data structure:', {
+        hasData: !!data,
+        keys: Object.keys(data),
+        totalTracksPlayed: data.totalTracksPlayed,
+        uniqueArtistsCount: data.uniqueArtistsCount,
+        uniqueAlbumsCount: data.uniqueAlbumsCount,
+        uniqueTracksCount: data.uniqueTracksCount,
+        totalListeningTimeSeconds: data.totalListeningTimeSeconds,
+        averageTracksPerDay: data.averageTracksPerDay,
+        currentListeningStreakDays: data.currentListeningStreakDays,
+        peakListeningHour: data.peakListeningHour,
+        listeningPatterns: data.listeningPatterns ? {
+            timeOfDay: data.listeningPatterns.timeOfDay ? {
+                morningPlays: data.listeningPatterns.timeOfDay.morningPlays,
+                afternoonPlays: data.listeningPatterns.timeOfDay.afternoonPlays,
+                eveningPlays: data.listeningPatterns.timeOfDay.eveningPlays,
+                nightPlays: data.listeningPatterns.timeOfDay.nightPlays
+            } : null,
+            dayOfWeekPlays: data.listeningPatterns.dayOfWeekPlays ? {
+                sunday: data.listeningPatterns.dayOfWeekPlays.sunday,
+                monday: data.listeningPatterns.dayOfWeekPlays.monday,
+                tuesday: data.listeningPatterns.dayOfWeekPlays.tuesday,
+                wednesday: data.listeningPatterns.dayOfWeekPlays.wednesday,
+                thursday: data.listeningPatterns.dayOfWeekPlays.thursday,
+                friday: data.listeningPatterns.dayOfWeekPlays.friday,
+                saturday: data.listeningPatterns.dayOfWeekPlays.saturday
+            } : null
+        } : null,
+        hasTopArtists: Array.isArray(data.topArtistsByPlays),
+        hasTopAlbums: Array.isArray(data.topAlbumsByPlays),
+        hasTopTracks: Array.isArray(data.topTracksByPlays),
       });
+      
+      if (!data.totalTracksPlayed && data.totalTracksPlayed !== 0) {
+        console.warn('[Frontend] Missing totalTracksPlayed in data');
+      }
+      if (!data.listeningPatterns) {
+        console.warn('[Frontend] Missing listeningPatterns in data');
+      } else {
+        if (!data.listeningPatterns.timeOfDay) {
+            console.warn('[Frontend] Missing timeOfDay in listeningPatterns');
+        }
+        if (!data.listeningPatterns.dayOfWeekPlays) {
+            console.warn('[Frontend] Missing dayOfWeekPlays in listeningPatterns');
+        }
+      }
+      if (!Array.isArray(data.topArtistsByPlays)) {
+        console.warn('[Frontend] Missing or invalid topArtistsByPlays in data');
+      }
       
       setWrappedData(data);
     } catch (error) {
@@ -190,14 +238,14 @@ export default function WrappedPage() {
     return () => clearInterval(interval);
   }, []);
 
-  const timeOfDayChartData = wrappedData ? {
+  const timeOfDayChartData = wrappedData && wrappedData.listeningPatterns?.timeOfDay ? {
     labels: ['Morning', 'Afternoon', 'Evening', 'Night'],
     datasets: [{
       data: [
-        wrappedData.patterns.timeOfDay.morning,
-        wrappedData.patterns.timeOfDay.afternoon,
-        wrappedData.patterns.timeOfDay.evening,
-        wrappedData.patterns.timeOfDay.night
+        wrappedData.listeningPatterns.timeOfDay.morningPlays || 0,
+        wrappedData.listeningPatterns.timeOfDay.afternoonPlays || 0,
+        wrappedData.listeningPatterns.timeOfDay.eveningPlays || 0,
+        wrappedData.listeningPatterns.timeOfDay.nightPlays || 0
       ],
       backgroundColor: 'rgba(168, 85, 247, 0.6)',
       borderColor: 'rgb(168, 85, 247)',
@@ -205,17 +253,17 @@ export default function WrappedPage() {
     }],
   } : null;
 
-  const weekdayChartData = wrappedData ? {
+  const weekdayChartData = wrappedData && wrappedData.listeningPatterns?.dayOfWeekPlays ? {
     labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     datasets: [{
       data: [
-        wrappedData.patterns.dayOfWeek.sunday,
-        wrappedData.patterns.dayOfWeek.monday,
-        wrappedData.patterns.dayOfWeek.tuesday,
-        wrappedData.patterns.dayOfWeek.wednesday,
-        wrappedData.patterns.dayOfWeek.thursday,
-        wrappedData.patterns.dayOfWeek.friday,
-        wrappedData.patterns.dayOfWeek.saturday
+        wrappedData.listeningPatterns.dayOfWeekPlays.sunday || 0,
+        wrappedData.listeningPatterns.dayOfWeekPlays.monday || 0,
+        wrappedData.listeningPatterns.dayOfWeekPlays.tuesday || 0,
+        wrappedData.listeningPatterns.dayOfWeekPlays.wednesday || 0,
+        wrappedData.listeningPatterns.dayOfWeekPlays.thursday || 0,
+        wrappedData.listeningPatterns.dayOfWeekPlays.friday || 0,
+        wrappedData.listeningPatterns.dayOfWeekPlays.saturday || 0
       ],
       backgroundColor: 'rgba(56, 189, 248, 0.6)',
       borderColor: 'rgb(56, 189, 248)',
@@ -271,166 +319,180 @@ export default function WrappedPage() {
         {wrappedData && (
           <>
             {/* Basic Stats */}
-            <div className="space-y-6">
-              <h2 className="text-2xl font-semibold bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-500 bg-clip-text text-transparent">Stats</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-300 mb-2">Total Plays</div>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">
-                    {wrappedData.totalPlays}
+            {wrappedData.totalTracksPlayed !== undefined && (
+              <div className="space-y-6">
+                <h2 className="text-2xl font-semibold bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-500 bg-clip-text text-transparent">Stats</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                    <div className="text-zinc-300 mb-2">Total Plays</div>
+                    <div className="text-3xl font-bold bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">
+                      {wrappedData.totalTracksPlayed}
+                    </div>
                   </div>
-                </div>
-                <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-300 mb-2">Unique Artists</div>
-                  <div className="text-2xl font-bold bg-gradient-to-r from-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
-                    {wrappedData.uniqueArtists}
+                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                    <div className="text-zinc-300 mb-2">Artists Played</div>
+                    <div className="text-2xl font-bold bg-gradient-to-r from-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
+                      {wrappedData.uniqueArtistsCount}
+                    </div>
                   </div>
-                </div>
-                <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-300 mb-2">Unique Albums</div>
-                  <div className="text-2xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
-                    {wrappedData.uniqueAlbums}
+                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                    <div className="text-zinc-300 mb-2">Albums Played</div>
+                    <div className="text-2xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
+                      {wrappedData.uniqueAlbumsCount}
+                    </div>
                   </div>
-                </div>
-                <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-300 mb-2">Unique Tracks</div>
-                  <div className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-green-400 bg-clip-text text-transparent">
-                    {wrappedData.uniqueTracks}
+                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                    <div className="text-zinc-300 mb-2">Songs Played</div>
+                    <div className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-green-400 bg-clip-text text-transparent">
+                      {wrappedData.uniqueTracksCount}
+                    </div>
                   </div>
-                </div>
-                <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-300 mb-2">Total Playtime</div>
-                  <div className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-yellow-400 bg-clip-text text-transparent">
-                    {formatDuration(wrappedData.totalPlaytime)}
+                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                    <div className="text-zinc-300 mb-2">Listening Time</div>
+                    <div className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-yellow-400 bg-clip-text text-transparent">
+                      {formatDuration(wrappedData.totalListeningTimeSeconds)}
+                    </div>
                   </div>
-                </div>
-                <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-300 mb-2">Daily Average</div>
-                  <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                    {Math.round(wrappedData.dailyAverage)} tracks
+                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                    <div className="text-zinc-300 mb-2">Songs Per Day</div>
+                    <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                      {Math.round(wrappedData.averageTracksPerDay)} songs
+                    </div>
                   </div>
-                </div>
-                <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-300 mb-2">Current Streak</div>
-                  <div className="text-2xl font-bold bg-gradient-to-r from-rose-400 to-red-400 bg-clip-text text-transparent">
-                    {wrappedData.currentStreak} days
+                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                    <div className="text-zinc-300 mb-2">Daily Play Streak</div>
+                    <div className="text-2xl font-bold bg-gradient-to-r from-rose-400 to-red-400 bg-clip-text text-transparent">
+                      {wrappedData.currentListeningStreakDays} days
+                    </div>
                   </div>
-                </div>
-                <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-zinc-300 mb-2">Peak Hour</div>
-                  <div className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
-                    {formatHour(wrappedData.peakHour)}
+                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                    <div className="text-zinc-300 mb-2">Most Active Time</div>
+                    <div className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
+                      {formatHour(wrappedData.peakListeningHour)}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Charts */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Time of Day Distribution */}
-              <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                <h3 className="text-xl font-semibold mb-4">Time of Day Distribution</h3>
-                {timeOfDayChartData && <Bar data={timeOfDayChartData} options={chartOptions} />}
-              </div>
+            {(timeOfDayChartData || weekdayChartData) && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Time of Day Distribution */}
+                {timeOfDayChartData && (
+                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                    <h3 className="text-xl font-semibold mb-4">Time of Day Distribution</h3>
+                    <Bar data={timeOfDayChartData} options={chartOptions} />
+                  </div>
+                )}
 
-              {/* Weekly Distribution */}
-              <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                <h3 className="text-xl font-semibold mb-4">Weekly Distribution</h3>
-                {weekdayChartData && <Bar data={weekdayChartData} options={chartOptions} />}
+                {/* Weekly Distribution */}
+                {weekdayChartData && (
+                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                    <h3 className="text-xl font-semibold mb-4">Weekly Distribution</h3>
+                    <Bar data={weekdayChartData} options={chartOptions} />
+                  </div>
+                )}
               </div>
-            </div>
+            )}
 
             {/* Top Artists */}
-            <div className="space-y-6">
-              <h2 className="text-2xl font-semibold bg-gradient-to-r from-pink-400 via-fuchsia-400 to-purple-500 bg-clip-text text-transparent">Top Artists</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                {wrappedData.topArtists.slice(0, 10).map((artist, index) => (
-                  <div key={index} className="group bg-zinc-800/50 border border-zinc-700/50 rounded-xl overflow-hidden hover:bg-zinc-800/70 transition-colors">
-                    {artist.image_key && (
-                      <div className="relative aspect-square">
-                        <img 
-                          src={`/api/roon/image/${artist.image_key}`}
-                          alt={artist.name}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
-                      </div>
-                    )}
-                    <div className="p-4 space-y-2">
-                      <div>
-                        <h3 className="font-medium text-base text-white/90 line-clamp-2">{artist.name}</h3>
-                      </div>
-                      <div className="flex items-center justify-between pt-2 border-t border-white/10">
-                        <p className="text-sm text-white/40">{artist.count} plays</p>
-                        <div className="text-xs text-white/30">#{index + 1}</div>
+            {wrappedData.topArtistsByPlays?.length > 0 && (
+              <div className="space-y-6">
+                <h2 className="text-2xl font-semibold bg-gradient-to-r from-pink-400 via-fuchsia-400 to-purple-500 bg-clip-text text-transparent">Top Artists</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                  {wrappedData.topArtistsByPlays.slice(0, 10).map((artist, index) => (
+                    <div key={index} className="group bg-zinc-800/50 border border-zinc-700/50 rounded-xl overflow-hidden hover:bg-zinc-800/70 transition-colors">
+                      {artist.image_key && (
+                        <div className="relative aspect-square">
+                          <img 
+                            src={`/api/roon/image/${artist.image_key}`}
+                            alt={artist.name}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+                        </div>
+                      )}
+                      <div className="p-4 space-y-2">
+                        <div>
+                          <h3 className="font-medium text-base text-white/90 line-clamp-2">{artist.name}</h3>
+                        </div>
+                        <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                          <p className="text-sm text-white/40">{artist.count} plays</p>
+                          <div className="text-xs text-white/30">#{index + 1}</div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Top Albums */}
-            <div className="space-y-6">
-              <h2 className="text-2xl font-semibold bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-500 bg-clip-text text-transparent">Top Albums</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                {wrappedData.topAlbums.slice(0, 10).map((album, index) => (
-                  <div key={index} className="group bg-zinc-800/50 border border-zinc-700/50 rounded-xl overflow-hidden hover:bg-zinc-800/70 transition-colors">
-                    {album.image_key && (
-                      <div className="relative aspect-square">
-                        <img 
-                          src={`/api/roon/image/${album.image_key}`}
-                          alt={album.name}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
-                      </div>
-                    )}
-                    <div className="p-4 space-y-2">
-                      <div>
-                        <h3 className="font-medium text-base text-white/90 line-clamp-2">{album.name}</h3>
-                        <p className="text-sm text-white/60 mt-1 line-clamp-1">{album.artist}</p>
-                      </div>
-                      <div className="flex items-center justify-between pt-2 border-t border-white/10">
-                        <p className="text-sm text-white/40">{album.count} plays</p>
-                        <div className="text-xs text-white/30">#{index + 1}</div>
+            {wrappedData.topAlbumsByPlays?.length > 0 && (
+              <div className="space-y-6">
+                <h2 className="text-2xl font-semibold bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-500 bg-clip-text text-transparent">Top Albums</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                  {wrappedData.topAlbumsByPlays.slice(0, 10).map((album, index) => (
+                    <div key={index} className="group bg-zinc-800/50 border border-zinc-700/50 rounded-xl overflow-hidden hover:bg-zinc-800/70 transition-colors">
+                      {album.image_key && (
+                        <div className="relative aspect-square">
+                          <img 
+                            src={`/api/roon/image/${album.image_key}`}
+                            alt={album.name}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+                        </div>
+                      )}
+                      <div className="p-4 space-y-2">
+                        <div>
+                          <h3 className="font-medium text-base text-white/90 line-clamp-2">{album.name}</h3>
+                          <p className="text-sm text-white/60 mt-1 line-clamp-1">{album.artist}</p>
+                        </div>
+                        <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                          <p className="text-sm text-white/40">{album.count} plays</p>
+                          <div className="text-xs text-white/30">#{index + 1}</div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Top Tracks */}
-            <div className="space-y-6">
-              <h2 className="text-2xl font-semibold bg-gradient-to-r from-green-400 via-emerald-400 to-teal-500 bg-clip-text text-transparent">Top Tracks</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                {wrappedData.topTracks.slice(0, 10).map((track, index) => (
-                  <div key={index} className="group bg-zinc-800/50 border border-zinc-700/50 rounded-xl overflow-hidden hover:bg-zinc-800/70 transition-colors">
-                    {track.image_key && (
-                      <div className="relative aspect-square">
-                        <img 
-                          src={`/api/roon/image/${track.image_key}`}
-                          alt={track.title}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
-                      </div>
-                    )}
-                    <div className="p-4 space-y-2">
-                      <div>
-                        <h3 className="font-medium text-base text-white/90 line-clamp-2">{track.title}</h3>
-                        <p className="text-sm text-white/60 mt-1 line-clamp-1">{track.artist}</p>
-                      </div>
-                      <div className="flex items-center justify-between pt-2 border-t border-white/10">
-                        <p className="text-sm text-white/40">{track.count} plays</p>
-                        <div className="text-xs text-white/30">#{index + 1}</div>
+            {wrappedData.topTracksByPlays?.length > 0 && (
+              <div className="space-y-6">
+                <h2 className="text-2xl font-semibold bg-gradient-to-r from-green-400 via-emerald-400 to-teal-500 bg-clip-text text-transparent">Top Tracks</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                  {wrappedData.topTracksByPlays.slice(0, 10).map((track, index) => (
+                    <div key={index} className="group bg-zinc-800/50 border border-zinc-700/50 rounded-xl overflow-hidden hover:bg-zinc-800/70 transition-colors">
+                      {track.image_key && (
+                        <div className="relative aspect-square">
+                          <img 
+                            src={`/api/roon/image/${track.image_key}`}
+                            alt={track.title}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+                        </div>
+                      )}
+                      <div className="p-4 space-y-2">
+                        <div>
+                          <h3 className="font-medium text-base text-white/90 line-clamp-2">{track.title}</h3>
+                          <p className="text-sm text-white/60 mt-1 line-clamp-1">{track.artist}</p>
+                        </div>
+                        <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                          <p className="text-sm text-white/40">{track.count} plays</p>
+                          <div className="text-xs text-white/30">#{index + 1}</div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </>
         )}
       </div>

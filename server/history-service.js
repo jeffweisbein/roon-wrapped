@@ -9,22 +9,48 @@ class HistoryService {
     }
 
     async initialize() {
-        if (this.initialized) return;
+        if (this.initialized) {
+            console.log('[History] Already initialized');
+            return;
+        }
 
         try {
+            console.log('[History] Starting initialization');
+            console.log('[History] History file path:', this.historyFile);
+
             // Load existing history
             try {
+                if (!fs.existsSync(this.historyFile)) {
+                    console.warn('[History] History file does not exist at:', this.historyFile);
+                    this.tracks = [];
+                    return;
+                }
+
                 const data = fs.readFileSync(this.historyFile, 'utf8');
-                this.tracks = JSON.parse(data);
-                console.log(`[History] Loaded ${this.tracks.length} tracks from ${this.historyFile}`);
+                console.log('[History] Successfully read file');
+                
+                try {
+                    this.tracks = JSON.parse(data);
+                    console.log('[History] Successfully parsed JSON data');
+                    console.log('[History] Loaded tracks:', {
+                        count: this.tracks.length,
+                        firstTrack: this.tracks[0],
+                        lastTrack: this.tracks[this.tracks.length - 1]
+                    });
+                } catch (parseErr) {
+                    console.error('[History] Error parsing JSON:', parseErr);
+                    this.tracks = [];
+                }
             } catch (err) {
-                if (err.code !== 'ENOENT') {
-                    console.error('[History] Error loading history:', err);
+                console.error('[History] Error reading history file:', err);
+                if (err.code === 'ENOENT') {
+                    console.warn('[History] No history file found, starting with empty tracks');
                 }
                 this.tracks = [];
             }
 
             this.initialized = true;
+            console.log('[History] Initialization complete. Total tracks:', this.tracks.length);
         } catch (err) {
             console.error('[History] Failed to initialize:', err);
             throw err;
@@ -72,18 +98,24 @@ class HistoryService {
     getWrappedData(period = 'all') {
         console.log('[History] Getting wrapped data for period:', period);
         
-        // Filter tracks based on time period
-        const now = Date.now();
-        const filteredTracks = this.tracks.filter(track => {
-            if (period === 'all') return true;
-            
-            const daysDiff = (now - track.timestamp) / (1000 * 60 * 60 * 24);
+        let filteredTracks = this.tracks;
+        console.log('[History] Initial tracks count:', this.tracks.length);
+        
+        // Only filter if not 'all'
+        if (period !== 'all') {
             const periodDays = parseInt(period);
-            
-            return !isNaN(periodDays) && daysDiff <= periodDays;
-        });
+            if (!isNaN(periodDays)) {
+                // Get tracks from the last X days
+                const cutoffTime = Date.now() - (periodDays * 24 * 60 * 60 * 1000);
+                filteredTracks = this.tracks.filter(track => track.timestamp >= cutoffTime);
+            }
+        }
 
         console.log(`[History] Filtered ${this.tracks.length} tracks down to ${filteredTracks.length} tracks for period ${period}`);
+        
+        // Calculate patterns first
+        const patterns = this.calculatePatternsForTracks(filteredTracks);
+        console.log('[History] Calculated patterns:', patterns);
 
         // Normalize artist names
         const normalizeArtist = (artist) => {
@@ -91,6 +123,10 @@ class HistoryService {
             const normalized = artist.trim().toLowerCase();
             if (normalized.includes('blink') && normalized.includes('182')) {
                 return 'blink-182';
+            }
+            // Handle Knox/KNOX case normalization
+            if (normalized === 'knox') {
+                return 'Knox';
             }
             return artist.trim();
         };
@@ -111,50 +147,65 @@ class HistoryService {
             }
         });
 
+        console.log('[History] Artist counts:', artistCounts);
+
         // Format top items
         const topArtists = Object.entries(artistCounts)
             .sort(([,a], [,b]) => b - a)
             .slice(0, 10)
             .map(([name, count]) => ({ 
-                name, 
-                artist: name, 
+                name: normalizeArtist(name), 
+                artist: normalizeArtist(name), 
                 count,
                 image_key: artistLatestImage[name]
             }));
+
+        console.log('[History] Top artists:', topArtists);
 
         // Get top albums
         const albumCounts = {};
         const albumImages = {};
         const albumArtists = {};
         filteredTracks.forEach(track => {
+            const normalizedArtist = normalizeArtist(track.artist);
             if (track.album) {
-                albumCounts[track.album] = (albumCounts[track.album] || 0) + 1;
+                const key = `${track.album}|${normalizedArtist}`;
+                albumCounts[key] = (albumCounts[key] || 0) + 1;
                 if (track.image_key) {
-                    albumImages[track.album] = track.image_key;
+                    albumImages[key] = track.image_key;
                 }
-                albumArtists[track.album] = normalizeArtist(track.artist);
+                albumArtists[key] = normalizedArtist;
             }
         });
+
+        console.log('[History] Album counts:', albumCounts);
 
         const topAlbums = Object.entries(albumCounts)
             .sort(([,a], [,b]) => b - a)
             .slice(0, 10)
-            .map(([name, count]) => ({ 
-                name, 
-                album: name, 
-                artist: albumArtists[name] || "",
-                count,
-                image_key: albumImages[name]
-            }));
+            .map(([key, count]) => {
+                const [album] = key.split('|');
+                return { 
+                    name: album,
+                    album: album,
+                    artist: albumArtists[key],
+                    count,
+                    image_key: albumImages[key]
+                };
+            });
+
+        console.log('[History] Top albums:', topAlbums);
 
         // Get top tracks
         const trackCounts = {};
         const trackImages = {};
         const trackAlbums = {};
+        const trackArtists = {};
         filteredTracks.forEach(track => {
             const normalizedArtist = normalizeArtist(track.artist);
-            const key = `${track.title} - ${normalizedArtist}`;
+            const key = `${track.title}|${normalizedArtist}`;
             trackCounts[key] = (trackCounts[key] || 0) + 1;
+            trackArtists[key] = normalizedArtist;
             
             // Only update image if we don't have one for this track yet
             if (!trackImages[key] && track.image_key) {
@@ -167,117 +218,147 @@ class HistoryService {
             }
         });
 
+        console.log('[History] Track counts:', trackCounts);
+
         const topTracks = Object.entries(trackCounts)
             .sort(([,a], [,b]) => b - a)
             .slice(0, 10)
-            .map(([name, count]) => {
-                const [title, artist] = name.split(" - ");
+            .map(([key, count]) => {
+                const [title] = key.split('|');
                 return { 
-                    name, 
-                    title, 
-                    artist,
-                    album: trackAlbums[name], 
+                    name: `${title} - ${trackArtists[key]}`,
+                    title,
+                    artist: trackArtists[key],
+                    album: trackAlbums[key],
                     count,
-                    image_key: trackImages[name]
+                    image_key: trackImages[key]
                 };
             });
 
-        // Calculate patterns based on filtered tracks
-        const calculatePatternsForTracks = (tracks) => {
-            const hourCounts = new Array(24).fill(0);
-            const dayOfWeek = {
-                sunday: 0,
-                monday: 0,
-                tuesday: 0,
-                wednesday: 0,
-                thursday: 0,
-                friday: 0,
-                saturday: 0
-            };
+        console.log('[History] Top tracks:', topTracks);
 
-            tracks.forEach(track => {
-                const date = new Date(track.timestamp);
-                const hour = date.getHours();
-                const day = date.getDay();
-                
-                hourCounts[hour]++;
-                const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-                dayOfWeek[days[day]]++;
-            });
+        // Calculate current streak
+        const currentStreak = this.calculateStreakForTracks(filteredTracks);
 
-            return {
-                timeOfDay: {
-                    morning: hourCounts.slice(6, 12).reduce((a, b) => a + b, 0),   // 6 AM - 11:59 AM
-                    afternoon: hourCounts.slice(12, 18).reduce((a, b) => a + b, 0), // 12 PM - 5:59 PM
-                    evening: hourCounts.slice(18, 24).reduce((a, b) => a + b, 0),   // 6 PM - 11:59 PM
-                    night: hourCounts.slice(0, 6).reduce((a, b) => a + b, 0)        // 12 AM - 5:59 AM
-                },
-                dayOfWeek
-            };
-        };
-
-        // Calculate streak based on filtered tracks
-        const calculateStreakForTracks = (tracks) => {
-            if (tracks.length === 0) return 0;
-            
-            const today = new Date().setHours(0, 0, 0, 0);
-            let currentStreak = 0;
-            let streakDate = today;
-
-            // Get unique dates and sort them in descending order
-            const playDates = new Set(
-                tracks.map(track => 
-                    new Date(track.timestamp).setHours(0, 0, 0, 0)
-                )
-            );
-            const sortedDates = Array.from(playDates).sort((a, b) => b - a);
-
-            // Calculate streak
-            for (let date of sortedDates) {
-                if (date === streakDate) {
-                    currentStreak++;
-                    streakDate -= 86400000; // Subtract one day in milliseconds
-                } else {
-                    break;
-                }
-            }
-
-            return currentStreak;
-        };
-
-        // Calculate peak hour based on filtered tracks
-        const calculatePeakHourForTracks = (tracks) => {
-            if (tracks.length === 0) return 0;
-            
-            const hourCounts = new Array(24).fill(0);
-            
-            tracks.forEach(track => {
-                const hour = new Date(track.timestamp).getHours();
-                hourCounts[hour]++;
-            });
-
-            return hourCounts.indexOf(Math.max(...hourCounts));
-        };
-
-        return {
-            totalPlays: filteredTracks.length,
-            uniqueArtists: Object.keys(artistCounts).length,
-            uniqueAlbums: Object.keys(albumCounts).length,
-            uniqueTracks: Object.keys(trackCounts).length,
-            totalPlaytime: filteredTracks.reduce((total, track) => {
-                // Some tracks use duration instead of length
+        const returnData = {
+            // Listening Stats
+            totalTracksPlayed: filteredTracks.length,
+            uniqueArtistsCount: Object.keys(artistCounts).length,
+            uniqueAlbumsCount: Object.keys(albumCounts).length,
+            uniqueTracksCount: Object.keys(trackCounts).length,
+            totalListeningTimeSeconds: filteredTracks.reduce((total, track) => {
                 const trackDuration = track.length || track.duration || 0;
                 return total + trackDuration;
             }, 0),
-            dailyAverage: Math.round(filteredTracks.length / (filteredTracks.length > 0 ? Math.ceil((now - filteredTracks[filteredTracks.length - 1].timestamp) / (24 * 60 * 60 * 1000)) : 1) * 10) / 10,
-            currentStreak: calculateStreakForTracks(filteredTracks),
-            peakHour: calculatePeakHourForTracks(filteredTracks),
-            topArtists,
-            topAlbums,
-            topTracks,
-            topGenres: [], // Placeholder since we don't have genre data yet
-            patterns: calculatePatternsForTracks(filteredTracks)
+            averageTracksPerDay: Math.round(filteredTracks.length / (filteredTracks.length > 0 ? 
+                Math.max(1, Math.ceil((Date.now() - Math.min(...filteredTracks.map(t => t.timestamp))) / (24 * 60 * 60 * 1000))) 
+                : 1) * 10) / 10,
+            currentListeningStreakDays: currentStreak,
+            peakListeningHour: patterns.hourCounts ? patterns.hourCounts.indexOf(Math.max(...patterns.hourCounts)) : 0,
+
+            // Top Charts
+            topArtistsByPlays: topArtists,
+            topAlbumsByPlays: topAlbums,
+            topTracksByPlays: topTracks,
+            topGenresByPlays: [], // Placeholder since we don't have genre data yet
+
+            // Listening Patterns
+            listeningPatterns: {
+                timeOfDay: patterns.timeOfDay,
+                dayOfWeekPlays: patterns.dayOfWeekPlays
+            }
         };
+
+        console.log('[History] Final return data:', {
+            totalTracks: returnData.totalTracksPlayed,
+            uniqueArtists: returnData.uniqueArtistsCount,
+            uniqueAlbums: returnData.uniqueAlbumsCount,
+            uniqueTracks: returnData.uniqueTracksCount,
+            topArtistsCount: returnData.topArtistsByPlays.length,
+            topAlbumsCount: returnData.topAlbumsByPlays.length,
+            topTracksCount: returnData.topTracksByPlays.length,
+            patterns: returnData.listeningPatterns
+        });
+
+        return returnData;
+    }
+
+    calculatePatternsForTracks(tracks) {
+        console.log('[History] Calculating patterns for', tracks.length, 'tracks');
+        
+        const hourCounts = new Array(24).fill(0);
+        const dayOfWeek = {
+            sunday: 0,
+            monday: 0,
+            tuesday: 0,
+            wednesday: 0,
+            thursday: 0,
+            friday: 0,
+            saturday: 0
+        };
+
+        tracks.forEach(track => {
+            const date = new Date(track.timestamp);
+            const hour = date.getHours();
+            const day = date.getDay();
+            
+            hourCounts[hour]++;
+            const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+            dayOfWeek[days[day]]++;
+        });
+
+        const timeOfDay = {
+            morningPlays: hourCounts.slice(6, 12).reduce((a, b) => a + b, 0),   // 6 AM - 11:59 AM
+            afternoonPlays: hourCounts.slice(12, 18).reduce((a, b) => a + b, 0), // 12 PM - 5:59 PM
+            eveningPlays: hourCounts.slice(18, 24).reduce((a, b) => a + b, 0),   // 6 PM - 11:59 PM
+            nightPlays: hourCounts.slice(0, 6).reduce((a, b) => a + b, 0)        // 12 AM - 5:59 AM
+        };
+
+        console.log('[History] Calculated time of day distribution:', timeOfDay);
+        console.log('[History] Calculated day of week distribution:', dayOfWeek);
+
+        return {
+            timeOfDay,
+            dayOfWeekPlays: dayOfWeek,
+            hourCounts // Return this for peak hour calculation
+        };
+    }
+
+    calculateStreakForTracks(tracks) {
+        if (!tracks.length) return 0;
+        
+        // Sort tracks by timestamp in descending order (most recent first)
+        const sortedTracks = [...tracks].sort((a, b) => b.timestamp - a.timestamp);
+        
+        // Function to get start of day for a timestamp
+        const getStartOfDay = (timestamp) => {
+            const date = new Date(timestamp);
+            date.setHours(0, 0, 0, 0);
+            return date.getTime();
+        };
+        
+        let currentStreak = 1;
+        let currentDate = getStartOfDay(sortedTracks[0].timestamp);
+        
+        for (let i = 1; i < sortedTracks.length; i++) {
+            const trackDate = getStartOfDay(sortedTracks[i].timestamp);
+            
+            // Calculate days difference
+            const diffDays = Math.abs(currentDate - trackDate) / (1000 * 60 * 60 * 24);
+            
+            if (diffDays === 1) {
+                // Consecutive day
+                currentStreak++;
+                currentDate = trackDate;
+            } else if (diffDays > 1) {
+                // Streak broken
+                break;
+            }
+            // Same day - continue to next track
+        }
+        
+        console.log('[History] Calculated streak:', currentStreak, 'days');
+        return currentStreak;
     }
 }
 

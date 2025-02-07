@@ -17,6 +17,7 @@ export interface TimePeriod {
 
 const TIME_PERIODS: TimePeriod[] = [
   { value: 'all', label: 'All Time' },
+  { value: '1', label: 'Last 24 Hours' },
   { value: '7', label: 'Last 7 Days' },
   { value: '14', label: 'Last 14 Days' },
   { value: '30', label: 'Last 30 Days' },

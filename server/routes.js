@@ -50,17 +50,55 @@ router.get('/api/roon/now-playing', (req, res) => {
 // Get wrapped data
 router.get('/api/history/wrapped', async (req, res) => {
     try {
+        console.log('[Backend] Wrapped endpoint called');
+        
+        // Initialize history service
+        console.log('[Backend] Initializing history service');
         await historyService.initialize();
+        console.log('[Backend] History service initialized');
+        
         const period = req.query.period || 'all';
         console.log('[Backend] Getting wrapped data for period:', period);
         
+        // Log the raw tracks data first
+        console.log('[Backend] Total tracks in history:', historyService.tracks.length);
+        if (historyService.tracks.length > 0) {
+            console.log('[Backend] Sample track:', historyService.tracks[0]);
+        }
+        
         const data = historyService.getWrappedData(period);
-        console.log('[Backend] Returning data:', {
-            period,
-            totalPlays: data.totalPlays,
-            uniqueArtists: data.uniqueArtists,
-            uniqueTracks: data.uniqueTracks
+        
+        // Log the filtered tracks and calculations
+        console.log('[Backend] Filtered tracks:', {
+            totalTracks: data.totalTracksPlayed,
+            uniqueArtists: data.uniqueArtistsCount,
+            uniqueAlbums: data.uniqueAlbumsCount,
+            uniqueTracks: data.uniqueTracksCount
         });
+        
+        // Log the top items
+        console.log('[Backend] Top items:', {
+            artists: data.topArtistsByPlays?.length || 0,
+            albums: data.topAlbumsByPlays?.length || 0,
+            tracks: data.topTracksByPlays?.length || 0
+        });
+        
+        // Log the listening patterns
+        console.log('[Backend] Listening patterns:', {
+            timeOfDay: data.listeningPatterns?.timeOfDay,
+            dayOfWeekPlays: data.listeningPatterns?.dayOfWeekPlays
+        });
+        
+        // Log sample entries if they exist
+        if (data.topArtistsByPlays?.length > 0) {
+            console.log('[Backend] Sample top artist:', data.topArtistsByPlays[0]);
+        }
+        if (data.topAlbumsByPlays?.length > 0) {
+            console.log('[Backend] Sample top album:', data.topAlbumsByPlays[0]);
+        }
+        if (data.topTracksByPlays?.length > 0) {
+            console.log('[Backend] Sample top track:', data.topTracksByPlays[0]);
+        }
         
         res.json(data);
     } catch (err) {

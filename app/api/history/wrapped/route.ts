@@ -37,15 +37,75 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const data = await response.json();
-    console.log('[Frontend API] Received data from backend:', {
-      period,
-      totalPlays: data.totalPlays,
-      uniqueArtists: data.uniqueArtists,
-      uniqueTracks: data.uniqueTracks
+    const rawData = await response.text();
+    console.log('[Frontend API] Raw response:', rawData);
+
+    let data;
+    try {
+      data = JSON.parse(rawData);
+    } catch (error) {
+      console.error('[Frontend API] Failed to parse JSON response:', error);
+      return NextResponse.json(
+        { error: 'Invalid JSON response from backend' },
+        { status: 500 }
+      );
+    }
+
+    console.log('[Frontend API] Parsed data structure:', {
+      hasData: !!data,
+      keys: Object.keys(data),
+      totalTracksPlayed: data.totalTracksPlayed,
+      uniqueArtistsCount: data.uniqueArtistsCount,
+      uniqueAlbumsCount: data.uniqueAlbumsCount,
+      uniqueTracksCount: data.uniqueTracksCount,
+      totalListeningTimeSeconds: data.totalListeningTimeSeconds,
+      averageTracksPerDay: data.averageTracksPerDay,
+      currentListeningStreakDays: data.currentListeningStreakDays,
+      peakListeningHour: data.peakListeningHour,
+      hasListeningPatterns: !!data.listeningPatterns,
+      hasTopArtists: Array.isArray(data.topArtistsByPlays),
+      hasTopAlbums: Array.isArray(data.topAlbumsByPlays),
+      hasTopTracks: Array.isArray(data.topTracksByPlays),
     });
+
+    if (!data.totalTracksPlayed && data.totalTracksPlayed !== 0) {
+      console.warn('[Frontend API] Missing totalTracksPlayed in backend response');
+    }
+
+    // Ensure the response has the correct structure
+    const wrappedData = {
+      totalTracksPlayed: data.totalTracksPlayed || 0,
+      uniqueArtistsCount: data.uniqueArtistsCount || 0,
+      uniqueAlbumsCount: data.uniqueAlbumsCount || 0,
+      uniqueTracksCount: data.uniqueTracksCount || 0,
+      totalListeningTimeSeconds: data.totalListeningTimeSeconds || 0,
+      averageTracksPerDay: data.averageTracksPerDay || 0,
+      currentListeningStreakDays: data.currentListeningStreakDays || 0,
+      peakListeningHour: data.peakListeningHour || 0,
+      topArtistsByPlays: Array.isArray(data.topArtistsByPlays) ? data.topArtistsByPlays : [],
+      topAlbumsByPlays: Array.isArray(data.topAlbumsByPlays) ? data.topAlbumsByPlays : [],
+      topTracksByPlays: Array.isArray(data.topTracksByPlays) ? data.topTracksByPlays : [],
+      topGenresByPlays: Array.isArray(data.topGenresByPlays) ? data.topGenresByPlays : [],
+      listeningPatterns: {
+        timeOfDay: data.listeningPatterns?.timeOfDay || {
+          morningPlays: 0,
+          afternoonPlays: 0,
+          eveningPlays: 0,
+          nightPlays: 0
+        },
+        dayOfWeekPlays: data.listeningPatterns?.dayOfWeekPlays || {
+          sunday: 0,
+          monday: 0,
+          tuesday: 0,
+          wednesday: 0,
+          thursday: 0,
+          friday: 0,
+          saturday: 0
+        }
+      }
+    };
     
-    return NextResponse.json(data);
+    return NextResponse.json(wrappedData);
   } catch (error) {
     console.error('[Frontend API] Error:', error);
     return NextResponse.json(

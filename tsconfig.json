@@ -4,7 +4,9 @@
     "module": "commonjs",
     "lib": [
       "es2017",
-      "esnext.asynciterable"
+      "esnext.asynciterable",
+      "dom",
+      "dom.iterable"
     ],
     "skipLibCheck": true,
     "sourceMap": true,
@@ -41,7 +43,8 @@
     ]
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/node_modules/*"
   ],
   "include": [
     "./server/**/*.ts",
