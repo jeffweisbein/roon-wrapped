@@ -16,16 +16,26 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-const TIME_PERIODS = [
-  { value: "7", label: "Last 7 days" },
-  { value: "30", label: "Last 30 days" },
-  { value: "90", label: "Last 90 days" },
-  { value: "180", label: "Last 180 days" },
-  { value: "365", label: "Last year" },
-  { value: "all", label: "All time" },
-] as const;
+export interface TimePeriod {
+  value: string;
+  label: string;
+}
 
-export function TimePeriodSelector() {
+const TIME_PERIODS: TimePeriod[] = [
+  { value: 'all', label: 'All Time' },
+  { value: '1', label: 'Last 24 Hours' },
+  { value: '7', label: 'Last 7 Days' },
+  { value: '14', label: 'Last 14 Days' },
+  { value: '30', label: 'Last 30 Days' },
+  { value: '90', label: 'Last 90 Days' },
+];
+
+interface TimePeriodSelectorProps {
+  value: string;
+  onValueChange: (value: string) => void;
+}
+
+export function TimePeriodSelector({ value, onValueChange }: TimePeriodSelectorProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -49,27 +59,23 @@ export function TimePeriodSelector() {
   );
 
   return (
-    <Select
-      value={period}
-      onValueChange={(value) => {
-        // Update the URL with the new period
-        router.push(
-          `${pathname}?${createQueryString({
-            period: value,
-          })}`
-        );
-      }}
-    >
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select time period" />
-      </SelectTrigger>
-      <SelectContent>
-        {TIME_PERIODS.map((timePeriod) => (
-          <SelectItem key={timePeriod.value} value={timePeriod.value}>
-            {timePeriod.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div className="w-[200px]">
+      <Select value={value} onValueChange={onValueChange}>
+        <SelectTrigger className="w-full bg-zinc-800/50 border-zinc-700/50 text-zinc-200">
+          <SelectValue placeholder="Select time period" />
+        </SelectTrigger>
+        <SelectContent className="bg-zinc-800 border-zinc-700 text-zinc-200">
+          {TIME_PERIODS.map((period) => (
+            <SelectItem
+              key={period.value}
+              value={period.value}
+              className="hover:bg-zinc-700/50 focus:bg-zinc-700/50"
+            >
+              {period.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 } 

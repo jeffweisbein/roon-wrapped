@@ -312,7 +312,15 @@ export default function WrappedPage() {
               {connectionStatus.connected ? 'Connected' : 'Disconnected'}
             </div>
           </div>
-          <TimePeriodSelector />
+          <TimePeriodSelector 
+            value={period} 
+            onValueChange={(value) => {
+              const url = new URL(window.location.href);
+              url.searchParams.set('period', value);
+              window.history.pushState({}, '', url.toString());
+              loadData();
+            }}
+          />
         </div>
         
         {/* Wrapped Data Section */}
