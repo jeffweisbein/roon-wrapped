@@ -19,6 +19,7 @@ import { Loader2 } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { Bar } from 'react-chartjs-2';
 
+import { ListeningInsights } from '@/components/stats/listening-insights';
 import { TimePeriodSelector } from '@/components/ui/time-period-selector';
 import { formatDuration } from '@/src/lib/utils';
 
@@ -332,7 +333,7 @@ export default function WrappedPage() {
                 <h2 className="text-2xl font-semibold bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-500 bg-clip-text text-transparent">Stats</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                    <div className="text-zinc-300 mb-2">Total Plays</div>
+                    <div className="text-zinc-300 mb-2">Total Songs</div>
                     <div className="text-3xl font-bold bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">
                       {wrappedData.totalTracksPlayed}
                     </div>
@@ -362,7 +363,7 @@ export default function WrappedPage() {
                     </div>
                   </div>
                   <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
-                    <div className="text-zinc-300 mb-2">Songs Per Day</div>
+                    <div className="text-zinc-300 mb-2">Daily Average Songs</div>
                     <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
                       {Math.round(wrappedData.averageTracksPerDay)} songs
                     </div>
@@ -382,6 +383,9 @@ export default function WrappedPage() {
                 </div>
               </div>
             )}
+
+            {/* Insights Section */}
+            <ListeningInsights {...wrappedData} />
 
             {/* Charts */}
             {(timeOfDayChartData || weekdayChartData) && (
@@ -469,10 +473,10 @@ export default function WrappedPage() {
               </div>
             )}
 
-            {/* Top Tracks */}
+            {/* Top Songs */}
             {wrappedData.topTracksByPlays?.length > 0 && (
               <div className="space-y-6">
-                <h2 className="text-2xl font-semibold bg-gradient-to-r from-green-400 via-emerald-400 to-teal-500 bg-clip-text text-transparent">Top Tracks</h2>
+                <h2 className="text-2xl font-semibold bg-gradient-to-r from-green-400 via-emerald-400 to-teal-500 bg-clip-text text-transparent">Top Songs</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                   {wrappedData.topTracksByPlays.slice(0, 10).map((track, index) => (
                     <div key={index} className="group bg-zinc-800/50 border border-zinc-700/50 rounded-xl overflow-hidden hover:bg-zinc-800/70 transition-colors">

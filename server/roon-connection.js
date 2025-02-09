@@ -78,7 +78,10 @@ class RoonConnection {
                     artist: zone.now_playing.three_line.line2,
                     album: zone.now_playing.three_line.line3,
                     length: zone.now_playing.length,
-                    image_key: zone.now_playing.image_key
+                    image_key: zone.now_playing.image_key,
+                    genres: zone.now_playing.genres || [],
+                    year: zone.now_playing.release_date ? new Date(zone.now_playing.release_date).getFullYear() : undefined,
+                    bpm: zone.now_playing.tempo
                 };
 
                 // If this is a new track, start tracking it

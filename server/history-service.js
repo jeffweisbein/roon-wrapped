@@ -231,7 +231,17 @@ class HistoryService {
                     artist: trackArtists[key],
                     album: trackAlbums[key],
                     count,
-                    image_key: trackImages[key]
+                    image_key: trackImages[key],
+                    // Add metadata if available in the track
+                    genre: filteredTracks.find(t => 
+                        t.title === title && normalizeArtist(t.artist) === trackArtists[key]
+                    )?.genres?.[0],
+                    year: filteredTracks.find(t => 
+                        t.title === title && normalizeArtist(t.artist) === trackArtists[key]
+                    )?.year,
+                    bpm: filteredTracks.find(t => 
+                        t.title === title && normalizeArtist(t.artist) === trackArtists[key]
+                    )?.bpm
                 };
             });
 

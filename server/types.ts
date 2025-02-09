@@ -9,6 +9,9 @@ export interface Track {
   key: string;
   genres: string[];
   timestamp: number;
+  image_key?: string;
+  year?: number;
+  bpm?: number;
 }
 
 export interface NowPlayingTrack {
