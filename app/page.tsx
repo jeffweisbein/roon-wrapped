@@ -7,7 +7,6 @@ import {
 
 import { useSearchParams } from 'next/navigation';
 
-import { TestToast } from '@/components/test-toast';
 import {
   Card,
   CardContent,
@@ -100,10 +99,6 @@ export default function Home() {
             </p>
           </CardContent>
         </Card>
-      </div>
-
-      <div className="space-y-4">
-        <TestToast />
       </div>
     </main>
   );

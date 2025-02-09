@@ -7,49 +7,73 @@ A beautiful visualization of your Roon music listening history, inspired by Spot
 ![Roon-Wrapped-01-11-2025_07_06_PM (2)](https://github.com/user-attachments/assets/8ef898a8-f576-44a7-84a7-2f117d78920f)
 ![Roon-Wrapped-01-11-2025_07_06_PM (3)](https://github.com/user-attachments/assets/06502259-afe6-47bc-b6f0-7ddcca2be96b)
 
-
 ## Features
-
 - Connect to your Roon Core
-- Analyze your listening history
-- Generate beautiful visualizations
-- View top artists, albums, and tracks
-- See listening trends over time
-- Share your music stats
+- Track your listening history across all Roon zones
+- View detailed statistics about your music preferences
+- See insights about your listening patterns
+- Compare your listening habits with global averages
+- Beautiful, responsive UI with dark mode
 
-## Prerequisites
+## Installation
 
-- Node.js 18.0.0 or later
-- A running Roon Core on your network
-- Roon extension enabled
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Copy `.env.example` to `.env` and configure your environment variables
+4. Build the application: `npm run build`
 
-## Setup
+## Environment Files
 
-1. Clone this repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+The application uses several environment files for different purposes:
 
-## Configuration
+- `.env.example`: Template file with all required environment variables
+- `.env`: Main environment file for production settings
+- `.env.local`: Local overrides for development (git-ignored)
 
-1. The app will automatically discover your Roon Core on the network
-2. Authorize the extension in your Roon Core settings
-3. Start exploring your music history!
+Required environment variables:
 
-## Tech Stack
+\`\`\`
+ROON_EXTENSION_ID=your_extension_id
+ROON_DISPLAY_NAME=your_display_name
+LASTFM_API_KEY=your_lastfm_api_key
+\`\`\`
 
-- Next.js 14
-- TypeScript
-- Tailwind CSS
-- Shadcn UI
-- Node Roon API
+## Usage
+
+The application includes a unified start script that can run in different modes:
+
+\`\`\`bash
+# Start both frontend and backend
+./start-all.sh all
+
+# Start only the backend server
+./start-all.sh server
+
+# Start only the frontend
+./start-all.sh frontend
+
+# Start in minimal mode (reduced features)
+./start-all.sh minimal
+\`\`\`
+
+## Development
+
+1. Start the development server: `npm run dev`
+2. Open [http://localhost:3000](http://localhost:3000)
+
+## Production
+
+1. Build the application: `npm run build`
+2. Start the production server: `./start-all.sh all`
+
+## Service Installation
+
+To install as a system service:
+
+1. Edit `com.roonwrapped.plist` with your paths
+2. Copy to LaunchAgents: `cp com.roonwrapped.plist ~/Library/LaunchAgents/`
+3. Load the service: `launchctl load ~/Library/LaunchAgents/com.roonwrapped.plist`
 
 ## License
 
-MIT 
+This project is licensed under the MIT License - see the LICENSE file for details. 
