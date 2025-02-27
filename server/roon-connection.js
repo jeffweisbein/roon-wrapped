@@ -106,7 +106,15 @@ class RoonConnection {
                     this.trackTimer = setTimeout(async () => {
                         console.log("[Roon] Track played for 20s, logging:", this.currentTrack);
                         await historyService.addTrack({
-                            ...this.currentTrack,
+                            title: this.currentTrack.title,
+                            artist: this.currentTrack.artist,
+                            album: this.currentTrack.album,
+                            length: this.currentTrack.length,
+                            image_key: this.currentTrack.image_key,
+                            genres: this.currentTrack.genres,
+                            year: this.currentTrack.year,
+                            bpm: this.currentTrack.bpm,
+                            zone: this.currentTrack.zone,
                             timestamp: Date.now()
                         });
                     }, 20 * 1000);
