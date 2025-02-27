@@ -81,7 +81,8 @@ class RoonConnection {
                     image_key: zone.now_playing.image_key,
                     genres: zone.now_playing.genres || [],
                     year: zone.now_playing.release_date ? new Date(zone.now_playing.release_date).getFullYear() : undefined,
-                    bpm: zone.now_playing.tempo
+                    bpm: zone.now_playing.tempo,
+                    zone: zone.display_name
                 };
 
                 // If this is a new track, start tracking it
