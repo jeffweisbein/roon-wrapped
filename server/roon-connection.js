@@ -65,6 +65,52 @@ class RoonConnection {
         }
     }
 
+    // Helper function to safely extract track information from now_playing data
+    extractTrackInfo(now_playing) {
+        if (!now_playing) return null;
+
+        // Try to get track info from different possible structures
+        let title = 'Unknown Title';
+        let artist = 'Unknown Artist';
+        let album = 'Unknown Album';
+
+        // Method 1: Check three_line structure (most common)
+        if (now_playing.three_line) {
+            title = now_playing.three_line.line1 || title;
+            artist = now_playing.three_line.line2 || artist;
+            album = now_playing.three_line.line3 || album;
+        }
+
+        // Method 2: Check direct properties as fallback
+        if (title === 'Unknown Title' && now_playing.title) {
+            title = now_playing.title;
+        }
+        if (artist === 'Unknown Artist' && now_playing.artist) {
+            artist = now_playing.artist;
+        }
+        if (album === 'Unknown Album' && now_playing.album) {
+            album = now_playing.album;
+        }
+
+        // Method 3: Check one_line structure as another fallback
+        if (now_playing.one_line && title === 'Unknown Title') {
+            title = now_playing.one_line.line1 || title;
+        }
+
+        // Method 4: Check two_line structure
+        if (now_playing.two_line) {
+            if (title === 'Unknown Title') title = now_playing.two_line.line1 || title;
+            if (artist === 'Unknown Artist') artist = now_playing.two_line.line2 || artist;
+        }
+
+        // Clean up any empty strings
+        title = title && title.trim() !== '' ? title.trim() : 'Unknown Title';
+        artist = artist && artist.trim() !== '' ? artist.trim() : 'Unknown Artist';
+        album = album && album.trim() !== '' ? album.trim() : 'Unknown Album';
+
+        return { title, artist, album };
+    }
+
     handleZoneUpdate(msg) {
         if (!msg.zones_changed) return;
         
@@ -73,17 +119,30 @@ class RoonConnection {
                 // Ensure history service is initialized
                 await historyService.initialize();
 
+                // Extract track info safely
+                const trackInfo = this.extractTrackInfo(zone.now_playing);
+                if (!trackInfo) {
+                    console.log("[Roon] Could not extract track info from:", zone.now_playing);
+                    return;
+                }
+
                 const track = {
-                    title: zone.now_playing.three_line.line1,
-                    artist: zone.now_playing.three_line.line2,
-                    album: zone.now_playing.three_line.line3,
-                    length: zone.now_playing.length,
+                    title: trackInfo.title,
+                    artist: trackInfo.artist,
+                    album: trackInfo.album,
+                    length: zone.now_playing.length || 0,
                     image_key: zone.now_playing.image_key,
                     genres: zone.now_playing.genres || [],
                     year: zone.now_playing.release_date ? new Date(zone.now_playing.release_date).getFullYear() : undefined,
                     bpm: zone.now_playing.tempo,
                     zone: zone.display_name
                 };
+
+                // Validate track has minimum required info
+                if (!track.title || track.title === 'Unknown Title') {
+                    console.log("[Roon] Skipping track with no title:", track);
+                    return;
+                }
 
                 // If this is a new track, start tracking it
                 const trackKey = `${track.title}-${track.artist}`;
@@ -151,19 +210,32 @@ class RoonConnection {
         if (!playingZone) return null;
 
         const { now_playing } = playingZone;
+        
+        // Extract track info safely
+        const trackInfo = this.extractTrackInfo(now_playing);
+        if (!trackInfo) {
+            console.log("[Roon] Could not extract track info for now playing:", now_playing);
+            return null;
+        }
+
         return {
-            title: now_playing.three_line.line1,
-            artist: now_playing.three_line.line2,
-            album: now_playing.three_line.line3,
-            length: now_playing.length,
+            title: trackInfo.title,
+            artist: trackInfo.artist,
+            album: trackInfo.album,
+            length: now_playing.length || 0,
             image_key: now_playing.image_key,
-            seek_position: now_playing.seek_position,
-            zone_name: playingZone.display_name
+            seek_position: now_playing.seek_position || 0,
+            zone_name: playingZone.display_name,
+            // Additional metadata
+            genres: now_playing.genres || [],
+            year: now_playing.release_date ? new Date(now_playing.release_date).getFullYear() : null,
+            bpm: now_playing.tempo || null,
+            state: playingZone.state
         };
     }
 
     async getImage(image_key) {
-        if (!this.core) return null;
+        if (!this.core || !image_key) return null;
 
         return new Promise((resolve, reject) => {
             this.core.services.RoonApiImage.get_image(
@@ -182,6 +254,20 @@ class RoonConnection {
                 }
             );
         });
+    }
+
+    // Add method to get connection status for API
+    getConnectionStatus() {
+        return {
+            connected: this.isConnected(),
+            core_name: this.core?.display_name || null,
+            zones_count: this.transport?._zones ? Object.keys(this.transport._zones).length : 0,
+            current_track: this.currentTrack ? {
+                title: this.currentTrack.title,
+                artist: this.currentTrack.artist,
+                zone: this.currentTrack.zone
+            } : null
+        };
     }
 }
 

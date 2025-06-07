@@ -5,6 +5,7 @@ import {
   Home,
   LineChart,
   Music,
+  Play,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -14,6 +15,7 @@ export function SiteNav() {
 
   const links = [
     { href: '/', label: 'Home', icon: Home },
+    { href: '/now-playing', label: 'Now Playing', icon: Play },
     { href: '/wrapped', label: 'Wrapped', icon: LineChart },
     { href: '/top-40', label: 'Top 40', icon: Music },
   ];

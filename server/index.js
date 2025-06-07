@@ -6,7 +6,7 @@ const { roonConnection } = require('./roon-connection');
 const { historyService } = require('./history-service');
 
 const app = express();
-const port = process.env.SERVER_PORT || 3001;
+const port = process.env.ROON_SERVER_PORT || 3003;
 
 // Middleware
 app.use(cors());
