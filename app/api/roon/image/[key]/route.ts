@@ -7,11 +7,11 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export async function GET(
-  request: Request,
-  { params }: { params: { key: string } }
+  _request: Request,
+  { params }: { params: Promise<{ key: string }> }
 ) {
   try {
-    const imageKey = params.key;
+    const { key: imageKey } = await params;
     const url = `http://${ROON_SERVER_HOST}:${ROON_SERVER_PORT}/api/roon/image/${imageKey}`;
     
     const response = await fetch(url, {

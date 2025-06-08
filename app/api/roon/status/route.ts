@@ -9,7 +9,7 @@ const ROON_SERVER_HOST = process.env.ROON_SERVER_HOST || 'localhost';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const response = await fetch(`http://${ROON_SERVER_HOST}:${ROON_SERVER_PORT}/api/roon/status`, {
       method: 'GET',

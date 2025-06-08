@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Suspense,
   useEffect,
   useState,
 } from 'react';
@@ -23,7 +24,7 @@ interface Stats {
   totalPlaytime: number;
 }
 
-export default function Home() {
+function HomeContent() {
   const searchParams = useSearchParams();
   const period = searchParams.get("period") || "all";
   const [stats, setStats] = useState<Stats | null>(null);
@@ -101,5 +102,20 @@ export default function Home() {
         </Card>
       </div>
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={
+      <main className="container mx-auto p-4">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold">Roon Wrapped</h1>
+        </div>
+        <div className="text-center">Loading...</div>
+      </main>
+    }>
+      <HomeContent />
+    </Suspense>
   );
 } 

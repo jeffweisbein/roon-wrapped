@@ -1,6 +1,7 @@
 'use client';
 
 import React, {
+  Suspense,
   useCallback,
   useEffect,
   useState,
@@ -60,11 +61,6 @@ interface WrappedData {
   };
 }
 
-interface RoonStatus {
-  connected: boolean;
-  transport: boolean;
-}
-
 // Register ChartJS components
 ChartJS.register(
   CategoryScale,
@@ -110,7 +106,7 @@ const chartOptions = {
   },
 };
 
-export default function WrappedPage() {
+function WrappedPageContent() {
   const searchParams = useSearchParams();
   const period = searchParams.get('period') || 'all';
   const [wrappedData, setWrappedData] = useState<WrappedData | null>(null);
@@ -509,5 +505,19 @@ export default function WrappedPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function WrappedPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 text-white">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center">Loading...</div>
+        </div>
+      </div>
+    }>
+      <WrappedPageContent />
+    </Suspense>
   );
 } 

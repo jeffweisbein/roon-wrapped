@@ -6,7 +6,7 @@ import { log } from '../utils/logger';
 
 const router = Router();
 
-router.get('/health', (req, res) => {
+router.get('/health', (_req, res) => {
     try {
         const health = {
             status: 'healthy',
@@ -19,9 +19,8 @@ router.get('/health', (req, res) => {
             },
             cpu: os.loadavg(),
             roon: {
-                isConnected: roonConnection?.isConnected || false,
-                lastError: roonConnection?.lastError || null,
-                reconnectAttempts: roonConnection?.reconnectAttempts || 0
+                isConnected: roonConnection?.isConnected() || false,
+                core_name: roonConnection?.core?.display_name || null
             }
         };
 

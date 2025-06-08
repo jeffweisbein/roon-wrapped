@@ -92,16 +92,6 @@ function shuffleArray<T>(array: T[]): T[] {
   return shuffled;
 }
 
-function getZodiacSign(date: Date): string {
-  const monthDay = parseInt(`${date.getMonth() + 1}${date.getDate().toString().padStart(2, '0')}`);
-  return ZODIAC_SIGNS.find(sign => {
-    if (sign.name === "Capricorn") {
-      return monthDay >= sign.dates[0] || monthDay <= sign.dates[1];
-    }
-    return monthDay >= sign.dates[0] && monthDay <= sign.dates[1];
-  })?.name || "Aries";
-}
-
 function generateMusicHoroscope(data: ListeningInsightsProps): Horoscope | null {
   const topArtists = data.topArtistsByPlays.slice(0, 10);
   const topTracks = data.topTracksByPlays.slice(0, 10);
@@ -401,7 +391,7 @@ function generateInsights(data: ListeningInsightsProps, globalData?: GlobalCompa
 }
 
 export function ListeningInsights(props: ListeningInsightsProps) {
-  const [globalData, setGlobalData] = useState<GlobalComparison | undefined>();
+  const [_globalData, setGlobalData] = useState<GlobalComparison | undefined>();
   const [isLoadingGlobal, setIsLoadingGlobal] = useState(true);
   const [insights, setInsights] = useState<InsightData[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);

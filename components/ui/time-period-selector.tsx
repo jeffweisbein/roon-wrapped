@@ -31,8 +31,8 @@ const TIME_PERIODS: TimePeriod[] = [
 ];
 
 interface TimePeriodSelectorProps {
-  value: string;
-  onValueChange: (value: string) => void;
+  value?: string;
+  onValueChange?: (value: string) => void;
 }
 
 export function TimePeriodSelector({ value, onValueChange }: TimePeriodSelectorProps) {
@@ -58,9 +58,18 @@ export function TimePeriodSelector({ value, onValueChange }: TimePeriodSelectorP
     [searchParams]
   );
 
+  const handleValueChange = (newValue: string) => {
+    if (onValueChange) {
+      onValueChange(newValue);
+    } else {
+      // Default behavior: update URL parameters
+      router.push(pathname + '?' + createQueryString({ period: newValue }));
+    }
+  };
+
   return (
     <div className="w-[200px]">
-      <Select value={value} onValueChange={onValueChange}>
+      <Select value={value || period} onValueChange={handleValueChange}>
         <SelectTrigger className="w-full bg-zinc-800/50 border-zinc-700/50 text-zinc-200">
           <SelectValue placeholder="Select time period" />
         </SelectTrigger>

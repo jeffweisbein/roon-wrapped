@@ -11,12 +11,6 @@ interface PlayedItem {
   zone?: string;
 }
 
-interface TopItem {
-  name: string;
-  count: number;
-  image_key?: string;
-}
-
 export async function GET(request: Request) {
   console.log('Top 40 API endpoint called');
   

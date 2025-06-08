@@ -1,12 +1,14 @@
 'use client';
 
+import { Suspense } from 'react';
+
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'next/navigation';
 
 import { Top40List } from '@/components/top-40-list';
 import { Top40Nav } from '@/components/top-40-nav';
 
-export default function Top40Page() {
+function Top40PageContent() {
   const searchParams = useSearchParams();
   const currentView = searchParams.get('view') || 'artists';
 
@@ -41,5 +43,17 @@ export default function Top40Page() {
         </motion.div>
       </motion.div>
     </main>
+  );
+}
+
+export default function Top40Page() {
+  return (
+    <Suspense fallback={
+      <main className="container mx-auto px-4 py-8">
+        <div className="text-center">Loading...</div>
+      </main>
+    }>
+      <Top40PageContent />
+    </Suspense>
   );
 } 
