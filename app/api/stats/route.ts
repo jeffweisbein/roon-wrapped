@@ -27,19 +27,19 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await response.json();
-    console.log(`[API] Received stats for period ${period}:`, {
-      totalPlays: data.totalPlays,
-      uniqueArtists: data.uniqueArtists,
-      uniqueTracks: data.uniqueTracks,
-      totalPlaytime: data.totalPlaytime,
-    });
+    console.log(`[API] Received wrapped data for period ${period}:`, data);
     
-    return NextResponse.json({
-      totalPlays: data.totalPlays,
-      uniqueArtists: data.uniqueArtists,
-      uniqueTracks: data.uniqueTracks,
-      totalPlaytime: data.totalPlaytime,
-    });
+    // Map wrapped endpoint fields to stats fields
+    const stats = {
+      totalPlays: data.totalTracksPlayed || 0,
+      uniqueArtists: data.uniqueArtistsCount || 0,
+      uniqueTracks: data.uniqueTracksCount || 0,
+      totalPlaytime: data.totalListeningTimeSeconds || 0,
+    };
+    
+    console.log(`[API] Mapped stats:`, stats);
+    
+    return NextResponse.json(stats);
   } catch (error) {
     console.error("Error fetching stats:", error);
     return NextResponse.json(

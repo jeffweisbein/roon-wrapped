@@ -8,15 +8,12 @@ import {
 
 import { useSearchParams } from 'next/navigation';
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { TimePeriodSelector } from '@/components/ui/time-period-selector';
-import { formatDuration } from '@/src/lib/utils';
 import { PageHeader } from '@/components/ui/page-header';
+import { NowPlayingWidget } from '@/components/dashboard/now-playing-widget';
+import { QuickStatsWidget } from '@/components/dashboard/quick-stats-widget';
+import { TopArtistsWidget } from '@/components/dashboard/top-artists-widget';
+import { ListeningInsightsWidget } from '@/components/dashboard/listening-insights-widget';
+import { RecentActivityWidget } from '@/components/dashboard/recent-activity-widget';
 
 interface Stats {
   totalPlays: number;
@@ -26,83 +23,39 @@ interface Stats {
 }
 
 function HomeContent() {
-  const searchParams = useSearchParams();
-  const period = searchParams.get("period") || "all";
-  const [stats, setStats] = useState<Stats | null>(null);
-
-  useEffect(() => {
-    async function fetchStats() {
-      try {
-        const response = await fetch(`/api/stats?period=${period}`);
-        const data = await response.json();
-        setStats(data);
-      } catch (error) {
-        console.error("Failed to fetch stats:", error);
-      }
-    }
-
-    fetchStats();
-  }, [period]);
-
-  if (!stats) {
-    return (
-      <main className="container mx-auto p-4">
-        <PageHeader 
-          title="Roon Wrapped"
-          subtitle="Your music listening statistics"
-          rightContent={<TimePeriodSelector />}
-        />
-        <div className="text-center">Loading stats...</div>
-      </main>
-    );
-  }
-
   return (
-    <main className="container mx-auto p-4">
+    <main className="container mx-auto p-4 max-w-7xl">
       <PageHeader 
-        title="Roon Wrapped"
-        subtitle="Your music listening statistics"
-        rightContent={<TimePeriodSelector />}
+        title="Dashboard"
+        subtitle="Your music command center"
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
-          <CardHeader>
-            <CardTitle>Total Plays</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{stats.totalPlays}</p>
-          </CardContent>
-        </Card>
+      {/* Main grid layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Now Playing - spans 5 columns on large screens */}
+        <div className="lg:col-span-5 lg:row-span-2">
+          <NowPlayingWidget />
+        </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Unique Artists</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{stats.uniqueArtists}</p>
-          </CardContent>
-        </Card>
+        {/* Quick Stats - spans 4 columns */}
+        <div className="lg:col-span-4">
+          <QuickStatsWidget />
+        </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Unique Tracks</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{stats.uniqueTracks}</p>
-          </CardContent>
-        </Card>
+        {/* Top Artists - spans 3 columns */}
+        <div className="lg:col-span-3 lg:row-span-2">
+          <TopArtistsWidget />
+        </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Total Listening Time</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">
-              {formatDuration(stats.totalPlaytime)}
-            </p>
-          </CardContent>
-        </Card>
+        {/* Listening Insights - spans 4 columns */}
+        <div className="lg:col-span-4">
+          <ListeningInsightsWidget />
+        </div>
+
+        {/* Recent Activity - spans full width with more height */}
+        <div className="lg:col-span-12 h-96">
+          <RecentActivityWidget />
+        </div>
       </div>
     </main>
   );
@@ -111,10 +64,10 @@ function HomeContent() {
 export default function Home() {
   return (
     <Suspense fallback={
-      <main className="container mx-auto p-4">
+      <main className="container mx-auto p-4 max-w-7xl">
         <PageHeader 
-          title="Roon Wrapped"
-          subtitle="Your music listening statistics"
+          title="Dashboard"
+          subtitle="Your music command center"
         />
         <div className="text-center">Loading...</div>
       </main>
