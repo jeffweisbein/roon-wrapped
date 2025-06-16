@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/card';
 import { TimePeriodSelector } from '@/components/ui/time-period-selector';
 import { formatDuration } from '@/src/lib/utils';
+import { LogoWithText } from '@/components/logo';
 
 interface Stats {
   totalPlays: number;
@@ -47,7 +48,10 @@ function HomeContent() {
     return (
       <main className="container mx-auto p-4">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">Roon Wrapped</h1>
+          <div className="block sm:hidden">
+            <LogoWithText size={60} />
+          </div>
+          <h1 className="hidden sm:block text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500 bg-clip-text text-transparent">Roon Wrapped</h1>
           <TimePeriodSelector />
         </div>
         <div className="text-center">Loading stats...</div>
@@ -58,7 +62,10 @@ function HomeContent() {
   return (
     <main className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Roon Wrapped</h1>
+        <div className="block sm:hidden">
+          <LogoWithText size={60} />
+        </div>
+        <h1 className="hidden sm:block text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500 bg-clip-text text-transparent">Roon Wrapped</h1>
         <TimePeriodSelector />
       </div>
 
@@ -110,7 +117,10 @@ export default function Home() {
     <Suspense fallback={
       <main className="container mx-auto p-4">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">Roon Wrapped</h1>
+          <div className="block sm:hidden">
+            <LogoWithText size={60} />
+          </div>
+          <h1 className="hidden sm:block text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500 bg-clip-text text-transparent">Roon Wrapped</h1>
         </div>
         <div className="text-center">Loading...</div>
       </main>
