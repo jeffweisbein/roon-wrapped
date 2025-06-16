@@ -282,7 +282,7 @@ function WrappedPageContent() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-800 text-white p-8">
+      <div className="min-h-screen p-8">
         <div className="max-w-6xl mx-auto">
           <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 text-red-400">
             {error}
@@ -293,7 +293,7 @@ function WrappedPageContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-800 text-white p-8">
+    <div className="min-h-screen p-8">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Header with Connection Status and Time Period Selector */}
         <PageHeader 
@@ -302,7 +302,7 @@ function WrappedPageContent() {
             <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded text-sm ${
               connectionStatus.connected 
                 ? 'bg-green-500/10 text-green-400 border border-green-500/20' 
-                : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50'
+                : 'bg-zinc-900/30 text-zinc-400 border border-zinc-800/30'
             }`}>
               <div className={`h-2 w-2 rounded-full ${connectionStatus.connected ? 'bg-green-500' : 'bg-red-500'}`} />
               {connectionStatus.connected ? 'Connected' : 'Disconnected'}
@@ -329,49 +329,49 @@ function WrappedPageContent() {
               <div className="space-y-6">
                 <h2 className="text-2xl font-semibold bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-500 bg-clip-text text-transparent">Stats</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                  <div className="bg-zinc-900/30 border border-zinc-800/30 rounded-xl p-6 backdrop-blur-md">
                     <div className="text-zinc-300 mb-2">Total Songs</div>
                     <div className="text-3xl font-bold bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">
                       {wrappedData.totalTracksPlayed}
                     </div>
                   </div>
-                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                  <div className="bg-zinc-900/30 border border-zinc-800/30 rounded-xl p-6 backdrop-blur-md">
                     <div className="text-zinc-300 mb-2">Artists Played</div>
                     <div className="text-2xl font-bold bg-gradient-to-r from-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
                       {wrappedData.uniqueArtistsCount}
                     </div>
                   </div>
-                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                  <div className="bg-zinc-900/30 border border-zinc-800/30 rounded-xl p-6 backdrop-blur-md">
                     <div className="text-zinc-300 mb-2">Albums Played</div>
                     <div className="text-2xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
                       {wrappedData.uniqueAlbumsCount}
                     </div>
                   </div>
-                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                  <div className="bg-zinc-900/30 border border-zinc-800/30 rounded-xl p-6 backdrop-blur-md">
                     <div className="text-zinc-300 mb-2">Songs Played</div>
                     <div className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-green-400 bg-clip-text text-transparent">
                       {wrappedData.uniqueTracksCount}
                     </div>
                   </div>
-                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                  <div className="bg-zinc-900/30 border border-zinc-800/30 rounded-xl p-6 backdrop-blur-md">
                     <div className="text-zinc-300 mb-2">Listening Time</div>
                     <div className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-yellow-400 bg-clip-text text-transparent">
                       {formatDuration(wrappedData.totalListeningTimeSeconds)}
                     </div>
                   </div>
-                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                  <div className="bg-zinc-900/30 border border-zinc-800/30 rounded-xl p-6 backdrop-blur-md">
                     <div className="text-zinc-300 mb-2">Daily Average Songs</div>
                     <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
                       {Math.round(wrappedData.averageTracksPerDay)} songs
                     </div>
                   </div>
-                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                  <div className="bg-zinc-900/30 border border-zinc-800/30 rounded-xl p-6 backdrop-blur-md">
                     <div className="text-zinc-300 mb-2">Daily Play Streak</div>
                     <div className="text-2xl font-bold bg-gradient-to-r from-rose-400 to-red-400 bg-clip-text text-transparent">
                       {wrappedData.currentListeningStreakDays} days
                     </div>
                   </div>
-                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                  <div className="bg-zinc-900/30 border border-zinc-800/30 rounded-xl p-6 backdrop-blur-md">
                     <div className="text-zinc-300 mb-2">Most Active Time</div>
                     <div className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
                       {formatHour(wrappedData.peakListeningHour)}
@@ -389,7 +389,7 @@ function WrappedPageContent() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Time of Day Distribution */}
                 {timeOfDayChartData && (
-                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                  <div className="bg-zinc-900/30 border border-zinc-800/30 rounded-xl p-6 backdrop-blur-md">
                     <h3 className="text-xl font-semibold mb-4">Time of Day Distribution</h3>
                     <Bar data={timeOfDayChartData} options={chartOptions} />
                   </div>
@@ -397,7 +397,7 @@ function WrappedPageContent() {
 
                 {/* Weekly Distribution */}
                 {weekdayChartData && (
-                  <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-6 backdrop-blur-sm">
+                  <div className="bg-zinc-900/30 border border-zinc-800/30 rounded-xl p-6 backdrop-blur-md">
                     <h3 className="text-xl font-semibold mb-4">Weekly Distribution</h3>
                     <Bar data={weekdayChartData} options={chartOptions} />
                   </div>
@@ -411,7 +411,7 @@ function WrappedPageContent() {
                 <h2 className="text-2xl font-semibold bg-gradient-to-r from-pink-400 via-fuchsia-400 to-purple-500 bg-clip-text text-transparent">Top Artists</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                   {wrappedData.topArtistsByPlays.slice(0, 10).map((artist, index) => (
-                    <div key={index} className="group bg-zinc-800/50 border border-zinc-700/50 rounded-xl overflow-hidden hover:bg-zinc-800/70 transition-colors">
+                    <div key={index} className="group bg-zinc-900/30 border border-zinc-800/30 rounded-xl overflow-hidden hover:bg-zinc-800/70 transition-colors">
                       {artist.image_key && (
                         <div className="relative aspect-square">
                           <img 
@@ -443,7 +443,7 @@ function WrappedPageContent() {
                 <h2 className="text-2xl font-semibold bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-500 bg-clip-text text-transparent">Top Albums</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                   {wrappedData.topAlbumsByPlays.slice(0, 10).map((album, index) => (
-                    <div key={index} className="group bg-zinc-800/50 border border-zinc-700/50 rounded-xl overflow-hidden hover:bg-zinc-800/70 transition-colors">
+                    <div key={index} className="group bg-zinc-900/30 border border-zinc-800/30 rounded-xl overflow-hidden hover:bg-zinc-800/70 transition-colors">
                       {album.image_key && (
                         <div className="relative aspect-square">
                           <img 
@@ -476,7 +476,7 @@ function WrappedPageContent() {
                 <h2 className="text-2xl font-semibold bg-gradient-to-r from-green-400 via-emerald-400 to-teal-500 bg-clip-text text-transparent">Top Songs</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                   {wrappedData.topTracksByPlays.slice(0, 10).map((track, index) => (
-                    <div key={index} className="group bg-zinc-800/50 border border-zinc-700/50 rounded-xl overflow-hidden hover:bg-zinc-800/70 transition-colors">
+                    <div key={index} className="group bg-zinc-900/30 border border-zinc-800/30 rounded-xl overflow-hidden hover:bg-zinc-800/70 transition-colors">
                       {track.image_key && (
                         <div className="relative aspect-square">
                           <img 

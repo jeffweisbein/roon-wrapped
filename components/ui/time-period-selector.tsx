@@ -70,11 +70,11 @@ export function TimePeriodSelector({ value, onValueChange }: TimePeriodSelectorP
   return (
     <div className="w-[200px]">
       <Select value={value || period} onValueChange={handleValueChange}>
-        <SelectTrigger className="w-full bg-zinc-800/50 border-zinc-700/50 text-zinc-200">
+        <SelectTrigger className="w-full bg-zinc-900/30 border-zinc-800/30 text-zinc-200 backdrop-blur-sm">
           <SelectValue placeholder="Select time period" />
         </SelectTrigger>
         <SelectContent 
-          className="bg-zinc-800 border-zinc-700 text-zinc-200"
+          className="bg-zinc-900/95 border-zinc-800/50 text-zinc-200 backdrop-blur-xl"
           align="end"
           sideOffset={5}
         >
@@ -82,7 +82,7 @@ export function TimePeriodSelector({ value, onValueChange }: TimePeriodSelectorP
             <SelectItem
               key={period.value}
               value={period.value}
-              className="hover:bg-zinc-700/50 focus:bg-zinc-700/50"
+              className="hover:bg-zinc-800/50 focus:bg-zinc-800/50"
             >
               {period.label}
             </SelectItem>

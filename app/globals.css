@@ -53,12 +53,6 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
 
 @layer base {
@@ -98,7 +92,7 @@ body {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
  
-    --card: 222.2 84% 4.9%;
+    --card: 240 3% 11%;
     --card-foreground: 210 40% 98%;
  
     --popover: 222.2 84% 4.9%;

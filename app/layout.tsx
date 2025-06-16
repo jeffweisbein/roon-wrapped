@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 
 import { SiteNav } from '@/components/site-nav';
 import { Toaster } from '@/src/components/ui/toaster';
+import { GradientBackground } from '@/components/gradient-background';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,10 +21,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.className} bg-black text-white min-h-screen pb-20 sm:pb-0 sm:pt-20`}>
-        <SiteNav />
-        {children}
-        <Toaster />
+      <body className={`${inter.className} text-white min-h-screen pb-20 sm:pb-0 sm:pt-20`}>
+        <GradientBackground />
+        <div className="relative min-h-screen">
+          <SiteNav />
+          {children}
+          <Toaster />
+        </div>
       </body>
     </html>
   )
