@@ -22,6 +22,7 @@ import { Bar } from 'react-chartjs-2';
 
 import { ListeningInsights } from '@/components/stats/listening-insights';
 import { TimePeriodSelector } from '@/components/ui/time-period-selector';
+import { PageHeader } from '@/components/ui/page-header';
 import { formatDuration } from '@/src/lib/utils';
 
 interface WrappedData {
@@ -295,12 +296,10 @@ function WrappedPageContent() {
     <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-800 text-white p-8">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Header with Connection Status and Time Period Selector */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-300 via-amber-400 to-yellow-500 bg-clip-text text-transparent">
-              Roon Wrapped
-            </h1>
-            <div className={`flex items-center gap-2 px-3 py-1.5 rounded ${
+        <PageHeader 
+          title="Roon Wrapped"
+          titleSuffix={
+            <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded text-sm ${
               connectionStatus.connected 
                 ? 'bg-green-500/10 text-green-400 border border-green-500/20' 
                 : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50'
@@ -308,17 +307,19 @@ function WrappedPageContent() {
               <div className={`h-2 w-2 rounded-full ${connectionStatus.connected ? 'bg-green-500' : 'bg-red-500'}`} />
               {connectionStatus.connected ? 'Connected' : 'Disconnected'}
             </div>
-          </div>
-          <TimePeriodSelector 
-            value={period} 
-            onValueChange={(value) => {
-              const url = new URL(window.location.href);
-              url.searchParams.set('period', value);
-              window.history.pushState({}, '', url.toString());
-              loadData();
-            }}
-          />
-        </div>
+          }
+          rightContent={
+            <TimePeriodSelector 
+              value={period} 
+              onValueChange={(value) => {
+                const url = new URL(window.location.href);
+                url.searchParams.set('period', value);
+                window.history.pushState({}, '', url.toString());
+                loadData();
+              }}
+            />
+          }
+        />
         
         {/* Wrapped Data Section */}
         {wrappedData && (

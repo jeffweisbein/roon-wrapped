@@ -16,6 +16,7 @@ import {
   Card,
   CardContent,
 } from '@/components/ui/card';
+import { PageHeader } from '@/components/ui/page-header';
 
 interface NowPlayingData {
   title: string;
@@ -86,14 +87,10 @@ export default function NowPlayingPage() {
           transition={{ duration: 0.5 }}
           className="space-y-8"
         >
-          <div className="text-center space-y-2">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-              Now Playing
-            </h1>
-            <p className="text-zinc-400">
-              Real-time music from your Roon system
-            </p>
-          </div>
+          <PageHeader 
+            title="Now Playing"
+            subtitle="Real-time music from your Roon system"
+          />
           
           <div className="flex justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-400"></div>
@@ -112,14 +109,10 @@ export default function NowPlayingPage() {
           transition={{ duration: 0.5 }}
           className="space-y-8"
         >
-          <div className="text-center space-y-2">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-              Now Playing
-            </h1>
-            <p className="text-zinc-400">
-              Real-time music from your Roon system
-            </p>
-          </div>
+          <PageHeader 
+            title="Now Playing"
+            subtitle="Real-time music from your Roon system"
+          />
           
           <Card className="bg-red-500/10 border-red-500/20">
             <CardContent className="p-6 text-center">
@@ -143,14 +136,10 @@ export default function NowPlayingPage() {
           transition={{ duration: 0.5 }}
           className="space-y-8"
         >
-          <div className="text-center space-y-2">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-              Now Playing
-            </h1>
-            <p className="text-zinc-400">
-              Real-time music from your Roon system
-            </p>
-          </div>
+          <PageHeader 
+            title="Now Playing"
+            subtitle="Real-time music from your Roon system"
+          />
           
           <Card className="bg-zinc-900/50 border-zinc-800">
             <CardContent className="p-12 text-center">
@@ -180,14 +169,10 @@ export default function NowPlayingPage() {
         transition={{ duration: 0.5 }}
         className="space-y-8"
       >
-        <div className="text-center space-y-2">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-            Now Playing
-          </h1>
-          <p className="text-zinc-400">
-            Real-time music from your Roon system
-          </p>
-        </div>
+        <PageHeader 
+          title="Now Playing"
+          subtitle="Real-time music from your Roon system"
+        />
 
         <motion.div
           key={`${nowPlaying.title}-${nowPlaying.artist}`}

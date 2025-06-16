@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/card';
 import { TimePeriodSelector } from '@/components/ui/time-period-selector';
 import { formatDuration } from '@/src/lib/utils';
-import { LogoWithText } from '@/components/logo';
+import { PageHeader } from '@/components/ui/page-header';
 
 interface Stats {
   totalPlays: number;
@@ -47,13 +47,11 @@ function HomeContent() {
   if (!stats) {
     return (
       <main className="container mx-auto p-4">
-        <div className="flex justify-between items-center mb-8">
-          <div className="block sm:hidden">
-            <LogoWithText size={60} />
-          </div>
-          <h1 className="hidden sm:block text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500 bg-clip-text text-transparent">Roon Wrapped</h1>
-          <TimePeriodSelector />
-        </div>
+        <PageHeader 
+          title="Roon Wrapped"
+          subtitle="Your music listening statistics"
+          rightContent={<TimePeriodSelector />}
+        />
         <div className="text-center">Loading stats...</div>
       </main>
     );
@@ -61,13 +59,11 @@ function HomeContent() {
 
   return (
     <main className="container mx-auto p-4">
-      <div className="flex justify-between items-center mb-8">
-        <div className="block sm:hidden">
-          <LogoWithText size={60} />
-        </div>
-        <h1 className="hidden sm:block text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500 bg-clip-text text-transparent">Roon Wrapped</h1>
-        <TimePeriodSelector />
-      </div>
+      <PageHeader 
+        title="Roon Wrapped"
+        subtitle="Your music listening statistics"
+        rightContent={<TimePeriodSelector />}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
@@ -116,12 +112,10 @@ export default function Home() {
   return (
     <Suspense fallback={
       <main className="container mx-auto p-4">
-        <div className="flex justify-between items-center mb-8">
-          <div className="block sm:hidden">
-            <LogoWithText size={60} />
-          </div>
-          <h1 className="hidden sm:block text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500 bg-clip-text text-transparent">Roon Wrapped</h1>
-        </div>
+        <PageHeader 
+          title="Roon Wrapped"
+          subtitle="Your music listening statistics"
+        />
         <div className="text-center">Loading...</div>
       </main>
     }>

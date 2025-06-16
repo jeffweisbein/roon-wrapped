@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation';
 
 import { Top40List } from '@/components/top-40-list';
 import { Top40Nav } from '@/components/top-40-nav';
+import { PageHeader } from '@/components/ui/page-header';
 
 function Top40PageContent() {
   const searchParams = useSearchParams();
@@ -20,14 +21,10 @@ function Top40PageContent() {
         transition={{ duration: 0.5 }}
         className="space-y-4"
       >
-        <div className="text-center space-y-2">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-            Your Top 40
-          </h1>
-          <p className="text-zinc-400">
-            Your most played music, ranked by play count
-          </p>
-        </div>
+        <PageHeader 
+          title="Your Top 40"
+          subtitle="Your most played music, ranked by play count"
+        />
 
         <Top40Nav />
 

@@ -73,7 +73,11 @@ export function TimePeriodSelector({ value, onValueChange }: TimePeriodSelectorP
         <SelectTrigger className="w-full bg-zinc-800/50 border-zinc-700/50 text-zinc-200">
           <SelectValue placeholder="Select time period" />
         </SelectTrigger>
-        <SelectContent className="bg-zinc-800 border-zinc-700 text-zinc-200">
+        <SelectContent 
+          className="bg-zinc-800 border-zinc-700 text-zinc-200"
+          align="end"
+          sideOffset={5}
+        >
           {TIME_PERIODS.map((period) => (
             <SelectItem
               key={period.value}
