@@ -1,6 +1,7 @@
 const RoonApi = require('node-roon-api');
 const RoonApiTransport = require('node-roon-api-transport');
 const RoonApiImage = require('node-roon-api-image');
+const { env } = require('./env-validation');
 const { historyService } = require('./history-service');
 
 class RoonConnection {
@@ -8,14 +9,15 @@ class RoonConnection {
         // Track currently playing song
         this.currentTrack = null;
         this.trackTimer = null;
+        this.zoneSubscription = null;
 
         // Initialize Roon API with required info
         this.roon = new RoonApi({
-            extension_id: process.env.ROON_EXTENSION_ID || 'com.roonwrapped',
-            display_name: process.env.ROON_DISPLAY_NAME || 'Roon Wrapped',
-            display_version: "1.0.0",
-            publisher: "Jeff",
-            email: "jeff@example.com",
+            extension_id: env.ROON_EXTENSION_ID,
+            display_name: env.ROON_DISPLAY_NAME,
+            display_version: env.ROON_DISPLAY_VERSION,
+            publisher: env.ROON_PUBLISHER,
+            email: env.ROON_EMAIL,
             log_level: "none",
             core_paired: core => {
                 console.log("[Roon] Core paired:", core.display_name);
@@ -23,16 +25,24 @@ class RoonConnection {
                 this.transport = core.services.RoonApiTransport;
                 
                 // Subscribe to zone updates
-                this.transport.subscribe_zones((response, msg) => {
-                    if (response === "Subscribed") {
-                        console.log("[Roon] Subscribed to zone updates");
-                    } else if (response === "Changed") {
-                        this.handleZoneUpdate(msg);
+                this.zoneSubscription = this.transport.subscribe_zones((response, msg) => {
+                    try {
+                        if (response === "Subscribed") {
+                            console.log("[Roon] Subscribed to zone updates");
+                        } else if (response === "Changed") {
+                            this.handleZoneUpdate(msg);
+                        } else if (response === "Unsubscribed") {
+                            console.log("[Roon] Unsubscribed from zone updates");
+                            this.zoneSubscription = null;
+                        }
+                    } catch (error) {
+                        console.error("[Roon] Error in zone subscription handler:", error);
                     }
                 });
             },
             core_unpaired: core => {
                 console.log("[Roon] Core unpaired");
+                this.cleanup();
                 this.core = null;
                 this.transport = null;
             }
@@ -59,8 +69,29 @@ class RoonConnection {
     }
 
     cleanup() {
+        console.log("[Roon] Cleaning up connection...");
+        
+        // Clear any track timer
+        if (this.trackTimer) {
+            clearTimeout(this.trackTimer);
+            this.trackTimer = null;
+        }
+        
+        // Unsubscribe from zones if needed
+        if (this.zoneSubscription && this.transport) {
+            try {
+                this.transport.unsubscribe_zones(this.zoneSubscription);
+                this.zoneSubscription = null;
+            } catch (error) {
+                console.error("[Roon] Error unsubscribing from zones:", error);
+            }
+        }
+        
+        // Clear current track
+        this.currentTrack = null;
+        
+        // Stop discovery
         if (this.roon) {
-            console.log("[Roon] Cleaning up connection...");
             this.roon.stop_discovery();
         }
     }
@@ -201,9 +232,13 @@ class RoonConnection {
     }
 
     getNowPlaying() {
-        if (!this.transport || !this.transport._zones) return null;
+        if (!this.isConnected()) return null;
+        
+        // Use a safer method to get zones if available
+        const zones = this.transport._zones || {};
+        if (Object.keys(zones).length === 0) return null;
 
-        const playingZone = Object.values(this.transport._zones).find(zone => 
+        const playingZone = Object.values(zones).find(zone => 
             zone.state === "playing" && zone.now_playing
         );
 
@@ -258,10 +293,11 @@ class RoonConnection {
 
     // Add method to get connection status for API
     getConnectionStatus() {
+        const zones = this.transport?._zones || {};
         return {
             connected: this.isConnected(),
             core_name: this.core?.display_name || null,
-            zones_count: this.transport?._zones ? Object.keys(this.transport._zones).length : 0,
+            zones_count: Object.keys(zones).length,
             current_track: this.currentTrack ? {
                 title: this.currentTrack.title,
                 artist: this.currentTrack.artist,

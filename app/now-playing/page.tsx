@@ -10,13 +10,19 @@ import {
   Pause,
   Play,
   Volume2,
+  Sparkles,
+  Music,
+  TrendingUp,
 } from 'lucide-react';
 
 import {
   Card,
   CardContent,
+  CardHeader,
+  CardTitle,
 } from '@/components/ui/card';
 import { PageHeader } from '@/components/ui/page-header';
+import { Badge } from '@/components/ui/badge';
 
 interface NowPlayingData {
   title: string;
@@ -32,10 +38,19 @@ interface NowPlayingData {
   state: string;
 }
 
+interface Recommendation {
+  artist?: string;
+  name?: string;
+  similarity?: number;
+  reason?: string;
+  type?: string;
+}
+
 export default function NowPlayingPage() {
   const [nowPlaying, setNowPlaying] = useState<NowPlayingData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
 
   // Function to fetch now playing data
   const fetchNowPlaying = async () => {
@@ -56,6 +71,21 @@ export default function NowPlayingPage() {
     }
   };
 
+  // Function to fetch recommendations
+  const fetchRecommendations = async () => {
+    if (!nowPlaying) return;
+    
+    try {
+      const response = await fetch('/api/recommendations/now-playing');
+      if (response.ok) {
+        const data = await response.json();
+        setRecommendations(data.recommendations || []);
+      }
+    } catch (err) {
+      console.error('Error fetching recommendations:', err);
+    }
+  };
+
   // Set up polling for real-time updates
   useEffect(() => {
     fetchNowPlaying();
@@ -65,6 +95,13 @@ export default function NowPlayingPage() {
     
     return () => clearInterval(interval);
   }, []);
+
+  // Fetch recommendations when track changes
+  useEffect(() => {
+    if (nowPlaying) {
+      fetchRecommendations();
+    }
+  }, [nowPlaying?.title, nowPlaying?.artist]);
 
   // Format time helper function
   const formatTime = (seconds: number): string => {
@@ -304,6 +341,66 @@ export default function NowPlayingPage() {
             </CardContent>
           </Card>
         </motion.div>
+
+        {/* AI Recommendations Section */}
+        {recommendations.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="max-w-2xl mx-auto px-4 sm:px-0"
+          >
+            <Card className="bg-zinc-900/50 border-zinc-800">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Sparkles className="w-5 h-5 text-purple-400" />
+                  Similar Tracks & Artists
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {recommendations.map((rec, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                      className="flex items-center justify-between p-3 bg-zinc-800/30 rounded-lg hover:bg-zinc-800/50 transition-colors"
+                    >
+                      <div className="flex items-center gap-3 flex-1">
+                        <div className="w-10 h-10 bg-purple-500/10 rounded-full flex items-center justify-center">
+                          {rec.type === 'similar_artist' ? (
+                            <TrendingUp className="w-5 h-5 text-purple-400" />
+                          ) : (
+                            <Music className="w-5 h-5 text-purple-400" />
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-medium text-zinc-100">
+                            {rec.name || rec.artist}
+                          </p>
+                          <p className="text-sm text-zinc-400">
+                            {rec.reason}
+                          </p>
+                        </div>
+                        {rec.similarity && (
+                          <Badge variant="secondary" className="text-xs">
+                            {Math.round(rec.similarity * 100)}% match
+                          </Badge>
+                        )}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+                <div className="mt-4 text-center">
+                  <p className="text-xs text-zinc-500">
+                    Recommendations powered by AI analysis of your listening patterns
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
       </motion.div>
     </main>
   );

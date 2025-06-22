@@ -2,11 +2,7 @@
 
 import {
   Suspense,
-  useEffect,
-  useState,
 } from 'react';
-
-import { useSearchParams } from 'next/navigation';
 
 import { PageHeader } from '@/components/ui/page-header';
 import { NowPlayingWidget } from '@/components/dashboard/now-playing-widget';
@@ -14,13 +10,9 @@ import { QuickStatsWidget } from '@/components/dashboard/quick-stats-widget';
 import { TopArtistsWidget } from '@/components/dashboard/top-artists-widget';
 import { ListeningInsightsWidget } from '@/components/dashboard/listening-insights-widget';
 import { RecentActivityWidget } from '@/components/dashboard/recent-activity-widget';
+import RecommendationsWidget from '@/components/recommendations-widget';
+import DiscoveryInsightsWidget from '@/components/discovery-insights-widget';
 
-interface Stats {
-  totalPlays: number;
-  uniqueArtists: number;
-  uniqueTracks: number;
-  totalPlaytime: number;
-}
 
 function HomeContent() {
   return (
@@ -52,8 +44,18 @@ function HomeContent() {
           <ListeningInsightsWidget />
         </div>
 
-        {/* Recent Activity - spans full width with more height */}
-        <div className="lg:col-span-12 h-96">
+        {/* AI Recommendations - spans 8 columns */}
+        <div className="lg:col-span-8">
+          <RecommendationsWidget />
+        </div>
+
+        {/* Discovery Insights - spans 4 columns */}
+        <div className="lg:col-span-4">
+          <DiscoveryInsightsWidget />
+        </div>
+
+        {/* Recent Activity - full width */}
+        <div className="lg:col-span-12">
           <RecentActivityWidget />
         </div>
       </div>

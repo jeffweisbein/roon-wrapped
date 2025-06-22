@@ -18,6 +18,13 @@ A beautiful visualization of your Roon music listening history, inspired by Spot
 - **Wrapped Insights**: Spotify Wrapped-style yearly summaries with listening patterns and trends
 - **Time Period Filtering**: View stats for different time periods (24 hours, 7 days, 30 days, 90 days, all time)
 
+### AI-Powered Features (NEW!)
+- **Smart Recommendations**: Get personalized music suggestions based on your listening history
+- **Similar Track Discovery**: Find songs and artists similar to what you're currently playing
+- **Musical Taste Analysis**: Understand your listening diversity and genre preferences
+- **Discovery Tracking**: Monitor how adventurous your music exploration is
+- **Adaptive Learning**: Recommendations improve over time as the system learns your preferences
+
 ### Design & UI
 - **Modern Dark Theme**: Beautiful dark mode interface with gradient accents
 - **Animated Headers**: Page titles with cycling gradient animations
@@ -42,11 +49,15 @@ The application uses several environment files for different purposes:
 
 Required environment variables:
 
-\`\`\`
+```
 ROON_EXTENSION_ID=your_extension_id
 ROON_DISPLAY_NAME=your_display_name
+
+# Optional (for enhanced AI recommendations)
 LASTFM_API_KEY=your_lastfm_api_key
-\`\`\`
+```
+
+For AI features setup, see [AI_SETUP.md](./AI_SETUP.md)
 
 ## Usage
 
@@ -115,8 +126,8 @@ The application includes a unified start script that can run in different modes:
 - **Process Management**: PM2 for running multiple services
 
 ### Key Pages
-- **Home** (`/`): Overview dashboard with key statistics
-- **Now Playing** (`/now-playing`): Real-time track display with album art
+- **Home** (`/`): Dashboard with statistics, AI recommendations, and discovery insights
+- **Now Playing** (`/now-playing`): Real-time track display with similar track suggestions
 - **Wrapped** (`/wrapped`): Comprehensive listening insights and patterns
 - **Top 40** (`/top-40`): Charts for top artists, albums, and tracks
 

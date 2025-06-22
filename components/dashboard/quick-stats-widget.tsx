@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, Clock, Music2, Users, Disc3, Headphones } from 'lucide-react';
+import { TrendingUp, Clock, Users, Disc3, Headphones } from 'lucide-react';
 import Link from 'next/link';
 
 interface QuickStats {

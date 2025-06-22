@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, Music } from 'lucide-react';
+import { Play, Pause, Music, Loader2, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -20,6 +20,9 @@ interface NowPlayingData {
 export function NowPlayingWidget() {
   const [nowPlaying, setNowPlaying] = useState<NowPlayingData | null>(null);
   const [imageError, setImageError] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
     const fetchNowPlaying = async () => {
@@ -29,16 +32,30 @@ export function NowPlayingWidget() {
           const data = await response.json();
           setNowPlaying(data);
           setImageError(false);
+          setError(null);
+          setRetryCount(0);
+        } else if (response.status === 404) {
+          // No active playback
+          setNowPlaying(null);
+          setError(null);
+        } else {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
       } catch (error) {
         console.error('Error fetching now playing:', error);
+        setError('Failed to connect to Roon');
+        setRetryCount(prev => prev + 1);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchNowPlaying();
-    const interval = setInterval(fetchNowPlaying, 2000);
+    // Exponential backoff for retries
+    const baseInterval = error && retryCount > 3 ? 10000 : 2000;
+    const interval = setInterval(fetchNowPlaying, baseInterval);
     return () => clearInterval(interval);
-  }, []);
+  }, [error, retryCount]);
 
   const progressPercentage = nowPlaying 
     ? Math.min((nowPlaying.seek_position / nowPlaying.length) * 100, 100)
@@ -56,7 +73,27 @@ export function NowPlayingWidget() {
         
         <div className="relative p-6 h-full flex flex-col">
           <AnimatePresence mode="wait">
-            {nowPlaying ? (
+            {loading ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex items-center justify-center h-full"
+              >
+                <Loader2 className="w-8 h-8 text-zinc-400 animate-spin" />
+              </motion.div>
+            ) : error ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex items-center justify-center h-full"
+              >
+                <div className="text-center">
+                  <AlertCircle className="w-10 h-10 text-red-500/70 mx-auto mb-3" />
+                  <p className="text-zinc-400 text-sm">{error}</p>
+                  <p className="text-zinc-500 text-xs mt-1">Retrying...</p>
+                </div>
+              </motion.div>
+            ) : nowPlaying ? (
               <motion.div
                 key={nowPlaying.title}
                 initial={{ opacity: 0, y: 20 }}

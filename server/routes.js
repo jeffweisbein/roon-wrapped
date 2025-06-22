@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { roonConnection } = require('./roon-connection');
 const { historyService } = require('./history-service');
+const recommendationsRouter = require('./routes/recommendations');
+
+// Mount recommendations routes
+router.use('/api/recommendations', recommendationsRouter);
 
 // Health check
 router.get('/api/health', (req, res) => {

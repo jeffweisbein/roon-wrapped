@@ -5,7 +5,12 @@ const nextConfig = {
     ROON_SERVER_HOST: 'localhost',
   },
   async rewrites() {
-    return []
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:3003/api/:path*',
+      },
+    ]
   }
 }
 

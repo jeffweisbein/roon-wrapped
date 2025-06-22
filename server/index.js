@@ -1,12 +1,14 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const { env } = require('./env-validation');
 const routes = require('./routes');
 const { roonConnection } = require('./roon-connection');
 const { historyService } = require('./history-service');
+const { processHandlerManager } = require('./process-handlers');
 
 const app = express();
-const port = process.env.ROON_SERVER_PORT || 3003;
+const port = env.ROON_SERVER_PORT || env.SERVER_PORT;
 
 // Middleware
 app.use(cors());
@@ -31,19 +33,10 @@ app.listen(port, () => {
     initializeServices();
 });
 
-// Cleanup on exit
-process.on('SIGTERM', cleanup);
-process.on('SIGINT', cleanup);
-
-async function cleanup() {
-    try {
-        console.log('[Server] Cleaning up...');
-        if (roonConnection) {
-            roonConnection.cleanup();
-        }
-        process.exit(0);
-    } catch (err) {
-        console.error('[Server] Error during cleanup:', err);
-        process.exit(1);
+// Register cleanup handler
+processHandlerManager.register(async () => {
+    console.log('[Server] Cleaning up...');
+    if (roonConnection) {
+        roonConnection.cleanup();
     }
-} 
+}); 

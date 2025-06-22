@@ -22,7 +22,6 @@ export function ListeningInsightsWidget() {
       .then(data => {
         if (data.listeningPatterns && data.peakListeningHour !== undefined) {
           // Determine peak day from dayOfWeekPlays
-          const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
           let peakDay = 'Friday';
           let maxPlays = 0;
           

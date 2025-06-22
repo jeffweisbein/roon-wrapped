@@ -6,6 +6,7 @@ class HistoryService {
         this.tracks = [];
         this.historyFile = path.join(__dirname, '../data/listening-history.json');
         this.initialized = false;
+        this.initializationPromise = null;
     }
 
     async initialize() {
@@ -13,7 +14,25 @@ class HistoryService {
             console.log('[History] Already initialized');
             return;
         }
-
+        
+        // If initialization is already in progress, return the existing promise
+        if (this.initializationPromise) {
+            console.log('[History] Initialization already in progress, waiting...');
+            return this.initializationPromise;
+        }
+        
+        // Create a new initialization promise
+        this.initializationPromise = this._performInitialization();
+        
+        try {
+            await this.initializationPromise;
+        } finally {
+            // Clear the promise after completion
+            this.initializationPromise = null;
+        }
+    }
+    
+    async _performInitialization() {
         try {
             console.log('[History] Starting initialization');
             console.log('[History] History file path:', this.historyFile);
