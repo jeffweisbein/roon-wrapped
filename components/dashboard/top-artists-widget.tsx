@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Crown, TrendingUp } from 'lucide-react';
-import Link from 'next/link';
-import Image from 'next/image';
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Crown, TrendingUp } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { formatNumber } from "@/lib/utils";
 
 interface TopArtist {
   name: string;
@@ -17,26 +18,28 @@ export function TopArtistsWidget() {
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
-    fetch('/api/history/wrapped?period=30')
-      .then(res => res.json())
-      .then(data => {
+    fetch("/api/history/wrapped?period=30")
+      .then((res) => res.json())
+      .then((data) => {
         if (data.topArtistsByPlays) {
           // Take top 10 artists
-          const top10 = data.topArtistsByPlays.slice(0, 10).map((artist: any) => ({
-            name: artist.name || artist.artist,
-            count: artist.count,
-            image_key: artist.image_key
-          }));
+          const top10 = data.topArtistsByPlays
+            .slice(0, 10)
+            .map((artist: any) => ({
+              name: artist.name || artist.artist,
+              count: artist.count,
+              image_key: artist.image_key,
+            }));
           setArtists(top10);
         }
       })
-      .catch(error => {
-        console.error('Error fetching top artists:', error);
+      .catch((error) => {
+        console.error("Error fetching top artists:", error);
       });
   }, []);
 
   const handleImageError = (artistName: string) => {
-    setImageErrors(prev => ({ ...prev, [artistName]: true }));
+    setImageErrors((prev) => ({ ...prev, [artistName]: true }));
   };
 
   return (
@@ -48,7 +51,7 @@ export function TopArtistsWidget() {
       >
         {/* Background gradient effect */}
         <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        
+
         <div className="relative p-6 h-full flex flex-col">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-white">Top Artists</h3>
@@ -65,12 +68,17 @@ export function TopArtistsWidget() {
                 className="flex items-center gap-3 py-1"
               >
                 {/* Rank */}
-                <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                  index === 0 ? 'bg-gradient-to-r from-yellow-400 to-orange-400 text-black' :
-                  index === 1 ? 'bg-gradient-to-r from-gray-300 to-gray-400 text-black' :
-                  index === 2 ? 'bg-gradient-to-r from-orange-600 to-orange-700 text-white' :
-                  'bg-zinc-800 text-zinc-400'
-                }`}>
+                <div
+                  className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                    index === 0
+                      ? "bg-gradient-to-r from-yellow-400 to-orange-400 text-black"
+                      : index === 1
+                        ? "bg-gradient-to-r from-gray-300 to-gray-400 text-black"
+                        : index === 2
+                          ? "bg-gradient-to-r from-orange-600 to-orange-700 text-white"
+                          : "bg-zinc-800 text-zinc-400"
+                  }`}
+                >
                   {index === 0 && <Crown className="w-3 h-3" />}
                   {index > 0 && index + 1}
                 </div>
@@ -96,8 +104,10 @@ export function TopArtistsWidget() {
 
                 {/* Artist name and plays */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-white truncate">{artist.name}</p>
-                  <p className="text-xs text-zinc-500">{artist.count} plays</p>
+                  <p className="text-sm font-medium text-white truncate">
+                    {artist.name}
+                  </p>
+                  <p className="text-xs text-zinc-500">{formatNumber(artist.count)} plays</p>
                 </div>
 
                 {/* Trend indicator */}

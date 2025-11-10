@@ -1,31 +1,35 @@
-const axios = require('axios');
-const crypto = require('crypto');
-const { env } = require('../env-validation');
+const axios = require("axios");
+const crypto = require("crypto");
+const { env } = require("../env-validation");
 
 // Simple logger wrapper
 const logger = {
-  info: (...args) => console.log('[MusicMetadata]', ...args),
-  warn: (...args) => console.warn('[MusicMetadata]', ...args),
-  error: (...args) => console.error('[MusicMetadata]', ...args)
+  info: (...args) => console.log("[MusicMetadata]", ...args),
+  warn: (...args) => console.warn("[MusicMetadata]", ...args),
+  error: (...args) => console.error("[MusicMetadata]", ...args),
 };
 
 class MusicMetadataService {
   constructor() {
     this.cache = new Map();
     this.cacheExpiry = 24 * 60 * 60 * 1000; // 24 hours
-    
+
     // Last.fm API (free tier)
-    this.lastFmApiKey = env.LASTFM_API_KEY || '';
-    this.lastFmBaseUrl = 'https://ws.audioscrobbler.com/2.0/';
-    
+    this.lastFmApiKey = env.LASTFM_API_KEY || "";
+    this.lastFmBaseUrl = "https://ws.audioscrobbler.com/2.0/";
+
     // MusicBrainz API (free, no key required)
-    this.musicBrainzBaseUrl = 'https://musicbrainz.org/ws/2/';
-    this.musicBrainzUserAgent = 'RoonWrapped/1.0.0 (https://github.com/jeffweisbein/roon-wrapped)';
+    this.musicBrainzBaseUrl = "https://musicbrainz.org/ws/2/";
+    this.musicBrainzUserAgent =
+      "RoonWrapped/1.0.0 (https://github.com/jeffweisbein/roon-wrapped)";
   }
 
   getCacheKey(service, method, params) {
     const paramStr = JSON.stringify(params);
-    return crypto.createHash('md5').update(`${service}:${method}:${paramStr}`).digest('hex');
+    return crypto
+      .createHash("md5")
+      .update(`${service}:${method}:${paramStr}`)
+      .digest("hex");
   }
 
   getFromCache(key) {
@@ -43,11 +47,11 @@ class MusicMetadataService {
 
   async fetchLastFm(method, params) {
     if (!this.lastFmApiKey) {
-      logger.warn('Last.fm API key not configured');
+      logger.warn("Last.fm API key not configured");
       return null;
     }
 
-    const cacheKey = this.getCacheKey('lastfm', method, params);
+    const cacheKey = this.getCacheKey("lastfm", method, params);
     const cached = this.getFromCache(cacheKey);
     if (cached) return cached;
 
@@ -56,10 +60,10 @@ class MusicMetadataService {
         params: {
           method,
           api_key: this.lastFmApiKey,
-          format: 'json',
-          ...params
+          format: "json",
+          ...params,
         },
-        timeout: 5000
+        timeout: 5000,
       });
 
       const data = response.data;
@@ -72,7 +76,7 @@ class MusicMetadataService {
   }
 
   async fetchMusicBrainz(endpoint, params) {
-    const cacheKey = this.getCacheKey('musicbrainz', endpoint, params);
+    const cacheKey = this.getCacheKey("musicbrainz", endpoint, params);
     const cached = this.getFromCache(cacheKey);
     if (cached) return cached;
 
@@ -80,16 +84,19 @@ class MusicMetadataService {
       // MusicBrainz requires 1 second between requests
       await this.rateLimitMusicBrainz();
 
-      const response = await axios.get(`${this.musicBrainzBaseUrl}${endpoint}`, {
-        params: {
-          fmt: 'json',
-          ...params
+      const response = await axios.get(
+        `${this.musicBrainzBaseUrl}${endpoint}`,
+        {
+          params: {
+            fmt: "json",
+            ...params,
+          },
+          headers: {
+            "User-Agent": this.musicBrainzUserAgent,
+          },
+          timeout: 5000,
         },
-        headers: {
-          'User-Agent': this.musicBrainzUserAgent
-        },
-        timeout: 5000
-      });
+      );
 
       const data = response.data;
       this.setCache(cacheKey, data);
@@ -108,7 +115,7 @@ class MusicMetadataService {
     if (this.lastMusicBrainzRequest) {
       const elapsed = now - this.lastMusicBrainzRequest;
       if (elapsed < 1000) {
-        await new Promise(resolve => setTimeout(resolve, 1000 - elapsed));
+        await new Promise((resolve) => setTimeout(resolve, 1000 - elapsed));
       }
     }
     this.lastMusicBrainzRequest = Date.now();
@@ -116,67 +123,72 @@ class MusicMetadataService {
 
   // Get similar artists
   async getSimilarArtists(artistName, limit = 10) {
-    const data = await this.fetchLastFm('artist.getSimilar', {
+    const data = await this.fetchLastFm("artist.getSimilar", {
       artist: artistName,
-      limit
+      limit,
     });
 
     if (!data?.similarartists?.artist) return [];
 
-    return data.similarartists.artist.map(artist => ({
+    return data.similarartists.artist.map((artist) => ({
       name: artist.name,
       match: parseFloat(artist.match),
-      mbid: artist.mbid || null
+      mbid: artist.mbid || null,
     }));
   }
 
   // Get artist info with tags
   async getArtistInfo(artistName) {
     // Skip empty artist names
-    if (!artistName || artistName.trim() === '') {
+    if (!artistName || artistName.trim() === "") {
       return null;
     }
-    
+
     try {
       // Try Last.fm first, fall back to cached data if MusicBrainz fails
-      const lastFmData = await this.fetchLastFm('artist.getInfo', { artist: artistName });
-      
+      const lastFmData = await this.fetchLastFm("artist.getInfo", {
+        artist: artistName,
+      });
+
       // Only fetch MusicBrainz if we have a valid artist name
       let mbData = null;
       if (artistName.length > 2) {
         mbData = await this.searchMusicBrainzArtist(artistName);
       }
 
-      const tags = lastFmData?.artist?.tags?.tag?.map(t => t.name) || [];
+      const tags = lastFmData?.artist?.tags?.tag?.map((t) => t.name) || [];
       const genres = mbData?.genres || [];
 
       return {
         name: artistName,
         tags: [...new Set([...tags, ...genres])],
-        bio: lastFmData?.artist?.bio?.summary || '',
+        bio: lastFmData?.artist?.bio?.summary || "",
         mbid: lastFmData?.artist?.mbid || mbData?.mbid || null,
         listeners: parseInt(lastFmData?.artist?.stats?.listeners) || 0,
-        playcount: parseInt(lastFmData?.artist?.stats?.playcount) || 0
+        playcount: parseInt(lastFmData?.artist?.stats?.playcount) || 0,
       };
     } catch (error) {
-      logger.error(`Error getting artist info for ${artistName}:`, error.message);
+      logger.error(
+        `Error getting artist info for ${artistName}:`,
+        error.message,
+      );
       // Return basic info even if APIs fail
       return {
         name: artistName,
         tags: [],
-        bio: '',
+        bio: "",
         mbid: null,
         listeners: 0,
-        playcount: 0
+        playcount: 0,
       };
     }
   }
 
   // Search MusicBrainz for artist
   async searchMusicBrainzArtist(artistName) {
-    const data = await this.fetchMusicBrainz('artist/', {
+    const data = await this.fetchMusicBrainz("artist/", {
       query: artistName,
-      limit: 1
+      limit: 1,
     });
 
     if (!data?.artists?.length) return null;
@@ -185,15 +197,15 @@ class MusicMetadataService {
     return {
       mbid: artist.id,
       name: artist.name,
-      genres: artist.tags?.map(t => t.name) || []
+      genres: artist.tags?.map((t) => t.name) || [],
     };
   }
 
   // Get track info
   async getTrackInfo(artistName, trackName) {
-    const data = await this.fetchLastFm('track.getInfo', {
+    const data = await this.fetchLastFm("track.getInfo", {
       artist: artistName,
-      track: trackName
+      track: trackName,
     });
 
     if (!data?.track) return null;
@@ -204,25 +216,25 @@ class MusicMetadataService {
       duration: parseInt(data.track.duration) || 0,
       listeners: parseInt(data.track.listeners) || 0,
       playcount: parseInt(data.track.playcount) || 0,
-      tags: data.track.toptags?.tag?.map(t => t.name) || []
+      tags: data.track.toptags?.tag?.map((t) => t.name) || [],
     };
   }
 
   // Get similar tracks
   async getSimilarTracks(artistName, trackName, limit = 10) {
-    const data = await this.fetchLastFm('track.getSimilar', {
+    const data = await this.fetchLastFm("track.getSimilar", {
       artist: artistName,
       track: trackName,
-      limit
+      limit,
     });
 
     if (!data?.similartracks?.track) return [];
 
-    return data.similartracks.track.map(track => ({
+    return data.similartracks.track.map((track) => ({
       name: track.name,
-      artist: track.artist?.name || '',
+      artist: track.artist?.name || "",
       match: parseFloat(track.match),
-      duration: parseInt(track.duration) || 0
+      duration: parseInt(track.duration) || 0,
     }));
   }
 
@@ -234,35 +246,57 @@ class MusicMetadataService {
       tempo: null, // Would need audio analysis
       energy: null, // Based on genre/tags heuristics
       danceability: null,
-      valence: null // Mood estimation
+      valence: null, // Mood estimation
     };
 
     // Simple heuristics based on genre/tags
     const tags = track.tags || [];
-    const lowerTags = tags.map(t => t.toLowerCase());
+    const lowerTags = tags.map((t) => t.toLowerCase());
 
     // Energy estimation
-    if (lowerTags.some(tag => ['metal', 'rock', 'punk', 'electronic'].includes(tag))) {
+    if (
+      lowerTags.some((tag) =>
+        ["metal", "rock", "punk", "electronic"].includes(tag),
+      )
+    ) {
       features.energy = 0.8;
-    } else if (lowerTags.some(tag => ['ambient', 'classical', 'jazz'].includes(tag))) {
+    } else if (
+      lowerTags.some((tag) => ["ambient", "classical", "jazz"].includes(tag))
+    ) {
       features.energy = 0.3;
     } else {
       features.energy = 0.5;
     }
 
     // Danceability estimation
-    if (lowerTags.some(tag => ['dance', 'electronic', 'house', 'techno', 'disco'].includes(tag))) {
+    if (
+      lowerTags.some((tag) =>
+        ["dance", "electronic", "house", "techno", "disco"].includes(tag),
+      )
+    ) {
       features.danceability = 0.8;
-    } else if (lowerTags.some(tag => ['classical', 'ambient', 'experimental'].includes(tag))) {
+    } else if (
+      lowerTags.some((tag) =>
+        ["classical", "ambient", "experimental"].includes(tag),
+      )
+    ) {
       features.danceability = 0.2;
     } else {
       features.danceability = 0.5;
     }
 
     // Valence (mood) estimation
-    if (lowerTags.some(tag => ['happy', 'upbeat', 'cheerful', 'party'].includes(tag))) {
+    if (
+      lowerTags.some((tag) =>
+        ["happy", "upbeat", "cheerful", "party"].includes(tag),
+      )
+    ) {
       features.valence = 0.8;
-    } else if (lowerTags.some(tag => ['sad', 'melancholy', 'dark', 'depressing'].includes(tag))) {
+    } else if (
+      lowerTags.some((tag) =>
+        ["sad", "melancholy", "dark", "depressing"].includes(tag),
+      )
+    ) {
       features.valence = 0.2;
     } else {
       features.valence = 0.5;

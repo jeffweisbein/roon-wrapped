@@ -1,6 +1,6 @@
-import { AnimatedGradientText } from './animated-gradient-text';
-import { LogoWithText } from '../logo';
-import { cn } from '@/lib/utils';
+import { AnimatedGradientText } from "./animated-gradient-text";
+import { LogoWithText } from "../logo";
+import { cn } from "@/lib/utils";
 
 interface PageHeaderProps {
   title: string;
@@ -10,9 +10,15 @@ interface PageHeaderProps {
   className?: string;
 }
 
-export function PageHeader({ title, subtitle, rightContent, titleSuffix, className }: PageHeaderProps) {
+export function PageHeader({
+  title,
+  subtitle,
+  rightContent,
+  titleSuffix,
+  className,
+}: PageHeaderProps) {
   return (
-    <div className={cn('mb-8', className)}>
+    <div className={cn("mb-8", className)}>
       <div className="flex justify-between items-start">
         <div className="flex-1">
           {/* Logo on mobile, text on desktop */}
@@ -30,9 +36,7 @@ export function PageHeader({ title, subtitle, rightContent, titleSuffix, classNa
           )}
         </div>
         {rightContent && (
-          <div className="ml-4 flex-shrink-0">
-            {rightContent}
-          </div>
+          <div className="ml-4 flex-shrink-0">{rightContent}</div>
         )}
       </div>
     </div>

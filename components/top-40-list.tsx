@@ -1,18 +1,11 @@
-'use client';
+"use client";
 
-import {
-  useEffect,
-  useState,
-} from 'react';
+import { useEffect, useState } from "react";
 
-import { motion } from 'framer-motion';
-import {
-  AlertCircle,
-  Disc3,
-  Mic2,
-  Music2,
-} from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
+import { motion } from "framer-motion";
+import { AlertCircle, Disc3, Mic2, Music2 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { formatNumber } from "@/lib/utils";
 
 interface TopItem {
   name: string;
@@ -22,7 +15,7 @@ interface TopItem {
 }
 
 interface Top40ListProps {
-  type: 'artists' | 'albums' | 'tracks';
+  type: "artists" | "albums" | "tracks";
 }
 
 export function Top40List({ type }: Top40ListProps) {
@@ -30,24 +23,24 @@ export function Top40List({ type }: Top40ListProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();
-  const zone = searchParams.get('zone');
+  const zone = searchParams.get("zone");
 
   useEffect(() => {
     async function fetchData() {
       try {
         setLoading(true);
-        const url = new URL('/api/history/top-40', window.location.origin);
+        const url = new URL("/api/history/top-40", window.location.origin);
         if (zone) {
-          url.searchParams.set('zone', zone);
+          url.searchParams.set("zone", zone);
         }
         const response = await fetch(url);
         if (!response.ok) {
-          throw new Error('Failed to fetch top 40 data');
+          throw new Error("Failed to fetch top 40 data");
         }
         const data = await response.json();
         setItems(data[type]);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load data');
+        setError(err instanceof Error ? err.message : "Failed to load data");
       } finally {
         setLoading(false);
       }
@@ -76,18 +69,18 @@ export function Top40List({ type }: Top40ListProps) {
   if (!items.length) {
     return (
       <div className="flex items-center justify-center h-48 text-neutral-400">
-        No data available {zone ? `for zone "${zone}"` : ''}
+        No data available {zone ? `for zone "${zone}"` : ""}
       </div>
     );
   }
 
-  const Icon = type === 'artists' ? Mic2 : type === 'albums' ? Disc3 : Music2;
+  const Icon = type === "artists" ? Mic2 : type === "albums" ? Disc3 : Music2;
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {items.map((item, index) => (
         <motion.div
-          key={`${item.name}-${item.artist || ''}`}
+          key={`${item.name}-${item.artist || ""}`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: index * 0.05 }}
@@ -104,12 +97,16 @@ export function Top40List({ type }: Top40ListProps) {
                   onError={(e) => {
                     // If image fails to load, show fallback icon
                     const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    target.parentElement?.querySelector('.fallback-icon')?.classList.remove('hidden');
+                    target.style.display = "none";
+                    target.parentElement
+                      ?.querySelector(".fallback-icon")
+                      ?.classList.remove("hidden");
                   }}
                 />
               ) : null}
-              <div className={`w-full h-full bg-white/10 rounded-lg flex items-center justify-center fallback-icon ${item.image_key ? 'hidden' : ''}`}>
+              <div
+                className={`w-full h-full bg-white/10 rounded-lg flex items-center justify-center fallback-icon ${item.image_key ? "hidden" : ""}`}
+              >
                 <Icon className="w-8 h-8 text-neutral-400" />
               </div>
             </div>
@@ -123,7 +120,7 @@ export function Top40List({ type }: Top40ListProps) {
                 </p>
               )}
               <p className="text-sm text-neutral-500 mt-1">
-                {item.count} {type === 'artists' ? 'plays' : 'times'}
+                {formatNumber(item.count)} {type === "artists" ? "plays" : "times"}
               </p>
             </div>
             <div className="flex-shrink-0 w-8 text-2xl font-bold text-neutral-600">
@@ -134,4 +131,4 @@ export function Top40List({ type }: Top40ListProps) {
       ))}
     </div>
   );
-} 
+}

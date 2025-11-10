@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Compass, BarChart3, Loader2 } from 'lucide-react';
-import { Progress } from './ui/progress';
+import React, { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Compass, BarChart3, Loader2 } from "lucide-react";
+import { Progress } from "./ui/progress";
 
 interface DiscoveryStats {
   diversityScore: number;
@@ -23,28 +23,28 @@ export default function DiscoveryInsightsWidget() {
 
   const fetchDiscoveryStats = async () => {
     try {
-      const response = await fetch('/api/recommendations/discovery-stats');
+      const response = await fetch("/api/recommendations/discovery-stats");
       const data = await response.json();
       setStats(data);
     } catch (err) {
-      console.error('Failed to fetch discovery stats:', err);
+      console.error("Failed to fetch discovery stats:", err);
     } finally {
       setLoading(false);
     }
   };
 
   const getDiversityLabel = (score: number) => {
-    if (score >= 0.7) return 'Highly Diverse';
-    if (score >= 0.5) return 'Moderately Diverse';
-    if (score >= 0.3) return 'Focused';
-    return 'Very Focused';
+    if (score >= 0.7) return "Highly Diverse";
+    if (score >= 0.5) return "Moderately Diverse";
+    if (score >= 0.3) return "Focused";
+    return "Very Focused";
   };
 
   const getDiversityColor = (score: number) => {
-    if (score >= 0.7) return 'text-green-500';
-    if (score >= 0.5) return 'text-blue-500';
-    if (score >= 0.3) return 'text-yellow-500';
-    return 'text-orange-500';
+    if (score >= 0.7) return "text-green-500";
+    if (score >= 0.5) return "text-blue-500";
+    if (score >= 0.3) return "text-yellow-500";
+    return "text-orange-500";
   };
 
   if (loading) {
@@ -62,7 +62,8 @@ export default function DiscoveryInsightsWidget() {
       <Card>
         <CardContent className="py-8">
           <p className="text-center text-muted-foreground">
-            Discovery insights will appear after analyzing your listening history
+            Discovery insights will appear after analyzing your listening
+            history
           </p>
         </CardContent>
       </Card>
@@ -81,7 +82,9 @@ export default function DiscoveryInsightsWidget() {
         <div>
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm font-medium">Musical Diversity</span>
-            <span className={`text-sm font-bold ${getDiversityColor(stats.diversityScore)}`}>
+            <span
+              className={`text-sm font-bold ${getDiversityColor(stats.diversityScore)}`}
+            >
               {getDiversityLabel(stats.diversityScore)}
             </span>
           </div>
@@ -99,11 +102,11 @@ export default function DiscoveryInsightsWidget() {
             </span>
           </div>
           <div className="flex gap-1 h-6">
-            <div 
+            <div
               className="bg-primary rounded-l"
               style={{ width: `${(1 - stats.discoveryRatio) * 100}%` }}
             />
-            <div 
+            <div
               className="bg-green-500 rounded-r"
               style={{ width: `${stats.discoveryRatio * 100}%` }}
             />

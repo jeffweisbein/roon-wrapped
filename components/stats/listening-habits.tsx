@@ -78,15 +78,15 @@ function StatCard({
 }) {
   return (
     <div className="group bg-white/5 hover:bg-white/10 backdrop-blur-lg border border-white/10 hover:border-white/20 p-6 rounded-2xl transition-all">
-      <h3 className={`text-sm font-medium text-neutral-400 bg-gradient-to-r ${gradient} bg-clip-text text-transparent group-hover:opacity-100 opacity-80`}>
+      <h3
+        className={`text-sm font-medium text-neutral-400 bg-gradient-to-r ${gradient} bg-clip-text text-transparent group-hover:opacity-100 opacity-80`}
+      >
         {title}
       </h3>
       <p className="mt-2 text-3xl font-bold tracking-tight text-white">
         {value}
       </p>
-      <p className="mt-1 text-sm text-neutral-500">
-        {description}
-      </p>
+      <p className="mt-1 text-sm text-neutral-500">{description}</p>
     </div>
   );
-} 
+}

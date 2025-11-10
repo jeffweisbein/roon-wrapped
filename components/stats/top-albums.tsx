@@ -1,3 +1,5 @@
+import { formatNumber } from "@/lib/utils";
+
 interface Album {
   name: string;
   artist: string;
@@ -14,14 +16,10 @@ export function TopAlbums({ albums, limit = 5 }: TopAlbumsProps) {
   const displayAlbums = albums.slice(0, limit);
 
   if (!displayAlbums.length) {
-    return (
-      <div className="text-neutral-400">
-        No albums found
-      </div>
-    );
+    return <div className="text-neutral-400">No albums found</div>;
   }
 
-  const maxCount = Math.max(...displayAlbums.map(album => album.count));
+  const maxCount = Math.max(...displayAlbums.map((album) => album.count));
 
   return (
     <div className="space-y-4">
@@ -41,12 +39,16 @@ export function TopAlbums({ albums, limit = 5 }: TopAlbumsProps) {
                   onError={(e) => {
                     // If image fails to load, show fallback icon
                     const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    target.parentElement?.querySelector('.fallback-icon')?.classList.remove('hidden');
+                    target.style.display = "none";
+                    target.parentElement
+                      ?.querySelector(".fallback-icon")
+                      ?.classList.remove("hidden");
                   }}
                 />
               ) : null}
-              <div className={`w-full h-full bg-white/10 rounded-lg flex items-center justify-center fallback-icon ${album.image_key ? 'hidden' : ''}`}>
+              <div
+                className={`w-full h-full bg-white/10 rounded-lg flex items-center justify-center fallback-icon ${album.image_key ? "hidden" : ""}`}
+              >
                 <span className="text-2xl">💿</span>
               </div>
             </div>
@@ -67,7 +69,7 @@ export function TopAlbums({ albums, limit = 5 }: TopAlbumsProps) {
                   />
                 </div>
                 <span className="text-sm text-neutral-400 tabular-nums">
-                  {album.count} plays
+                  {formatNumber(album.count)} plays
                 </span>
               </div>
             </div>
@@ -76,4 +78,4 @@ export function TopAlbums({ albums, limit = 5 }: TopAlbumsProps) {
       ))}
     </div>
   );
-} 
+}

@@ -18,6 +18,7 @@ stop_pm2() {
         echo "Stopping PM2 processes..."
         pm2 stop all
         pm2 delete all
+        pm2 kill
     else
         echo "PM2 not found"
     fi
@@ -25,7 +26,7 @@ stop_pm2() {
 
 # Kill processes on specific ports
 echo "Cleaning up ports..."
-kill_port 3000  # Next.js
+kill_port 8080  # Next.js
 kill_port 3003  # Roon server
 
 # Stop PM2 processes

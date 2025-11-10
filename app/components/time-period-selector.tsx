@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import * as React from 'react';
+import * as React from "react";
 
 import {
   Select,
@@ -8,7 +8,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
 export interface TimePeriod {
   value: string;
@@ -16,11 +16,11 @@ export interface TimePeriod {
 }
 
 const TIME_PERIODS: TimePeriod[] = [
-  { value: 'all', label: 'All Time' },
-  { value: '7', label: 'Last 7 Days' },
-  { value: '14', label: 'Last 14 Days' },
-  { value: '30', label: 'Last 30 Days' },
-  { value: '90', label: 'Last 90 Days' },
+  { value: "all", label: "All Time" },
+  { value: "7", label: "Last 7 Days" },
+  { value: "14", label: "Last 14 Days" },
+  { value: "30", label: "Last 30 Days" },
+  { value: "90", label: "Last 90 Days" },
 ];
 
 interface TimePeriodSelectorProps {
@@ -28,7 +28,10 @@ interface TimePeriodSelectorProps {
   onValueChange: (value: string) => void;
 }
 
-export function TimePeriodSelector({ value, onValueChange }: TimePeriodSelectorProps) {
+export function TimePeriodSelector({
+  value,
+  onValueChange,
+}: TimePeriodSelectorProps) {
   return (
     <div className="w-[200px]">
       <Select value={value} onValueChange={onValueChange}>
@@ -49,4 +52,4 @@ export function TimePeriodSelector({ value, onValueChange }: TimePeriodSelectorP
       </Select>
     </div>
   );
-} 
+}

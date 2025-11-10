@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { TrendingUp, Clock, Users, Disc3, Headphones } from 'lucide-react';
-import Link from 'next/link';
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { TrendingUp, Clock, Users, Disc3, Headphones } from "lucide-react";
+import Link from "next/link";
+import { formatNumber } from "@/lib/utils";
 
 interface QuickStats {
   totalPlays: number;
@@ -21,32 +22,38 @@ export function QuickStatsWidget() {
     const fetchStats = async () => {
       try {
         const [allRes, todayRes, weekRes] = await Promise.all([
-          fetch('/api/stats?period=all'),
-          fetch('/api/stats?period=1'),
-          fetch('/api/stats?period=7')
+          fetch("/api/stats?period=all"),
+          fetch("/api/stats?period=1"),
+          fetch("/api/stats?period=7"),
         ]);
 
-        console.log('Response status:', { 
-          all: allRes.status, 
-          today: todayRes.status, 
-          week: weekRes.status 
+        console.log("Response status:", {
+          all: allRes.status,
+          today: todayRes.status,
+          week: weekRes.status,
         });
 
         if (!allRes.ok || !todayRes.ok || !weekRes.ok) {
-          throw new Error('Failed to fetch stats');
+          throw new Error("Failed to fetch stats");
         }
 
         const allData = await allRes.json();
         const todayData = await todayRes.json();
         const weekData = await weekRes.json();
 
-        console.log('Quick Stats Data:', { allData, todayData, weekData });
+        console.log("Quick Stats Data:", { allData, todayData, weekData });
 
         // Calculate weekly growth
-        const lastWeekAverage = weekData.totalPlays ? weekData.totalPlays / 7 : 0;
-        const growth = todayData.totalPlays > 0 && lastWeekAverage > 0
-          ? Math.round(((todayData.totalPlays - lastWeekAverage) / lastWeekAverage) * 100)
+        const lastWeekAverage = weekData.totalPlays
+          ? weekData.totalPlays / 7
           : 0;
+        const growth =
+          todayData.totalPlays > 0 && lastWeekAverage > 0
+            ? Math.round(
+                ((todayData.totalPlays - lastWeekAverage) / lastWeekAverage) *
+                  100,
+              )
+            : 0;
 
         setStats({
           totalPlays: allData.totalPlays || 0,
@@ -54,10 +61,10 @@ export function QuickStatsWidget() {
           uniqueTracks: allData.uniqueTracks || 0,
           totalPlaytime: allData.totalPlaytime || 0,
           todayPlays: todayData.totalPlays || 0,
-          weeklyGrowth: growth
+          weeklyGrowth: growth,
         });
       } catch (error) {
-        console.error('Error fetching stats:', error);
+        console.error("Error fetching stats:", error);
         // Set default values on error
         setStats({
           totalPlays: 0,
@@ -65,7 +72,7 @@ export function QuickStatsWidget() {
           uniqueTracks: 0,
           totalPlaytime: 0,
           todayPlays: 0,
-          weeklyGrowth: 0
+          weeklyGrowth: 0,
         });
       }
     };
@@ -74,37 +81,41 @@ export function QuickStatsWidget() {
   }, []);
 
   const formatTime = (seconds: number) => {
-    if (!seconds || seconds === 0) return '0h';
+    if (!seconds || seconds === 0) return "0h";
     const hours = Math.floor(seconds / 3600);
     return `${hours}h`;
   };
 
   const statCards = [
     {
-      label: 'Today',
-      value: stats?.todayPlays ?? 0,
+      label: "Today",
+      value: formatNumber(stats?.todayPlays ?? 0),
       icon: Headphones,
-      color: 'from-blue-500 to-cyan-500',
-      suffix: 'plays'
+      color: "from-blue-500 to-cyan-500",
+      suffix: "plays",
+      isNumber: true,
     },
     {
-      label: 'Total Time',
+      label: "Total Time",
       value: formatTime(stats?.totalPlaytime ?? 0),
       icon: Clock,
-      color: 'from-purple-500 to-pink-500',
+      color: "from-purple-500 to-pink-500",
+      isNumber: false,
     },
     {
-      label: 'Artists',
-      value: stats?.uniqueArtists ?? 0,
+      label: "Artists",
+      value: formatNumber(stats?.uniqueArtists ?? 0),
       icon: Users,
-      color: 'from-orange-500 to-red-500',
+      color: "from-orange-500 to-red-500",
+      isNumber: true,
     },
     {
-      label: 'Tracks',
-      value: stats?.uniqueTracks ?? 0,
+      label: "Tracks",
+      value: formatNumber(stats?.uniqueTracks ?? 0),
       icon: Disc3,
-      color: 'from-green-500 to-emerald-500',
-    }
+      color: "from-green-500 to-emerald-500",
+      isNumber: true,
+    },
   ];
 
   return (
@@ -116,16 +127,21 @@ export function QuickStatsWidget() {
       >
         {/* Background gradient effect */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        
+
         <div className="relative">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-lg font-semibold text-white">Quick Stats</h3>
             {stats && stats.weeklyGrowth !== 0 && (
-              <div className={`flex items-center gap-1 text-sm ${
-                stats.weeklyGrowth > 0 ? 'text-green-400' : 'text-red-400'
-              }`}>
+              <div
+                className={`flex items-center gap-1 text-sm ${
+                  stats.weeklyGrowth > 0 ? "text-green-400" : "text-red-400"
+                }`}
+              >
                 <TrendingUp className="w-4 h-4" />
-                <span>{stats.weeklyGrowth > 0 ? '+' : ''}{stats.weeklyGrowth}%</span>
+                <span>
+                  {stats.weeklyGrowth > 0 ? "+" : ""}
+                  {stats.weeklyGrowth}%
+                </span>
               </div>
             )}
           </div>
@@ -140,13 +156,19 @@ export function QuickStatsWidget() {
                 className="relative"
               >
                 <div className="p-4 bg-zinc-800/20 rounded-xl border border-zinc-800/20">
-                  <div className={`w-10 h-10 rounded-lg bg-gradient-to-r ${stat.color} p-2 mb-3`}>
+                  <div
+                    className={`w-10 h-10 rounded-lg bg-gradient-to-r ${stat.color} p-2 mb-3`}
+                  >
                     <stat.icon className="w-full h-full text-white" />
                   </div>
                   <div className="space-y-1">
                     <p className="text-2xl font-bold text-white">
                       {stat.value}
-                      {stat.suffix && <span className="text-sm font-normal text-zinc-400 ml-1">{stat.suffix}</span>}
+                      {stat.suffix && (
+                        <span className="text-sm font-normal text-zinc-400 ml-1">
+                          {stat.suffix}
+                        </span>
+                      )}
                     </p>
                     <p className="text-xs text-zinc-500">{stat.label}</p>
                   </div>

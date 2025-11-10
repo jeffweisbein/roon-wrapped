@@ -7,25 +7,24 @@
     <key>ProgramArguments</key>
     <array>
         <string>/bin/bash</string>
-        <string>start-all.sh</string>
-        <string>all</string>
+        <string>/Volumes/SSD RAID/code/roon-wrapped/start-roon-wrapped.sh</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
     <key>KeepAlive</key>
     <true/>
     <key>WorkingDirectory</key>
-    <string>/Users/jeff/Documents/GitHub/roon-wrapped</string>
+    <string>/Volumes/SSD RAID/code/roon-wrapped</string>
     <key>StandardOutPath</key>
-    <string>/Users/jeff/Documents/GitHub/roon-wrapped/logs/roonwrapped.log</string>
+    <string>/Volumes/SSD RAID/code/roon-wrapped/logs/roonwrapped.log</string>
     <key>StandardErrorPath</key>
-    <string>/Users/jeff/Documents/GitHub/roon-wrapped/logs/roonwrapped.error.log</string>
+    <string>/Volumes/SSD RAID/code/roon-wrapped/logs/roonwrapped.error.log</string>
     <key>EnvironmentVariables</key>
     <dict>
         <key>PATH</key>
-        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <string>/Users/jeff/.nvm/versions/node/v20.11.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
         <key>NODE_ENV</key>
-        <string>production</string>
+        <string>development</string>
     </dict>
 </dict>
 </plist> 

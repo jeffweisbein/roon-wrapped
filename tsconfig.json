@@ -2,12 +2,7 @@
   "compilerOptions": {
     "target": "es2017",
     "module": "commonjs",
-    "lib": [
-      "es2017",
-      "esnext.asynciterable",
-      "dom",
-      "dom.iterable"
-    ],
+    "lib": ["es2017", "esnext.asynciterable", "dom", "dom.iterable"],
     "skipLibCheck": true,
     "sourceMap": true,
     "outDir": "./dist",
@@ -42,10 +37,7 @@
       }
     ]
   },
-  "exclude": [
-    "node_modules",
-    "**/node_modules/*"
-  ],
+  "exclude": ["node_modules", "**/node_modules/*"],
   "include": [
     "./server/**/*.ts",
     ".next/types/**/*.ts",

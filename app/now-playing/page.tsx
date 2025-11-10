@@ -1,11 +1,8 @@
-'use client';
+"use client";
 
-import {
-  useEffect,
-  useState,
-} from 'react';
+import { useEffect, useState } from "react";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import {
   Pause,
   Play,
@@ -13,16 +10,11 @@ import {
   Sparkles,
   Music,
   TrendingUp,
-} from 'lucide-react';
+} from "lucide-react";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { PageHeader } from '@/components/ui/page-header';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PageHeader } from "@/components/ui/page-header";
+import { Badge } from "@/components/ui/badge";
 
 interface NowPlayingData {
   title: string;
@@ -55,16 +47,16 @@ export default function NowPlayingPage() {
   // Function to fetch now playing data
   const fetchNowPlaying = async () => {
     try {
-      const response = await fetch('/api/roon/now-playing');
+      const response = await fetch("/api/roon/now-playing");
       if (!response.ok) {
-        throw new Error('Failed to fetch now playing data');
+        throw new Error("Failed to fetch now playing data");
       }
       const data = await response.json();
       setNowPlaying(data);
       setError(null);
     } catch (err) {
-      console.error('Error fetching now playing:', err);
-      setError(err instanceof Error ? err.message : 'Unknown error');
+      console.error("Error fetching now playing:", err);
+      setError(err instanceof Error ? err.message : "Unknown error");
       setNowPlaying(null);
     } finally {
       setIsLoading(false);
@@ -74,25 +66,25 @@ export default function NowPlayingPage() {
   // Function to fetch recommendations
   const fetchRecommendations = async () => {
     if (!nowPlaying) return;
-    
+
     try {
-      const response = await fetch('/api/recommendations/now-playing');
+      const response = await fetch("/api/recommendations/now-playing");
       if (response.ok) {
         const data = await response.json();
         setRecommendations(data.recommendations || []);
       }
     } catch (err) {
-      console.error('Error fetching recommendations:', err);
+      console.error("Error fetching recommendations:", err);
     }
   };
 
   // Set up polling for real-time updates
   useEffect(() => {
     fetchNowPlaying();
-    
+
     // Poll every 1 second for real-time updates (more responsive)
     const interval = setInterval(fetchNowPlaying, 1000);
-    
+
     return () => clearInterval(interval);
   }, []);
 
@@ -107,11 +99,11 @@ export default function NowPlayingPage() {
   const formatTime = (seconds: number): string => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
   // Calculate progress percentage
-  const progressPercentage = nowPlaying 
+  const progressPercentage = nowPlaying
     ? Math.min((nowPlaying.seek_position / nowPlaying.length) * 100, 100)
     : 0;
 
@@ -124,11 +116,11 @@ export default function NowPlayingPage() {
           transition={{ duration: 0.5 }}
           className="space-y-8"
         >
-          <PageHeader 
+          <PageHeader
             title="Now Playing"
             subtitle="Real-time music from your Roon system"
           />
-          
+
           <div className="flex justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-400"></div>
           </div>
@@ -146,11 +138,11 @@ export default function NowPlayingPage() {
           transition={{ duration: 0.5 }}
           className="space-y-8"
         >
-          <PageHeader 
+          <PageHeader
             title="Now Playing"
             subtitle="Real-time music from your Roon system"
           />
-          
+
           <Card className="bg-red-500/10 border-red-500/20">
             <CardContent className="p-6 text-center">
               <p className="text-red-400">Error: {error}</p>
@@ -173,11 +165,11 @@ export default function NowPlayingPage() {
           transition={{ duration: 0.5 }}
           className="space-y-8"
         >
-          <PageHeader 
+          <PageHeader
             title="Now Playing"
             subtitle="Real-time music from your Roon system"
           />
-          
+
           <Card className="bg-zinc-900/50 border-zinc-800">
             <CardContent className="p-12 text-center">
               <div className="space-y-4">
@@ -185,7 +177,9 @@ export default function NowPlayingPage() {
                   <Pause className="w-8 h-8 text-zinc-400" />
                 </div>
                 <div>
-                  <p className="text-xl text-zinc-300">Nothing playing right now</p>
+                  <p className="text-xl text-zinc-300">
+                    Nothing playing right now
+                  </p>
                   <p className="text-zinc-500 text-sm mt-1">
                     Start playing music on your Roon system to see it here
                   </p>
@@ -206,7 +200,7 @@ export default function NowPlayingPage() {
         transition={{ duration: 0.5 }}
         className="space-y-8"
       >
-        <PageHeader 
+        <PageHeader
           title="Now Playing"
           subtitle="Real-time music from your Roon system"
         />
@@ -236,17 +230,17 @@ export default function NowPlayingPage() {
                     <Volume2 className="w-24 h-24 text-zinc-400" />
                   </div>
                 )}
-                
+
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                
+
                 {/* Play indicator with pulse animation */}
                 <div className="absolute top-4 right-4">
                   <div className="bg-green-500/20 backdrop-blur-sm border border-green-500/30 rounded-full p-2 animate-pulse">
                     <Play className="w-4 h-4 text-green-400 fill-current" />
                   </div>
                 </div>
-                
+
                 {/* Audio visualization bars */}
                 <div className="absolute bottom-4 left-4 flex items-end space-x-1">
                   {[...Array(5)].map((_, i) => (
@@ -254,8 +248,8 @@ export default function NowPlayingPage() {
                       key={i}
                       className={`bg-white/30 rounded-full w-1 animate-pulse`}
                       style={{
-                        height: `${15 + (i * 3)}px`,
-                        animationDuration: `${0.8 + (i * 0.2)}s`,
+                        height: `${15 + i * 3}px`,
+                        animationDuration: `${0.8 + i * 0.2}s`,
                         animationDelay: `${i * 0.1}s`,
                       }}
                     />
@@ -269,12 +263,8 @@ export default function NowPlayingPage() {
                   <h2 className="text-2xl font-bold text-white leading-tight">
                     {nowPlaying.title}
                   </h2>
-                  <p className="text-lg text-zinc-300">
-                    {nowPlaying.artist}
-                  </p>
-                  <p className="text-zinc-400">
-                    {nowPlaying.album}
-                  </p>
+                  <p className="text-lg text-zinc-300">{nowPlaying.artist}</p>
+                  <p className="text-zinc-400">{nowPlaying.album}</p>
                 </div>
 
                 {/* Progress Bar */}
@@ -283,7 +273,7 @@ export default function NowPlayingPage() {
                     <span>{formatTime(nowPlaying.seek_position)}</span>
                     <span>{formatTime(nowPlaying.length)}</span>
                   </div>
-                  
+
                   <div className="relative h-2 bg-zinc-700 rounded-full overflow-hidden">
                     <motion.div
                       className="absolute left-0 top-0 h-full bg-gradient-to-r from-purple-400 to-pink-500 rounded-full"
@@ -295,28 +285,40 @@ export default function NowPlayingPage() {
                 </div>
 
                 {/* Additional Metadata */}
-                {(nowPlaying.genres?.length || nowPlaying.year || nowPlaying.bpm) && (
+                {(nowPlaying.genres?.length ||
+                  nowPlaying.year ||
+                  nowPlaying.bpm) && (
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {nowPlaying.genres && nowPlaying.genres.length > 0 && (
                       <div className="bg-zinc-800/30 border border-zinc-700/50 rounded-lg p-3 text-center">
-                        <p className="text-xs text-zinc-400 uppercase tracking-wide mb-1">Genre</p>
+                        <p className="text-xs text-zinc-400 uppercase tracking-wide mb-1">
+                          Genre
+                        </p>
                         <p className="text-sm text-zinc-200 truncate">
-                          {nowPlaying.genres.slice(0, 2).join(', ')}
+                          {nowPlaying.genres.slice(0, 2).join(", ")}
                         </p>
                       </div>
                     )}
-                    
+
                     {nowPlaying.year && (
                       <div className="bg-zinc-800/30 border border-zinc-700/50 rounded-lg p-3 text-center">
-                        <p className="text-xs text-zinc-400 uppercase tracking-wide mb-1">Year</p>
-                        <p className="text-sm text-zinc-200">{nowPlaying.year}</p>
+                        <p className="text-xs text-zinc-400 uppercase tracking-wide mb-1">
+                          Year
+                        </p>
+                        <p className="text-sm text-zinc-200">
+                          {nowPlaying.year}
+                        </p>
                       </div>
                     )}
-                    
+
                     {nowPlaying.bpm && (
                       <div className="bg-zinc-800/30 border border-zinc-700/50 rounded-lg p-3 text-center">
-                        <p className="text-xs text-zinc-400 uppercase tracking-wide mb-1">BPM</p>
-                        <p className="text-sm text-zinc-200">{nowPlaying.bpm}</p>
+                        <p className="text-xs text-zinc-400 uppercase tracking-wide mb-1">
+                          BPM
+                        </p>
+                        <p className="text-sm text-zinc-200">
+                          {nowPlaying.bpm}
+                        </p>
                       </div>
                     )}
                   </div>
@@ -326,7 +328,9 @@ export default function NowPlayingPage() {
                 <div className="flex justify-center">
                   <div className="bg-zinc-800/50 border border-zinc-700 rounded-full px-4 py-2 flex items-center space-x-2">
                     <Volume2 className="w-4 h-4 text-zinc-400" />
-                    <span className="text-sm text-zinc-300">{nowPlaying.zone_name}</span>
+                    <span className="text-sm text-zinc-300">
+                      {nowPlaying.zone_name}
+                    </span>
                   </div>
                 </div>
 
@@ -369,7 +373,7 @@ export default function NowPlayingPage() {
                     >
                       <div className="flex items-center gap-3 flex-1">
                         <div className="w-10 h-10 bg-purple-500/10 rounded-full flex items-center justify-center">
-                          {rec.type === 'similar_artist' ? (
+                          {rec.type === "similar_artist" ? (
                             <TrendingUp className="w-5 h-5 text-purple-400" />
                           ) : (
                             <Music className="w-5 h-5 text-purple-400" />
@@ -379,9 +383,12 @@ export default function NowPlayingPage() {
                           <p className="font-medium text-zinc-100">
                             {rec.name || rec.artist}
                           </p>
-                          <p className="text-sm text-zinc-400">
-                            {rec.reason}
-                          </p>
+                          {rec.type === "similar_track" && rec.artist && (
+                            <p className="text-sm text-zinc-400">
+                              {rec.artist}
+                            </p>
+                          )}
+                          <p className="text-sm text-zinc-400">{rec.reason}</p>
                         </div>
                         {rec.similarity && (
                           <Badge variant="secondary" className="text-xs">
@@ -394,7 +401,8 @@ export default function NowPlayingPage() {
                 </div>
                 <div className="mt-4 text-center">
                   <p className="text-xs text-zinc-500">
-                    Recommendations powered by AI analysis of your listening patterns
+                    Recommendations powered by AI analysis of your listening
+                    patterns
                   </p>
                 </div>
               </CardContent>
@@ -404,4 +412,4 @@ export default function NowPlayingPage() {
       </motion.div>
     </main>
   );
-} 
+}

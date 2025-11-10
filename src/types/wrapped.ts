@@ -22,4 +22,4 @@ export interface WrappedData {
   topTracks: TopTrack[];
   topArtists: TopArtist[];
   listeningHabits: ListeningHabits;
-} 
+}

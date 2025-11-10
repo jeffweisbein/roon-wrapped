@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export function GradientBackground() {
   const [scrollY, setScrollY] = useState(0);
@@ -10,8 +10,8 @@ export function GradientBackground() {
       setScrollY(window.scrollY);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Calculate opacity based on scroll position
@@ -21,13 +21,13 @@ export function GradientBackground() {
     <>
       {/* Base gradient */}
       <div className="fixed inset-0 bg-gradient-to-b from-black via-zinc-900 to-zinc-800 -z-10" />
-      
+
       {/* Dynamic overlay that fades as you scroll */}
-      <div 
+      <div
         className="fixed inset-0 bg-gradient-to-b from-black to-transparent -z-10 pointer-events-none"
         style={{ opacity: overlayOpacity }}
       />
-      
+
       {/* Subtle radial gradients for depth */}
       <div className="fixed inset-0 -z-10 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full filter blur-3xl" />

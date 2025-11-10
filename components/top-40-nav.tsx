@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
 export function Top40Nav() {
   const router = useRouter();
@@ -18,17 +18,17 @@ export function Top40Nav() {
   const searchParams = useSearchParams();
   const [zones, setZones] = useState<string[]>([]);
 
-  const currentView = searchParams.get('view') || 'artists';
-  const currentZone = searchParams.get('zone') || 'all';
+  const currentView = searchParams.get("view") || "artists";
+  const currentZone = searchParams.get("zone") || "all";
 
   useEffect(() => {
     async function fetchZones() {
       try {
-        const response = await fetch('/api/history/top-40');
+        const response = await fetch("/api/history/top-40");
         const data = await response.json();
         setZones(data.zones || []);
       } catch (error) {
-        console.error('Failed to fetch zones:', error);
+        console.error("Failed to fetch zones:", error);
       }
     }
     fetchZones();
@@ -44,23 +44,29 @@ export function Top40Nav() {
     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
       <div className="flex items-center rounded-lg border border-white/10 p-1 backdrop-blur-sm">
         <Button
-          variant={currentView === 'artists' ? 'secondary' : 'ghost'}
+          variant={currentView === "artists" ? "secondary" : "ghost"}
           size="sm"
-          onClick={() => router.push(`${pathname}?${createQueryString('view', 'artists')}`)}
+          onClick={() =>
+            router.push(`${pathname}?${createQueryString("view", "artists")}`)
+          }
         >
           Artists
         </Button>
         <Button
-          variant={currentView === 'albums' ? 'secondary' : 'ghost'}
+          variant={currentView === "albums" ? "secondary" : "ghost"}
           size="sm"
-          onClick={() => router.push(`${pathname}?${createQueryString('view', 'albums')}`)}
+          onClick={() =>
+            router.push(`${pathname}?${createQueryString("view", "albums")}`)
+          }
         >
           Albums
         </Button>
         <Button
-          variant={currentView === 'tracks' ? 'secondary' : 'ghost'}
+          variant={currentView === "tracks" ? "secondary" : "ghost"}
           size="sm"
-          onClick={() => router.push(`${pathname}?${createQueryString('view', 'tracks')}`)}
+          onClick={() =>
+            router.push(`${pathname}?${createQueryString("view", "tracks")}`)
+          }
         >
           Tracks
         </Button>
@@ -70,10 +76,10 @@ export function Top40Nav() {
         value={currentZone}
         onValueChange={(value) => {
           const params = new URLSearchParams(searchParams);
-          if (value === 'all') {
-            params.delete('zone');
+          if (value === "all") {
+            params.delete("zone");
           } else {
-            params.set('zone', value);
+            params.set("zone", value);
           }
           router.push(`${pathname}?${params.toString()}`);
         }}
@@ -92,4 +98,4 @@ export function Top40Nav() {
       </Select>
     </div>
   );
-} 
+}

@@ -1,13 +1,16 @@
-import Image from 'next/image'
+import Image from "next/image";
 
 interface LogoProps {
-  size?: number
-  className?: string
+  size?: number;
+  className?: string;
 }
 
-export function Logo({ size = 200, className = '' }: LogoProps) {
+export function Logo({ size = 200, className = "" }: LogoProps) {
   return (
-    <div className={`relative ${className}`} style={{ width: size, height: size }}>
+    <div
+      className={`relative ${className}`}
+      style={{ width: size, height: size }}
+    >
       <Image
         src="/logo.svg"
         alt="Roon Wrapped Logo"
@@ -17,10 +20,10 @@ export function Logo({ size = 200, className = '' }: LogoProps) {
         className="drop-shadow-2xl"
       />
     </div>
-  )
+  );
 }
 
-export function LogoWithText({ size = 150, className = '' }: LogoProps) {
+export function LogoWithText({ size = 150, className = "" }: LogoProps) {
   return (
     <div className={`flex flex-col items-center gap-4 ${className}`}>
       <Logo size={size} />
@@ -28,5 +31,5 @@ export function LogoWithText({ size = 150, className = '' }: LogoProps) {
         Roon Wrapped
       </h1>
     </div>
-  )
+  );
 }

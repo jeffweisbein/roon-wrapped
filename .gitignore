@@ -38,10 +38,13 @@ logs
 *.pem
 
 # Local data files
-/data/listening-history.json
+/data/listening-history*.json
+/data/artist-progress.json
 /data/*.bak
 /data/*.backup
+/data/*.backup.*
 /data/*.bak-*
+/server/data/history.json
 
 # Vercel
 .vercel
@@ -104,3 +107,5 @@ yarn.lock
 .env.test.local
 .env.production.local
 CLAUDE.md
+report.md
+AI_SETUP.md

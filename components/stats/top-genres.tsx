@@ -1,8 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { formatNumber } from "@/lib/utils";
 
 interface Genre {
   genre: string;
@@ -33,10 +30,12 @@ export function TopGenres({ genres, limit = 25 }: TopGenresProps) {
                 {index + 1}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="font-medium text-sm text-white truncate">{genre.genre}</div>
+                <div className="font-medium text-sm text-white truncate">
+                  {genre.genre}
+                </div>
               </div>
               <div className="flex-none text-white/60 text-xs tabular-nums">
-                {genre.count} tracks
+                {formatNumber(genre.count)} tracks
               </div>
             </div>
           ))}
@@ -44,4 +43,4 @@ export function TopGenres({ genres, limit = 25 }: TopGenresProps) {
       </CardContent>
     </Card>
   );
-} 
+}

@@ -1,12 +1,8 @@
 "use client";
 
-import * as React from 'react';
+import * as React from "react";
 
-import {
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import {
   Select,
@@ -14,7 +10,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
 export interface TimePeriod {
   value: string;
@@ -22,12 +18,12 @@ export interface TimePeriod {
 }
 
 const TIME_PERIODS: TimePeriod[] = [
-  { value: 'all', label: 'All Time' },
-  { value: '1', label: 'Last 24 Hours' },
-  { value: '7', label: 'Last 7 Days' },
-  { value: '14', label: 'Last 14 Days' },
-  { value: '30', label: 'Last 30 Days' },
-  { value: '90', label: 'Last 90 Days' },
+  { value: "all", label: "All Time" },
+  { value: "1", label: "Last 24 Hours" },
+  { value: "7", label: "Last 7 Days" },
+  { value: "14", label: "Last 14 Days" },
+  { value: "30", label: "Last 30 Days" },
+  { value: "90", label: "Last 90 Days" },
 ];
 
 interface TimePeriodSelectorProps {
@@ -35,7 +31,10 @@ interface TimePeriodSelectorProps {
   onValueChange?: (value: string) => void;
 }
 
-export function TimePeriodSelector({ value, onValueChange }: TimePeriodSelectorProps) {
+export function TimePeriodSelector({
+  value,
+  onValueChange,
+}: TimePeriodSelectorProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -44,7 +43,7 @@ export function TimePeriodSelector({ value, onValueChange }: TimePeriodSelectorP
   const createQueryString = React.useCallback(
     (params: { [key: string]: string | null }) => {
       const newSearchParams = new URLSearchParams(searchParams.toString());
-      
+
       Object.entries(params).forEach(([key, value]) => {
         if (value === null) {
           newSearchParams.delete(key);
@@ -52,10 +51,10 @@ export function TimePeriodSelector({ value, onValueChange }: TimePeriodSelectorP
           newSearchParams.set(key, value);
         }
       });
- 
+
       return newSearchParams.toString();
     },
-    [searchParams]
+    [searchParams],
   );
 
   const handleValueChange = (newValue: string) => {
@@ -63,7 +62,7 @@ export function TimePeriodSelector({ value, onValueChange }: TimePeriodSelectorP
       onValueChange(newValue);
     } else {
       // Default behavior: update URL parameters
-      router.push(pathname + '?' + createQueryString({ period: newValue }));
+      router.push(pathname + "?" + createQueryString({ period: newValue }));
     }
   };
 
@@ -73,7 +72,7 @@ export function TimePeriodSelector({ value, onValueChange }: TimePeriodSelectorP
         <SelectTrigger className="w-full bg-zinc-900/30 border-zinc-800/30 text-zinc-200 backdrop-blur-sm">
           <SelectValue placeholder="Select time period" />
         </SelectTrigger>
-        <SelectContent 
+        <SelectContent
           className="bg-zinc-900/95 border-zinc-800/50 text-zinc-200 backdrop-blur-xl"
           align="end"
           sideOffset={5}
@@ -91,4 +90,4 @@ export function TimePeriodSelector({ value, onValueChange }: TimePeriodSelectorP
       </Select>
     </div>
   );
-} 
+}

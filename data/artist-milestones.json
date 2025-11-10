@@ -1,0 +1,2599 @@
+[
+  {
+    "artist": "blink-182",
+    "milestone": 10,
+    "reachedAt": 1735581237449,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "blink-182",
+    "milestone": 25,
+    "reachedAt": 1735594734152,
+    "daysSinceFirstListen": 1,
+    "playRate": 25
+  },
+  {
+    "artist": "Taylor Swift",
+    "milestone": 10,
+    "reachedAt": 1735611728529,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "Angels & Airwaves",
+    "milestone": 10,
+    "reachedAt": 1735648001985,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "All Time Low",
+    "milestone": 10,
+    "reachedAt": 1735663134678,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "The Maine",
+    "milestone": 10,
+    "reachedAt": 1735766126092,
+    "daysSinceFirstListen": 2,
+    "playRate": 5
+  },
+  {
+    "artist": "blink-182",
+    "milestone": 50,
+    "reachedAt": 1735767036353,
+    "daysSinceFirstListen": 2,
+    "playRate": 25
+  },
+  {
+    "artist": "Sabrina Carpenter",
+    "milestone": 10,
+    "reachedAt": 1735829773538,
+    "daysSinceFirstListen": 2,
+    "playRate": 5
+  },
+  {
+    "artist": "The Beatles",
+    "milestone": 10,
+    "reachedAt": 1735841546848,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "Taylor Swift",
+    "milestone": 25,
+    "reachedAt": 1735844387512,
+    "daysSinceFirstListen": 3,
+    "playRate": 8.333333333333334
+  },
+  {
+    "artist": "The 1975",
+    "milestone": 10,
+    "reachedAt": 1735870438592,
+    "daysSinceFirstListen": 2,
+    "playRate": 5
+  },
+  {
+    "artist": "Chicago",
+    "milestone": 10,
+    "reachedAt": 1735920702604,
+    "daysSinceFirstListen": 3,
+    "playRate": 3.3333333333333335
+  },
+  {
+    "artist": "Green Day",
+    "milestone": 10,
+    "reachedAt": 1735930284870,
+    "daysSinceFirstListen": 2,
+    "playRate": 5
+  },
+  {
+    "artist": "Mayday Parade",
+    "milestone": 10,
+    "reachedAt": 1735932967331,
+    "daysSinceFirstListen": 4,
+    "playRate": 2.5
+  },
+  {
+    "artist": "+44",
+    "milestone": 10,
+    "reachedAt": 1735933928052,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "blink-182",
+    "milestone": 100,
+    "reachedAt": 1736110467152,
+    "daysSinceFirstListen": 6,
+    "playRate": 16.666666666666668
+  },
+  {
+    "artist": "Sum 41",
+    "milestone": 10,
+    "reachedAt": 1736268694380,
+    "daysSinceFirstListen": 7,
+    "playRate": 1.4285714285714286
+  },
+  {
+    "artist": "LANY",
+    "milestone": 10,
+    "reachedAt": 1736274935241,
+    "daysSinceFirstListen": 7,
+    "playRate": 1.4285714285714286
+  },
+  {
+    "artist": "Boys Like Girls",
+    "milestone": 10,
+    "reachedAt": 1736279555618,
+    "daysSinceFirstListen": 8,
+    "playRate": 1.25
+  },
+  {
+    "artist": "Angels & Airwaves",
+    "milestone": 25,
+    "reachedAt": 1736284176234,
+    "daysSinceFirstListen": 8,
+    "playRate": 3.125
+  },
+  {
+    "artist": "The Maine",
+    "milestone": 25,
+    "reachedAt": 1736303539855,
+    "daysSinceFirstListen": 8,
+    "playRate": 3.125
+  },
+  {
+    "artist": "The 1975",
+    "milestone": 25,
+    "reachedAt": 1736358147083,
+    "daysSinceFirstListen": 8,
+    "playRate": 3.125
+  },
+  {
+    "artist": "Taylor Swift",
+    "milestone": 50,
+    "reachedAt": 1736363400200,
+    "daysSinceFirstListen": 9,
+    "playRate": 5.555555555555555
+  },
+  {
+    "artist": "Oasis",
+    "milestone": 10,
+    "reachedAt": 1736430545844,
+    "daysSinceFirstListen": 9,
+    "playRate": 1.1111111111111112
+  },
+  {
+    "artist": "Chappell Roan",
+    "milestone": 10,
+    "reachedAt": 1736449355868,
+    "daysSinceFirstListen": 9,
+    "playRate": 1.1111111111111112
+  },
+  {
+    "artist": "Gregg Karukas",
+    "milestone": 10,
+    "reachedAt": 1736451008334,
+    "daysSinceFirstListen": 9,
+    "playRate": 1.1111111111111112
+  },
+  {
+    "artist": "Boys Like Girls",
+    "milestone": 25,
+    "reachedAt": 1736458245821,
+    "daysSinceFirstListen": 10,
+    "playRate": 2.5
+  },
+  {
+    "artist": "All Time Low",
+    "milestone": 25,
+    "reachedAt": 1736477908776,
+    "daysSinceFirstListen": 10,
+    "playRate": 2.5
+  },
+  {
+    "artist": "Knox",
+    "milestone": 10,
+    "reachedAt": 1736526669601,
+    "daysSinceFirstListen": 10,
+    "playRate": 1
+  },
+  {
+    "artist": "Chicago",
+    "milestone": 25,
+    "reachedAt": 1736527514805,
+    "daysSinceFirstListen": 10,
+    "playRate": 2.5
+  },
+  {
+    "artist": "The All‐American Rejects",
+    "milestone": 10,
+    "reachedAt": 1736535929880,
+    "daysSinceFirstListen": 9,
+    "playRate": 1.1111111111111112
+  },
+  {
+    "artist": "Binmonkey",
+    "milestone": 10,
+    "reachedAt": 1736542439913,
+    "daysSinceFirstListen": 10,
+    "playRate": 1
+  },
+  {
+    "artist": "Third Eye Blind",
+    "milestone": 10,
+    "reachedAt": 1736626210818,
+    "daysSinceFirstListen": 11,
+    "playRate": 0.9090909090909091
+  },
+  {
+    "artist": "Green Day",
+    "milestone": 25,
+    "reachedAt": 1736633338062,
+    "daysSinceFirstListen": 10,
+    "playRate": 2.5
+  },
+  {
+    "artist": "The Chainsmokers",
+    "milestone": 10,
+    "reachedAt": 1736636804310,
+    "daysSinceFirstListen": 11,
+    "playRate": 0.9090909090909091
+  },
+  {
+    "artist": "Boston",
+    "milestone": 10,
+    "reachedAt": 1736684311816,
+    "daysSinceFirstListen": 11,
+    "playRate": 0.9090909090909091
+  },
+  {
+    "artist": "RÜFÜS DU SOL",
+    "milestone": 10,
+    "reachedAt": 1736703859433,
+    "daysSinceFirstListen": 12,
+    "playRate": 0.8333333333333334
+  },
+  {
+    "artist": "Angels & Airwaves",
+    "milestone": 50,
+    "reachedAt": 1736705473513,
+    "daysSinceFirstListen": 12,
+    "playRate": 4.166666666666667
+  },
+  {
+    "artist": "Michael Jackson",
+    "milestone": 10,
+    "reachedAt": 1736729256160,
+    "daysSinceFirstListen": 10,
+    "playRate": 1
+  },
+  {
+    "artist": "Chicago",
+    "milestone": 50,
+    "reachedAt": 1736812279596,
+    "daysSinceFirstListen": 14,
+    "playRate": 3.5714285714285716
+  },
+  {
+    "artist": "Good Charlotte",
+    "milestone": 10,
+    "reachedAt": 1736866114767,
+    "daysSinceFirstListen": 14,
+    "playRate": 0.7142857142857143
+  },
+  {
+    "artist": "Jimmy Eat World",
+    "milestone": 10,
+    "reachedAt": 1736962535913,
+    "daysSinceFirstListen": 16,
+    "playRate": 0.625
+  },
+  {
+    "artist": "Jet",
+    "milestone": 10,
+    "reachedAt": 1736964600758,
+    "daysSinceFirstListen": 10,
+    "playRate": 1
+  },
+  {
+    "artist": "Knox",
+    "milestone": 25,
+    "reachedAt": 1737048263381,
+    "daysSinceFirstListen": 16,
+    "playRate": 1.5625
+  },
+  {
+    "artist": "The Maine",
+    "milestone": 50,
+    "reachedAt": 1737049466077,
+    "daysSinceFirstListen": 16,
+    "playRate": 3.125
+  },
+  {
+    "artist": "Kendrick Lamar",
+    "milestone": 10,
+    "reachedAt": 1737144251722,
+    "daysSinceFirstListen": 14,
+    "playRate": 0.7142857142857143
+  },
+  {
+    "artist": "Billy Joel",
+    "milestone": 10,
+    "reachedAt": 1737145605870,
+    "daysSinceFirstListen": 17,
+    "playRate": 0.5882352941176471
+  },
+  {
+    "artist": "blink-182",
+    "milestone": 250,
+    "reachedAt": 1737147056059,
+    "daysSinceFirstListen": 18,
+    "playRate": 13.88888888888889
+  },
+  {
+    "artist": "All Time Low",
+    "milestone": 50,
+    "reachedAt": 1737163859442,
+    "daysSinceFirstListen": 18,
+    "playRate": 2.7777777777777777
+  },
+  {
+    "artist": "Fall Out Boy",
+    "milestone": 10,
+    "reachedAt": 1737218563588,
+    "daysSinceFirstListen": 18,
+    "playRate": 0.5555555555555556
+  },
+  {
+    "artist": "Teddy Swims",
+    "milestone": 10,
+    "reachedAt": 1737241451235,
+    "daysSinceFirstListen": 18,
+    "playRate": 0.5555555555555556
+  },
+  {
+    "artist": "Queen",
+    "milestone": 10,
+    "reachedAt": 1737251029513,
+    "daysSinceFirstListen": 19,
+    "playRate": 0.5263157894736842
+  },
+  {
+    "artist": "Alex Melton",
+    "milestone": 10,
+    "reachedAt": 1737252992364,
+    "daysSinceFirstListen": 19,
+    "playRate": 0.5263157894736842
+  },
+  {
+    "artist": "Daryl Hall & John Oates",
+    "milestone": 10,
+    "reachedAt": 1737389420647,
+    "daysSinceFirstListen": 11,
+    "playRate": 0.9090909090909091
+  },
+  {
+    "artist": "The 1975",
+    "milestone": 50,
+    "reachedAt": 1737473194191,
+    "daysSinceFirstListen": 21,
+    "playRate": 2.380952380952381
+  },
+  {
+    "artist": "Alex Melton",
+    "milestone": 25,
+    "reachedAt": 1737575120859,
+    "daysSinceFirstListen": 22,
+    "playRate": 1.1363636363636365
+  },
+  {
+    "artist": "Sabrina Carpenter",
+    "milestone": 25,
+    "reachedAt": 1737668177512,
+    "daysSinceFirstListen": 24,
+    "playRate": 1.0416666666666667
+  },
+  {
+    "artist": "Third Eye Blind / Alexis Krauss",
+    "milestone": 10,
+    "reachedAt": 1737669303652,
+    "daysSinceFirstListen": 11,
+    "playRate": 0.9090909090909091
+  },
+  {
+    "artist": "Alex Melton",
+    "milestone": 50,
+    "reachedAt": 1737684450174,
+    "daysSinceFirstListen": 24,
+    "playRate": 2.0833333333333335
+  },
+  {
+    "artist": "Knox",
+    "milestone": 50,
+    "reachedAt": 1737722505999,
+    "daysSinceFirstListen": 24,
+    "playRate": 2.0833333333333335
+  },
+  {
+    "artist": "Mayday Parade",
+    "milestone": 25,
+    "reachedAt": 1737737679679,
+    "daysSinceFirstListen": 24,
+    "playRate": 1.0416666666666667
+  },
+  {
+    "artist": "The Maine",
+    "milestone": 100,
+    "reachedAt": 1737739196586,
+    "daysSinceFirstListen": 24,
+    "playRate": 4.166666666666667
+  },
+  {
+    "artist": "Benson Boone",
+    "milestone": 10,
+    "reachedAt": 1737739579869,
+    "daysSinceFirstListen": 17,
+    "playRate": 0.5882352941176471
+  },
+  {
+    "artist": "The Night Game",
+    "milestone": 10,
+    "reachedAt": 1737825448481,
+    "daysSinceFirstListen": 18,
+    "playRate": 0.5555555555555556
+  },
+  {
+    "artist": "Pierce the Veil",
+    "milestone": 10,
+    "reachedAt": 1737840619282,
+    "daysSinceFirstListen": 13,
+    "playRate": 0.7692307692307693
+  },
+  {
+    "artist": "Kendrick Lamar / AzChike",
+    "milestone": 10,
+    "reachedAt": 1737904090784,
+    "daysSinceFirstListen": 8,
+    "playRate": 1.25
+  },
+  {
+    "artist": "Backstreet Boys",
+    "milestone": 10,
+    "reachedAt": 1737906126707,
+    "daysSinceFirstListen": 24,
+    "playRate": 0.4166666666666667
+  },
+  {
+    "artist": "Third Eye Blind / Alexis Krauss",
+    "milestone": 25,
+    "reachedAt": 1737910653461,
+    "daysSinceFirstListen": 14,
+    "playRate": 1.7857142857142858
+  },
+  {
+    "artist": "Knox",
+    "milestone": 100,
+    "reachedAt": 1737925399760,
+    "daysSinceFirstListen": 27,
+    "playRate": 3.7037037037037037
+  },
+  {
+    "artist": "Ed Sheeran / Ella Mai",
+    "milestone": 10,
+    "reachedAt": 1737929865467,
+    "daysSinceFirstListen": 25,
+    "playRate": 0.4
+  },
+  {
+    "artist": "Chappell Roan",
+    "milestone": 25,
+    "reachedAt": 1738018434249,
+    "daysSinceFirstListen": 28,
+    "playRate": 0.8928571428571429
+  },
+  {
+    "artist": "ME N U",
+    "milestone": 10,
+    "reachedAt": 1738029992364,
+    "daysSinceFirstListen": 10,
+    "playRate": 1
+  },
+  {
+    "artist": "The Chainsmokers / Bebe Rexha",
+    "milestone": 10,
+    "reachedAt": 1738032487678,
+    "daysSinceFirstListen": 2,
+    "playRate": 5
+  },
+  {
+    "artist": "The Used",
+    "milestone": 10,
+    "reachedAt": 1738034427695,
+    "daysSinceFirstListen": 7,
+    "playRate": 1.4285714285714286
+  },
+  {
+    "artist": "Alex Melton",
+    "milestone": 100,
+    "reachedAt": 1738083173709,
+    "daysSinceFirstListen": 28,
+    "playRate": 3.5714285714285716
+  },
+  {
+    "artist": "Luke Combs",
+    "milestone": 10,
+    "reachedAt": 1738086473868,
+    "daysSinceFirstListen": 28,
+    "playRate": 0.35714285714285715
+  },
+  {
+    "artist": "blink-182",
+    "milestone": 500,
+    "reachedAt": 1738087823755,
+    "daysSinceFirstListen": 29,
+    "playRate": 17.24137931034483
+  },
+  {
+    "artist": "mgk / Jelly Roll",
+    "milestone": 10,
+    "reachedAt": 1738116320619,
+    "daysSinceFirstListen": 28,
+    "playRate": 0.35714285714285715
+  },
+  {
+    "artist": "The Dangerous Summer",
+    "milestone": 10,
+    "reachedAt": 1738116543325,
+    "daysSinceFirstListen": 29,
+    "playRate": 0.3448275862068966
+  },
+  {
+    "artist": "Mayday Parade",
+    "milestone": 50,
+    "reachedAt": 1738176550633,
+    "daysSinceFirstListen": 30,
+    "playRate": 1.6666666666666667
+  },
+  {
+    "artist": "New Found Glory",
+    "milestone": 10,
+    "reachedAt": 1738180681566,
+    "daysSinceFirstListen": 30,
+    "playRate": 0.3333333333333333
+  },
+  {
+    "artist": "Oasis",
+    "milestone": 25,
+    "reachedAt": 1738191810228,
+    "daysSinceFirstListen": 30,
+    "playRate": 0.8333333333333334
+  },
+  {
+    "artist": "Backstreet Boys",
+    "milestone": 25,
+    "reachedAt": 1738200611574,
+    "daysSinceFirstListen": 28,
+    "playRate": 0.8928571428571429
+  },
+  {
+    "artist": "The 1975",
+    "milestone": 100,
+    "reachedAt": 1738266564562,
+    "daysSinceFirstListen": 30,
+    "playRate": 3.3333333333333335
+  },
+  {
+    "artist": "The Chainsmokers",
+    "milestone": 25,
+    "reachedAt": 1738343845708,
+    "daysSinceFirstListen": 31,
+    "playRate": 0.8064516129032258
+  },
+  {
+    "artist": "Gregg Karukas",
+    "milestone": 25,
+    "reachedAt": 1738346330637,
+    "daysSinceFirstListen": 31,
+    "playRate": 0.8064516129032258
+  },
+  {
+    "artist": "Michael Jackson",
+    "milestone": 25,
+    "reachedAt": 1738514311886,
+    "daysSinceFirstListen": 31,
+    "playRate": 0.8064516129032258
+  },
+  {
+    "artist": "LANY",
+    "milestone": 25,
+    "reachedAt": 1738517683295,
+    "daysSinceFirstListen": 33,
+    "playRate": 0.7575757575757576
+  },
+  {
+    "artist": "Winnetka Bowling League",
+    "milestone": 10,
+    "reachedAt": 1738518633942,
+    "daysSinceFirstListen": 33,
+    "playRate": 0.30303030303030304
+  },
+  {
+    "artist": "Benson Boone",
+    "milestone": 25,
+    "reachedAt": 1738551137118,
+    "daysSinceFirstListen": 27,
+    "playRate": 0.9259259259259259
+  },
+  {
+    "artist": "RÜFÜS DU SOL",
+    "milestone": 25,
+    "reachedAt": 1738551538492,
+    "daysSinceFirstListen": 34,
+    "playRate": 0.7352941176470589
+  },
+  {
+    "artist": "All Time Low",
+    "milestone": 100,
+    "reachedAt": 1738554599828,
+    "daysSinceFirstListen": 34,
+    "playRate": 2.9411764705882355
+  },
+  {
+    "artist": "The Killers",
+    "milestone": 10,
+    "reachedAt": 1738606899294,
+    "daysSinceFirstListen": 31,
+    "playRate": 0.3225806451612903
+  },
+  {
+    "artist": "The Wonders",
+    "milestone": 10,
+    "reachedAt": 1738791576766,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "The Wonders",
+    "milestone": 25,
+    "reachedAt": 1738853786164,
+    "daysSinceFirstListen": 1,
+    "playRate": 25
+  },
+  {
+    "artist": "Looking Glass",
+    "milestone": 10,
+    "reachedAt": 1738886666534,
+    "daysSinceFirstListen": 38,
+    "playRate": 0.2631578947368421
+  },
+  {
+    "artist": "The Starting Line",
+    "milestone": 10,
+    "reachedAt": 1739053828724,
+    "daysSinceFirstListen": 32,
+    "playRate": 0.3125
+  },
+  {
+    "artist": "Spinning",
+    "milestone": 10,
+    "reachedAt": 1739121588389,
+    "daysSinceFirstListen": 29,
+    "playRate": 0.3448275862068966
+  },
+  {
+    "artist": "The Goo Goo Dolls",
+    "milestone": 10,
+    "reachedAt": 1739137423337,
+    "daysSinceFirstListen": 40,
+    "playRate": 0.25
+  },
+  {
+    "artist": "Boys Like Girls",
+    "milestone": 50,
+    "reachedAt": 1739138952886,
+    "daysSinceFirstListen": 41,
+    "playRate": 1.2195121951219512
+  },
+  {
+    "artist": "Dire Straits",
+    "milestone": 10,
+    "reachedAt": 1739889981522,
+    "daysSinceFirstListen": 46,
+    "playRate": 0.21739130434782608
+  },
+  {
+    "artist": "Green Day",
+    "milestone": 50,
+    "reachedAt": 1739909017204,
+    "daysSinceFirstListen": 48,
+    "playRate": 1.0416666666666667
+  },
+  {
+    "artist": "Michael Jackson / Nelson Hayes / Steven Ray",
+    "milestone": 10,
+    "reachedAt": 1739981019175,
+    "daysSinceFirstListen": 49,
+    "playRate": 0.20408163265306123
+  },
+  {
+    "artist": "Yellowcard",
+    "milestone": 10,
+    "reachedAt": 1739981566672,
+    "daysSinceFirstListen": 50,
+    "playRate": 0.2
+  },
+  {
+    "artist": "Senses Fail",
+    "milestone": 10,
+    "reachedAt": 1739984241931,
+    "daysSinceFirstListen": 50,
+    "playRate": 0.2
+  },
+  {
+    "artist": "Kendrick Lamar",
+    "milestone": 25,
+    "reachedAt": 1740270308967,
+    "daysSinceFirstListen": 50,
+    "playRate": 0.5
+  },
+  {
+    "artist": "Red Hot Chili Peppers",
+    "milestone": 10,
+    "reachedAt": 1740445813529,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "The 1975 / Jason McGee",
+    "milestone": 10,
+    "reachedAt": 1740512901462,
+    "daysSinceFirstListen": 57,
+    "playRate": 0.17543859649122806
+  },
+  {
+    "artist": "Angels & Airwaves",
+    "milestone": 100,
+    "reachedAt": 1740523712099,
+    "daysSinceFirstListen": 57,
+    "playRate": 1.7543859649122806
+  },
+  {
+    "artist": "House of Pain",
+    "milestone": 10,
+    "reachedAt": 1740526921490,
+    "daysSinceFirstListen": 56,
+    "playRate": 0.17857142857142858
+  },
+  {
+    "artist": "Kendrick Lamar / AzChike",
+    "milestone": 25,
+    "reachedAt": 1740678238938,
+    "daysSinceFirstListen": 40,
+    "playRate": 0.625
+  },
+  {
+    "artist": "Third Eye Blind / Alexis Krauss",
+    "milestone": 50,
+    "reachedAt": 1740683860517,
+    "daysSinceFirstListen": 46,
+    "playRate": 1.0869565217391304
+  },
+  {
+    "artist": "Future / Young Thug",
+    "milestone": 10,
+    "reachedAt": 1741028865725,
+    "daysSinceFirstListen": 9,
+    "playRate": 1.1111111111111112
+  },
+  {
+    "artist": "The Night Game",
+    "milestone": 25,
+    "reachedAt": 1741035546283,
+    "daysSinceFirstListen": 55,
+    "playRate": 0.45454545454545453
+  },
+  {
+    "artist": "Sum 41",
+    "milestone": 25,
+    "reachedAt": 1741109517684,
+    "daysSinceFirstListen": 63,
+    "playRate": 0.3968253968253968
+  },
+  {
+    "artist": "Taking Back Sunday",
+    "milestone": 10,
+    "reachedAt": 1741110332482,
+    "daysSinceFirstListen": 64,
+    "playRate": 0.15625
+  },
+  {
+    "artist": "Maroon 5",
+    "milestone": 10,
+    "reachedAt": 1741531736846,
+    "daysSinceFirstListen": 66,
+    "playRate": 0.15151515151515152
+  },
+  {
+    "artist": "Cute Is What We Aim For",
+    "milestone": 10,
+    "reachedAt": 1741532430740,
+    "daysSinceFirstListen": 18,
+    "playRate": 0.5555555555555556
+  },
+  {
+    "artist": "twocolors / Pia Mia",
+    "milestone": 10,
+    "reachedAt": 1741561129741,
+    "daysSinceFirstListen": 43,
+    "playRate": 0.23255813953488372
+  },
+  {
+    "artist": "Reeve Stimpson",
+    "milestone": 10,
+    "reachedAt": 1741616109889,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "OneRepublic",
+    "milestone": 10,
+    "reachedAt": 1741644164665,
+    "daysSinceFirstListen": 70,
+    "playRate": 0.14285714285714285
+  },
+  {
+    "artist": "Pierce the Veil",
+    "milestone": 25,
+    "reachedAt": 1741650253918,
+    "daysSinceFirstListen": 57,
+    "playRate": 0.43859649122807015
+  },
+  {
+    "artist": "Reeve Stimpson",
+    "milestone": 25,
+    "reachedAt": 1741697204934,
+    "daysSinceFirstListen": 1,
+    "playRate": 25
+  },
+  {
+    "artist": "Nirvana",
+    "milestone": 10,
+    "reachedAt": 1741904739839,
+    "daysSinceFirstListen": 66,
+    "playRate": 0.15151515151515152
+  },
+  {
+    "artist": "N.W.A",
+    "milestone": 10,
+    "reachedAt": 1741905814975,
+    "daysSinceFirstListen": 57,
+    "playRate": 0.17543859649122806
+  },
+  {
+    "artist": "Ed Sheeran / Ella Mai",
+    "milestone": 25,
+    "reachedAt": 1742676353925,
+    "daysSinceFirstListen": 80,
+    "playRate": 0.3125
+  },
+  {
+    "artist": "Third Eye Blind",
+    "milestone": 25,
+    "reachedAt": 1742682438332,
+    "daysSinceFirstListen": 81,
+    "playRate": 0.30864197530864196
+  },
+  {
+    "artist": "Old Dominion",
+    "milestone": 10,
+    "reachedAt": 1742750934889,
+    "daysSinceFirstListen": 37,
+    "playRate": 0.2702702702702703
+  },
+  {
+    "artist": "Kendrick Lamar / Lefty GunPlay",
+    "milestone": 10,
+    "reachedAt": 1742829070453,
+    "daysSinceFirstListen": 79,
+    "playRate": 0.12658227848101267
+  },
+  {
+    "artist": "Electric Guest",
+    "milestone": 10,
+    "reachedAt": 1742833148941,
+    "daysSinceFirstListen": 57,
+    "playRate": 0.17543859649122806
+  },
+  {
+    "artist": "Reeve Stimpson",
+    "milestone": 50,
+    "reachedAt": 1742835512172,
+    "daysSinceFirstListen": 14,
+    "playRate": 3.5714285714285716
+  },
+  {
+    "artist": "Joel Corry / MNEK",
+    "milestone": 10,
+    "reachedAt": 1742835901080,
+    "daysSinceFirstListen": 75,
+    "playRate": 0.13333333333333333
+  },
+  {
+    "artist": "Tom Petty and the Heartbreakers",
+    "milestone": 10,
+    "reachedAt": 1742910384634,
+    "daysSinceFirstListen": 77,
+    "playRate": 0.12987012987012986
+  },
+  {
+    "artist": "blink-182",
+    "milestone": 1000,
+    "reachedAt": 1743007996104,
+    "daysSinceFirstListen": 86,
+    "playRate": 11.627906976744185
+  },
+  {
+    "artist": "The Jealous Sound",
+    "milestone": 10,
+    "reachedAt": 1743343734858,
+    "daysSinceFirstListen": 82,
+    "playRate": 0.12195121951219512
+  },
+  {
+    "artist": "Taylor Swift",
+    "milestone": 100,
+    "reachedAt": 1743347025884,
+    "daysSinceFirstListen": 89,
+    "playRate": 1.1235955056179776
+  },
+  {
+    "artist": "Story of the Year",
+    "milestone": 10,
+    "reachedAt": 1743347557762,
+    "daysSinceFirstListen": 79,
+    "playRate": 0.12658227848101267
+  },
+  {
+    "artist": "mgk",
+    "milestone": 10,
+    "reachedAt": 1743636118134,
+    "daysSinceFirstListen": 93,
+    "playRate": 0.10752688172043011
+  },
+  {
+    "artist": "Knox",
+    "milestone": 250,
+    "reachedAt": 1743773923900,
+    "daysSinceFirstListen": 94,
+    "playRate": 2.6595744680851063
+  },
+  {
+    "artist": "Magnolia Park",
+    "milestone": 10,
+    "reachedAt": 1744045410154,
+    "daysSinceFirstListen": 97,
+    "playRate": 0.10309278350515463
+  },
+  {
+    "artist": "Chicago",
+    "milestone": 100,
+    "reachedAt": 1744162063520,
+    "daysSinceFirstListen": 99,
+    "playRate": 1.0101010101010102
+  },
+  {
+    "artist": "Thirty Seconds to Mars",
+    "milestone": 10,
+    "reachedAt": 1744210424114,
+    "daysSinceFirstListen": 99,
+    "playRate": 0.10101010101010101
+  },
+  {
+    "artist": "Simple Plan",
+    "milestone": 10,
+    "reachedAt": 1744212167555,
+    "daysSinceFirstListen": 96,
+    "playRate": 0.10416666666666667
+  },
+  {
+    "artist": "The Starting Line",
+    "milestone": 25,
+    "reachedAt": 1744214265019,
+    "daysSinceFirstListen": 91,
+    "playRate": 0.27472527472527475
+  },
+  {
+    "artist": "NF",
+    "milestone": 10,
+    "reachedAt": 1744487710550,
+    "daysSinceFirstListen": 87,
+    "playRate": 0.11494252873563218
+  },
+  {
+    "artist": "New Found Glory",
+    "milestone": 25,
+    "reachedAt": 1744491316885,
+    "daysSinceFirstListen": 103,
+    "playRate": 0.24271844660194175
+  },
+  {
+    "artist": "Jimmy Eat World",
+    "milestone": 25,
+    "reachedAt": 1744498457110,
+    "daysSinceFirstListen": 103,
+    "playRate": 0.24271844660194175
+  },
+  {
+    "artist": "The Fray",
+    "milestone": 10,
+    "reachedAt": 1744499152227,
+    "daysSinceFirstListen": 103,
+    "playRate": 0.0970873786407767
+  },
+  {
+    "artist": "Queen",
+    "milestone": 25,
+    "reachedAt": 1744501328631,
+    "daysSinceFirstListen": 103,
+    "playRate": 0.24271844660194175
+  },
+  {
+    "artist": "Fall Out Boy",
+    "milestone": 25,
+    "reachedAt": 1744551789173,
+    "daysSinceFirstListen": 103,
+    "playRate": 0.24271844660194175
+  },
+  {
+    "artist": "The Killers",
+    "milestone": 25,
+    "reachedAt": 1744553288810,
+    "daysSinceFirstListen": 100,
+    "playRate": 0.25
+  },
+  {
+    "artist": "Matchbox Twenty",
+    "milestone": 10,
+    "reachedAt": 1744555532710,
+    "daysSinceFirstListen": 101,
+    "playRate": 0.09900990099009901
+  },
+  {
+    "artist": "Taking Back Sunday",
+    "milestone": 25,
+    "reachedAt": 1744572844049,
+    "daysSinceFirstListen": 104,
+    "playRate": 0.2403846153846154
+  },
+  {
+    "artist": "Good Charlotte",
+    "milestone": 25,
+    "reachedAt": 1744573622039,
+    "daysSinceFirstListen": 104,
+    "playRate": 0.2403846153846154
+  },
+  {
+    "artist": "My Chemical Romance",
+    "milestone": 10,
+    "reachedAt": 1744574040719,
+    "daysSinceFirstListen": 102,
+    "playRate": 0.09803921568627451
+  },
+  {
+    "artist": "My Chemical Romance / My Little Romance",
+    "milestone": 10,
+    "reachedAt": 1744833985298,
+    "daysSinceFirstListen": 106,
+    "playRate": 0.09433962264150944
+  },
+  {
+    "artist": "Future / Young Thug",
+    "milestone": 25,
+    "reachedAt": 1745022079012,
+    "daysSinceFirstListen": 55,
+    "playRate": 0.45454545454545453
+  },
+  {
+    "artist": "The 1975",
+    "milestone": 250,
+    "reachedAt": 1745076992503,
+    "daysSinceFirstListen": 109,
+    "playRate": 2.293577981651376
+  },
+  {
+    "artist": "Spencer Sutherland",
+    "milestone": 10,
+    "reachedAt": 1745084277459,
+    "daysSinceFirstListen": 109,
+    "playRate": 0.09174311926605505
+  },
+  {
+    "artist": "The Outfield",
+    "milestone": 10,
+    "reachedAt": 1745190836125,
+    "daysSinceFirstListen": 40,
+    "playRate": 0.25
+  },
+  {
+    "artist": "Red Hot Chili Peppers",
+    "milestone": 25,
+    "reachedAt": 1745201269917,
+    "daysSinceFirstListen": 55,
+    "playRate": 0.45454545454545453
+  },
+  {
+    "artist": "Goo Goo Dolls",
+    "milestone": 10,
+    "reachedAt": 1745244558074,
+    "daysSinceFirstListen": 37,
+    "playRate": 0.2702702702702703
+  },
+  {
+    "artist": "Mayday Parade",
+    "milestone": 100,
+    "reachedAt": 1745268459961,
+    "daysSinceFirstListen": 112,
+    "playRate": 0.8928571428571429
+  },
+  {
+    "artist": "Crazy Town",
+    "milestone": 10,
+    "reachedAt": 1745358261853,
+    "daysSinceFirstListen": 110,
+    "playRate": 0.09090909090909091
+  },
+  {
+    "artist": "mgk / Halsey",
+    "milestone": 10,
+    "reachedAt": 1745541627639,
+    "daysSinceFirstListen": 114,
+    "playRate": 0.08771929824561403
+  },
+  {
+    "artist": "Tom DeLonge",
+    "milestone": 10,
+    "reachedAt": 1745547506597,
+    "daysSinceFirstListen": 107,
+    "playRate": 0.09345794392523364
+  },
+  {
+    "artist": "Dr. Dre / Snoop Dogg / Nate Dogg",
+    "milestone": 10,
+    "reachedAt": 1745547978189,
+    "daysSinceFirstListen": 100,
+    "playRate": 0.1
+  },
+  {
+    "artist": "Sum 41",
+    "milestone": 50,
+    "reachedAt": 1745549135243,
+    "daysSinceFirstListen": 115,
+    "playRate": 0.43478260869565216
+  },
+  {
+    "artist": "Oasis",
+    "milestone": 50,
+    "reachedAt": 1745598476377,
+    "daysSinceFirstListen": 115,
+    "playRate": 0.43478260869565216
+  },
+  {
+    "artist": "The Maine",
+    "milestone": 250,
+    "reachedAt": 1745608510926,
+    "daysSinceFirstListen": 115,
+    "playRate": 2.1739130434782608
+  },
+  {
+    "artist": "Chappell Roan",
+    "milestone": 50,
+    "reachedAt": 1745608858383,
+    "daysSinceFirstListen": 115,
+    "playRate": 0.43478260869565216
+  },
+  {
+    "artist": "Binmonkey",
+    "milestone": 25,
+    "reachedAt": 1745934011798,
+    "daysSinceFirstListen": 119,
+    "playRate": 0.21008403361344538
+  },
+  {
+    "artist": "The Night Game",
+    "milestone": 50,
+    "reachedAt": 1745960002453,
+    "daysSinceFirstListen": 112,
+    "playRate": 0.44642857142857145
+  },
+  {
+    "artist": "Papa Roach",
+    "milestone": 10,
+    "reachedAt": 1746059363278,
+    "daysSinceFirstListen": 52,
+    "playRate": 0.19230769230769232
+  },
+  {
+    "artist": "The All‐American Rejects",
+    "milestone": 25,
+    "reachedAt": 1746139043481,
+    "daysSinceFirstListen": 120,
+    "playRate": 0.20833333333333334
+  },
+  {
+    "artist": "Sugarcult",
+    "milestone": 10,
+    "reachedAt": 1746203821393,
+    "daysSinceFirstListen": 122,
+    "playRate": 0.08196721311475409
+  },
+  {
+    "artist": "LSD / Sia / Diplo / Labrinth",
+    "milestone": 10,
+    "reachedAt": 1746207653672,
+    "daysSinceFirstListen": 122,
+    "playRate": 0.08196721311475409
+  },
+  {
+    "artist": "Run Kid Run",
+    "milestone": 10,
+    "reachedAt": 1746210302574,
+    "daysSinceFirstListen": 122,
+    "playRate": 0.08196721311475409
+  },
+  {
+    "artist": "A R I Z O N A",
+    "milestone": 10,
+    "reachedAt": 1746635947749,
+    "daysSinceFirstListen": 127,
+    "playRate": 0.07874015748031496
+  },
+  {
+    "artist": "Alex Melton",
+    "milestone": 250,
+    "reachedAt": 1746729971083,
+    "daysSinceFirstListen": 128,
+    "playRate": 1.953125
+  },
+  {
+    "artist": "KennyHoopla / Travis Barker",
+    "milestone": 10,
+    "reachedAt": 1747153866743,
+    "daysSinceFirstListen": 133,
+    "playRate": 0.07518796992481203
+  },
+  {
+    "artist": "LANY",
+    "milestone": 50,
+    "reachedAt": 1747184864779,
+    "daysSinceFirstListen": 133,
+    "playRate": 0.37593984962406013
+  },
+  {
+    "artist": "New Found Glory",
+    "milestone": 50,
+    "reachedAt": 1747234808376,
+    "daysSinceFirstListen": 134,
+    "playRate": 0.373134328358209
+  },
+  {
+    "artist": "Avril Lavigne / Simple Plan",
+    "milestone": 10,
+    "reachedAt": 1747241750741,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "Fall Out Boy",
+    "milestone": 50,
+    "reachedAt": 1747503050663,
+    "daysSinceFirstListen": 137,
+    "playRate": 0.36496350364963503
+  },
+  {
+    "artist": "Yellowcard",
+    "milestone": 25,
+    "reachedAt": 1747516563338,
+    "daysSinceFirstListen": 137,
+    "playRate": 0.18248175182481752
+  },
+  {
+    "artist": "JAY‐Z / Linkin Park",
+    "milestone": 10,
+    "reachedAt": 1747527295004,
+    "daysSinceFirstListen": 130,
+    "playRate": 0.07692307692307693
+  },
+  {
+    "artist": "Benson Boone",
+    "milestone": 50,
+    "reachedAt": 1747616007772,
+    "daysSinceFirstListen": 132,
+    "playRate": 0.3787878787878788
+  },
+  {
+    "artist": "The Chainsmokers / Bebe Rexha",
+    "milestone": 25,
+    "reachedAt": 1747622129633,
+    "daysSinceFirstListen": 113,
+    "playRate": 0.22123893805309736
+  },
+  {
+    "artist": "Winnetka Bowling League",
+    "milestone": 25,
+    "reachedAt": 1747755495218,
+    "daysSinceFirstListen": 140,
+    "playRate": 0.17857142857142858
+  },
+  {
+    "artist": "The Chainsmokers",
+    "milestone": 50,
+    "reachedAt": 1747755706636,
+    "daysSinceFirstListen": 139,
+    "playRate": 0.3597122302158273
+  },
+  {
+    "artist": "Todd Barriage / Oliver Blood",
+    "milestone": 10,
+    "reachedAt": 1747777662240,
+    "daysSinceFirstListen": 140,
+    "playRate": 0.07142857142857142
+  },
+  {
+    "artist": "Big Wild",
+    "milestone": 10,
+    "reachedAt": 1747937484508,
+    "daysSinceFirstListen": 142,
+    "playRate": 0.07042253521126761
+  },
+  {
+    "artist": "Third Eye Blind",
+    "milestone": 50,
+    "reachedAt": 1747943715784,
+    "daysSinceFirstListen": 142,
+    "playRate": 0.352112676056338
+  },
+  {
+    "artist": "Anberlin",
+    "milestone": 10,
+    "reachedAt": 1747952232196,
+    "daysSinceFirstListen": 142,
+    "playRate": 0.07042253521126761
+  },
+  {
+    "artist": "LFO",
+    "milestone": 10,
+    "reachedAt": 1748138288856,
+    "daysSinceFirstListen": 122,
+    "playRate": 0.08196721311475409
+  },
+  {
+    "artist": "me n ü",
+    "milestone": 10,
+    "reachedAt": 1748140134537,
+    "daysSinceFirstListen": 91,
+    "playRate": 0.10989010989010989
+  },
+  {
+    "artist": "Avril Lavigne / Simple Plan",
+    "milestone": 25,
+    "reachedAt": 1748203210021,
+    "daysSinceFirstListen": 11,
+    "playRate": 2.272727272727273
+  },
+  {
+    "artist": "Cool Kills",
+    "milestone": 10,
+    "reachedAt": 1748216842183,
+    "daysSinceFirstListen": 145,
+    "playRate": 0.06896551724137931
+  },
+  {
+    "artist": "Mase",
+    "milestone": 10,
+    "reachedAt": 1748217429942,
+    "daysSinceFirstListen": 146,
+    "playRate": 0.0684931506849315
+  },
+  {
+    "artist": "The All‐American Rejects",
+    "milestone": 50,
+    "reachedAt": 1748292329361,
+    "daysSinceFirstListen": 145,
+    "playRate": 0.3448275862068966
+  },
+  {
+    "artist": "Simple Plan / State Champs / We the Kings",
+    "milestone": 10,
+    "reachedAt": 1748307309414,
+    "daysSinceFirstListen": 146,
+    "playRate": 0.0684931506849315
+  },
+  {
+    "artist": "Last Winter",
+    "milestone": 10,
+    "reachedAt": 1748443847646,
+    "daysSinceFirstListen": 134,
+    "playRate": 0.07462686567164178
+  },
+  {
+    "artist": "*NSYNC",
+    "milestone": 10,
+    "reachedAt": 1748975851509,
+    "daysSinceFirstListen": 144,
+    "playRate": 0.06944444444444445
+  },
+  {
+    "artist": "Against the Current",
+    "milestone": 10,
+    "reachedAt": 1748990623049,
+    "daysSinceFirstListen": 152,
+    "playRate": 0.06578947368421052
+  },
+  {
+    "artist": "AFI",
+    "milestone": 10,
+    "reachedAt": 1749042222390,
+    "daysSinceFirstListen": 151,
+    "playRate": 0.06622516556291391
+  },
+  {
+    "artist": "All Time Low / I Prevail",
+    "milestone": 10,
+    "reachedAt": 1749076656752,
+    "daysSinceFirstListen": 156,
+    "playRate": 0.0641025641025641
+  },
+  {
+    "artist": "All Time Low",
+    "milestone": 250,
+    "reachedAt": 1749241399452,
+    "daysSinceFirstListen": 158,
+    "playRate": 1.5822784810126582
+  },
+  {
+    "artist": "Yellowcard",
+    "milestone": 50,
+    "reachedAt": 1749247582833,
+    "daysSinceFirstListen": 157,
+    "playRate": 0.3184713375796178
+  },
+  {
+    "artist": "Angels & Airwaves",
+    "milestone": 250,
+    "reachedAt": 1749339965824,
+    "daysSinceFirstListen": 159,
+    "playRate": 1.5723270440251573
+  },
+  {
+    "artist": "Avril Lavigne",
+    "milestone": 10,
+    "reachedAt": 1749340891101,
+    "daysSinceFirstListen": 158,
+    "playRate": 0.06329113924050633
+  },
+  {
+    "artist": "The Starting Line",
+    "milestone": 50,
+    "reachedAt": 1749407242600,
+    "daysSinceFirstListen": 151,
+    "playRate": 0.33112582781456956
+  },
+  {
+    "artist": "Eternal Boy",
+    "milestone": 10,
+    "reachedAt": 1749419822548,
+    "daysSinceFirstListen": 158,
+    "playRate": 0.06329113924050633
+  },
+  {
+    "artist": "Eurythmics / Annie Lennox",
+    "milestone": 10,
+    "reachedAt": 1749420815942,
+    "daysSinceFirstListen": 145,
+    "playRate": 0.06896551724137931
+  },
+  {
+    "artist": "Red Hot Chili Peppers",
+    "milestone": 50,
+    "reachedAt": 1749424607869,
+    "daysSinceFirstListen": 103,
+    "playRate": 0.4854368932038835
+  },
+  {
+    "artist": "Ed Sheeran",
+    "milestone": 10,
+    "reachedAt": 1749425880737,
+    "daysSinceFirstListen": 93,
+    "playRate": 0.10752688172043011
+  },
+  {
+    "artist": "Teddy Swims",
+    "milestone": 25,
+    "reachedAt": 1749576049094,
+    "daysSinceFirstListen": 161,
+    "playRate": 0.15527950310559005
+  },
+  {
+    "artist": "mgk / Jelly Roll",
+    "milestone": 25,
+    "reachedAt": 1749583134721,
+    "daysSinceFirstListen": 161,
+    "playRate": 0.15527950310559005
+  },
+  {
+    "artist": "Limp Bizkit",
+    "milestone": 10,
+    "reachedAt": 1749677271801,
+    "daysSinceFirstListen": 131,
+    "playRate": 0.07633587786259542
+  },
+  {
+    "artist": "Looking Glass",
+    "milestone": 25,
+    "reachedAt": 1749752659521,
+    "daysSinceFirstListen": 163,
+    "playRate": 0.15337423312883436
+  },
+  {
+    "artist": "The Red Jumpsuit Apparatus",
+    "milestone": 10,
+    "reachedAt": 1749858280467,
+    "daysSinceFirstListen": 165,
+    "playRate": 0.06060606060606061
+  },
+  {
+    "artist": "Sir Cadian Rhythm",
+    "milestone": 10,
+    "reachedAt": 1750023426100,
+    "daysSinceFirstListen": 166,
+    "playRate": 0.060240963855421686
+  },
+  {
+    "artist": "Paramore",
+    "milestone": 10,
+    "reachedAt": 1750106857700,
+    "daysSinceFirstListen": 147,
+    "playRate": 0.06802721088435375
+  },
+  {
+    "artist": "Michael Jackson / Eddie Van Halen",
+    "milestone": 10,
+    "reachedAt": 1750118638205,
+    "daysSinceFirstListen": 164,
+    "playRate": 0.06097560975609756
+  },
+  {
+    "artist": "OneRepublic",
+    "milestone": 25,
+    "reachedAt": 1750120901853,
+    "daysSinceFirstListen": 168,
+    "playRate": 0.1488095238095238
+  },
+  {
+    "artist": "Michael Jackson",
+    "milestone": 50,
+    "reachedAt": 1750123239854,
+    "daysSinceFirstListen": 165,
+    "playRate": 0.30303030303030304
+  },
+  {
+    "artist": "Linkin Park",
+    "milestone": 10,
+    "reachedAt": 1750188659257,
+    "daysSinceFirstListen": 138,
+    "playRate": 0.07246376811594203
+  },
+  {
+    "artist": "iNTeRNeT FReNDz",
+    "milestone": 10,
+    "reachedAt": 1750201294005,
+    "daysSinceFirstListen": 162,
+    "playRate": 0.06172839506172839
+  },
+  {
+    "artist": "New Found Glory",
+    "milestone": 100,
+    "reachedAt": 1750201493255,
+    "daysSinceFirstListen": 169,
+    "playRate": 0.591715976331361
+  },
+  {
+    "artist": "408",
+    "milestone": 10,
+    "reachedAt": 1750203152433,
+    "daysSinceFirstListen": 161,
+    "playRate": 0.062111801242236024
+  },
+  {
+    "artist": "Rob Thomas",
+    "milestone": 10,
+    "reachedAt": 1750205572067,
+    "daysSinceFirstListen": 169,
+    "playRate": 0.05917159763313609
+  },
+  {
+    "artist": "Billy Joel",
+    "milestone": 25,
+    "reachedAt": 1750299019531,
+    "daysSinceFirstListen": 169,
+    "playRate": 0.14792899408284024
+  },
+  {
+    "artist": "Taking Back Sunday",
+    "milestone": 50,
+    "reachedAt": 1750348750071,
+    "daysSinceFirstListen": 170,
+    "playRate": 0.29411764705882354
+  },
+  {
+    "artist": "Taylor Swift / Bleachers",
+    "milestone": 10,
+    "reachedAt": 1750364783833,
+    "daysSinceFirstListen": 170,
+    "playRate": 0.058823529411764705
+  },
+  {
+    "artist": "The 1975 / Jason McGee",
+    "milestone": 25,
+    "reachedAt": 1750365372901,
+    "daysSinceFirstListen": 171,
+    "playRate": 0.14619883040935672
+  },
+  {
+    "artist": "People R Ugly",
+    "milestone": 10,
+    "reachedAt": 1750431909217,
+    "daysSinceFirstListen": 23,
+    "playRate": 0.43478260869565216
+  },
+  {
+    "artist": "People R Ugly",
+    "milestone": 25,
+    "reachedAt": 1750460167380,
+    "daysSinceFirstListen": 23,
+    "playRate": 1.0869565217391304
+  },
+  {
+    "artist": "Jonas Brothers",
+    "milestone": 10,
+    "reachedAt": 1750524418563,
+    "daysSinceFirstListen": 84,
+    "playRate": 0.11904761904761904
+  },
+  {
+    "artist": "The All‐American Rejects",
+    "milestone": 100,
+    "reachedAt": 1750784026372,
+    "daysSinceFirstListen": 174,
+    "playRate": 0.5747126436781609
+  },
+  {
+    "artist": "The Cab",
+    "milestone": 10,
+    "reachedAt": 1750810284931,
+    "daysSinceFirstListen": 176,
+    "playRate": 0.056818181818181816
+  },
+  {
+    "artist": "People R Ugly",
+    "milestone": 50,
+    "reachedAt": 1750967981284,
+    "daysSinceFirstListen": 29,
+    "playRate": 1.7241379310344827
+  },
+  {
+    "artist": "Chrissy Costanza",
+    "milestone": 10,
+    "reachedAt": 1751162070332,
+    "daysSinceFirstListen": 178,
+    "playRate": 0.056179775280898875
+  },
+  {
+    "artist": "Usher",
+    "milestone": 10,
+    "reachedAt": 1751205166685,
+    "daysSinceFirstListen": 70,
+    "playRate": 0.14285714285714285
+  },
+  {
+    "artist": "Lit",
+    "milestone": 10,
+    "reachedAt": 1751308227562,
+    "daysSinceFirstListen": 179,
+    "playRate": 0.055865921787709494
+  },
+  {
+    "artist": "Senses Fail",
+    "milestone": 25,
+    "reachedAt": 1751413172575,
+    "daysSinceFirstListen": 183,
+    "playRate": 0.1366120218579235
+  },
+  {
+    "artist": "Simple Plan",
+    "milestone": 25,
+    "reachedAt": 1751418745387,
+    "daysSinceFirstListen": 180,
+    "playRate": 0.1388888888888889
+  },
+  {
+    "artist": "Jonas Brothers",
+    "milestone": 25,
+    "reachedAt": 1751600581953,
+    "daysSinceFirstListen": 97,
+    "playRate": 0.25773195876288657
+  },
+  {
+    "artist": "Bleachers",
+    "milestone": 10,
+    "reachedAt": 1751600954108,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "Bleachers",
+    "milestone": 25,
+    "reachedAt": 1751634289333,
+    "daysSinceFirstListen": 1,
+    "playRate": 25
+  },
+  {
+    "artist": "Bleachers",
+    "milestone": 50,
+    "reachedAt": 1751738670790,
+    "daysSinceFirstListen": 1,
+    "playRate": 50
+  },
+  {
+    "artist": "Red Hot Chili Peppers",
+    "milestone": 100,
+    "reachedAt": 1751740916625,
+    "daysSinceFirstListen": 130,
+    "playRate": 0.7692307692307693
+  },
+  {
+    "artist": "The Beatles",
+    "milestone": 25,
+    "reachedAt": 1751742201600,
+    "daysSinceFirstListen": 185,
+    "playRate": 0.13513513513513514
+  },
+  {
+    "artist": "Led Zeppelin",
+    "milestone": 10,
+    "reachedAt": 1751822069862,
+    "daysSinceFirstListen": 187,
+    "playRate": 0.053475935828877004
+  },
+  {
+    "artist": "KennyHoopla / Travis Barker",
+    "milestone": 25,
+    "reachedAt": 1751912959570,
+    "daysSinceFirstListen": 188,
+    "playRate": 0.13297872340425532
+  },
+  {
+    "artist": "Bleachers",
+    "milestone": 100,
+    "reachedAt": 1752101663044,
+    "daysSinceFirstListen": 5,
+    "playRate": 20
+  },
+  {
+    "artist": "Michael Jackson / Nelson Hayes / Steven Ray",
+    "milestone": 25,
+    "reachedAt": 1752179455115,
+    "daysSinceFirstListen": 191,
+    "playRate": 0.13089005235602094
+  },
+  {
+    "artist": "The Astronomers / Zach Paradis",
+    "milestone": 10,
+    "reachedAt": 1752180190787,
+    "daysSinceFirstListen": 164,
+    "playRate": 0.06097560975609756
+  },
+  {
+    "artist": "Iglu & Hartly",
+    "milestone": 10,
+    "reachedAt": 1752199465824,
+    "daysSinceFirstListen": 106,
+    "playRate": 0.09433962264150944
+  },
+  {
+    "artist": "mgk",
+    "milestone": 25,
+    "reachedAt": 1752267955007,
+    "daysSinceFirstListen": 193,
+    "playRate": 0.12953367875647667
+  },
+  {
+    "artist": "Iglu & Hartly",
+    "milestone": 25,
+    "reachedAt": 1752347783741,
+    "daysSinceFirstListen": 108,
+    "playRate": 0.23148148148148148
+  },
+  {
+    "artist": "Good Charlotte",
+    "milestone": 50,
+    "reachedAt": 1752363120952,
+    "daysSinceFirstListen": 194,
+    "playRate": 0.25773195876288657
+  },
+  {
+    "artist": "Justin Bieber",
+    "milestone": 10,
+    "reachedAt": 1752417009484,
+    "daysSinceFirstListen": 191,
+    "playRate": 0.05235602094240838
+  },
+  {
+    "artist": "Redbone",
+    "milestone": 10,
+    "reachedAt": 1752423151685,
+    "daysSinceFirstListen": 9,
+    "playRate": 1.1111111111111112
+  },
+  {
+    "artist": "Eminem",
+    "milestone": 10,
+    "reachedAt": 1752611417800,
+    "daysSinceFirstListen": 196,
+    "playRate": 0.05102040816326531
+  },
+  {
+    "artist": "Race the Sun",
+    "milestone": 10,
+    "reachedAt": 1752625471450,
+    "daysSinceFirstListen": 29,
+    "playRate": 0.3448275862068966
+  },
+  {
+    "artist": "JAY‐Z",
+    "milestone": 10,
+    "reachedAt": 1752704705125,
+    "daysSinceFirstListen": 197,
+    "playRate": 0.050761421319796954
+  },
+  {
+    "artist": "Motion City Soundtrack",
+    "milestone": 10,
+    "reachedAt": 1752777547833,
+    "daysSinceFirstListen": 198,
+    "playRate": 0.050505050505050504
+  },
+  {
+    "artist": "mgk / blackbear",
+    "milestone": 10,
+    "reachedAt": 1752795356033,
+    "daysSinceFirstListen": 198,
+    "playRate": 0.050505050505050504
+  },
+  {
+    "artist": "Sum 41",
+    "milestone": 100,
+    "reachedAt": 1752849548167,
+    "daysSinceFirstListen": 199,
+    "playRate": 0.5025125628140703
+  },
+  {
+    "artist": "Story of the Year",
+    "milestone": 25,
+    "reachedAt": 1752849782202,
+    "daysSinceFirstListen": 189,
+    "playRate": 0.13227513227513227
+  },
+  {
+    "artist": "Dire Straits",
+    "milestone": 25,
+    "reachedAt": 1752852534745,
+    "daysSinceFirstListen": 196,
+    "playRate": 0.12755102040816327
+  },
+  {
+    "artist": "Justin Bieber",
+    "milestone": 25,
+    "reachedAt": 1752887640531,
+    "daysSinceFirstListen": 197,
+    "playRate": 0.12690355329949238
+  },
+  {
+    "artist": "All Time Low / Teddy Swims",
+    "milestone": 10,
+    "reachedAt": 1752957314316,
+    "daysSinceFirstListen": 192,
+    "playRate": 0.052083333333333336
+  },
+  {
+    "artist": "WALK THE MOON",
+    "milestone": 10,
+    "reachedAt": 1752958319593,
+    "daysSinceFirstListen": 200,
+    "playRate": 0.05
+  },
+  {
+    "artist": "Lenny Kravitz",
+    "milestone": 10,
+    "reachedAt": 1753029848231,
+    "daysSinceFirstListen": 201,
+    "playRate": 0.04975124378109453
+  },
+  {
+    "artist": "The Summer Set",
+    "milestone": 10,
+    "reachedAt": 1753056366866,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "Alkaline Trio",
+    "milestone": 10,
+    "reachedAt": 1753192477810,
+    "daysSinceFirstListen": 3,
+    "playRate": 3.3333333333333335
+  },
+  {
+    "artist": "Magnolia Park",
+    "milestone": 25,
+    "reachedAt": 1753235683371,
+    "daysSinceFirstListen": 204,
+    "playRate": 0.12254901960784313
+  },
+  {
+    "artist": "Justin Bieber",
+    "milestone": 50,
+    "reachedAt": 1753289145088,
+    "daysSinceFirstListen": 201,
+    "playRate": 0.24875621890547264
+  },
+  {
+    "artist": "Malaa / MAALA",
+    "milestone": 10,
+    "reachedAt": 1753318455362,
+    "daysSinceFirstListen": 174,
+    "playRate": 0.05747126436781609
+  },
+  {
+    "artist": "Afroman",
+    "milestone": 10,
+    "reachedAt": 1753319239347,
+    "daysSinceFirstListen": 178,
+    "playRate": 0.056179775280898875
+  },
+  {
+    "artist": "The Jealous Sound",
+    "milestone": 25,
+    "reachedAt": 1753546793770,
+    "daysSinceFirstListen": 201,
+    "playRate": 0.12437810945273632
+  },
+  {
+    "artist": "NF",
+    "milestone": 25,
+    "reachedAt": 1753566122977,
+    "daysSinceFirstListen": 192,
+    "playRate": 0.13020833333333334
+  },
+  {
+    "artist": "Thirty Seconds to Mars",
+    "milestone": 25,
+    "reachedAt": 1753572117645,
+    "daysSinceFirstListen": 208,
+    "playRate": 0.1201923076923077
+  },
+  {
+    "artist": "Boys Like Girls",
+    "milestone": 100,
+    "reachedAt": 1753579985499,
+    "daysSinceFirstListen": 208,
+    "playRate": 0.4807692307692308
+  },
+  {
+    "artist": "Fleetwood Mac",
+    "milestone": 10,
+    "reachedAt": 1753581478787,
+    "daysSinceFirstListen": 207,
+    "playRate": 0.04830917874396135
+  },
+  {
+    "artist": "Simple Plan / SP Studio Crew",
+    "milestone": 10,
+    "reachedAt": 1753626143530,
+    "daysSinceFirstListen": 196,
+    "playRate": 0.05102040816326531
+  },
+  {
+    "artist": "RÜFÜS DU SOL",
+    "milestone": 50,
+    "reachedAt": 1753663231991,
+    "daysSinceFirstListen": 209,
+    "playRate": 0.23923444976076555
+  },
+  {
+    "artist": "Jet",
+    "milestone": 25,
+    "reachedAt": 1753719907481,
+    "daysSinceFirstListen": 204,
+    "playRate": 0.12254901960784313
+  },
+  {
+    "artist": "Good Charlotte",
+    "milestone": 100,
+    "reachedAt": 1753823718278,
+    "daysSinceFirstListen": 211,
+    "playRate": 0.47393364928909953
+  },
+  {
+    "artist": "Goo Goo Dolls",
+    "milestone": 25,
+    "reachedAt": 1753826141172,
+    "daysSinceFirstListen": 136,
+    "playRate": 0.18382352941176472
+  },
+  {
+    "artist": "Jimmy Eat World",
+    "milestone": 50,
+    "reachedAt": 1753883055911,
+    "daysSinceFirstListen": 211,
+    "playRate": 0.23696682464454977
+  },
+  {
+    "artist": "Michael Jackson / Vincent Price",
+    "milestone": 10,
+    "reachedAt": 1753890938824,
+    "daysSinceFirstListen": 211,
+    "playRate": 0.04739336492890995
+  },
+  {
+    "artist": "The Summer Set",
+    "milestone": 25,
+    "reachedAt": 1753922909358,
+    "daysSinceFirstListen": 12,
+    "playRate": 2.0833333333333335
+  },
+  {
+    "artist": "mgk",
+    "milestone": 50,
+    "reachedAt": 1754268686432,
+    "daysSinceFirstListen": 216,
+    "playRate": 0.23148148148148148
+  },
+  {
+    "artist": "KennyHoopla / Travis Barker",
+    "milestone": 50,
+    "reachedAt": 1754318971402,
+    "daysSinceFirstListen": 216,
+    "playRate": 0.23148148148148148
+  },
+  {
+    "artist": "Alkaline Trio",
+    "milestone": 25,
+    "reachedAt": 1754445112342,
+    "daysSinceFirstListen": 18,
+    "playRate": 1.3888888888888888
+  },
+  {
+    "artist": "All Time Low",
+    "milestone": 500,
+    "reachedAt": 1754501609863,
+    "daysSinceFirstListen": 219,
+    "playRate": 2.2831050228310503
+  },
+  {
+    "artist": "My Chemical Romance",
+    "milestone": 25,
+    "reachedAt": 1754501912987,
+    "daysSinceFirstListen": 217,
+    "playRate": 0.1152073732718894
+  },
+  {
+    "artist": "Kendrick Lamar",
+    "milestone": 50,
+    "reachedAt": 1754778383353,
+    "daysSinceFirstListen": 218,
+    "playRate": 0.22935779816513763
+  },
+  {
+    "artist": "mgk",
+    "milestone": 100,
+    "reachedAt": 1754864790677,
+    "daysSinceFirstListen": 223,
+    "playRate": 0.4484304932735426
+  },
+  {
+    "artist": "Turnstile",
+    "milestone": 10,
+    "reachedAt": 1755005412639,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "Kygo / Whitney Houston",
+    "milestone": 10,
+    "reachedAt": 1755007969550,
+    "daysSinceFirstListen": 220,
+    "playRate": 0.045454545454545456
+  },
+  {
+    "artist": "Turnstile",
+    "milestone": 25,
+    "reachedAt": 1755121001399,
+    "daysSinceFirstListen": 1,
+    "playRate": 25
+  },
+  {
+    "artist": "Billy Joel",
+    "milestone": 50,
+    "reachedAt": 1755267781801,
+    "daysSinceFirstListen": 226,
+    "playRate": 0.22123893805309736
+  },
+  {
+    "artist": "Knox",
+    "milestone": 500,
+    "reachedAt": 1755619659077,
+    "daysSinceFirstListen": 231,
+    "playRate": 2.1645021645021645
+  },
+  {
+    "artist": "Alkaline Trio",
+    "milestone": 50,
+    "reachedAt": 1756244481052,
+    "daysSinceFirstListen": 38,
+    "playRate": 1.3157894736842106
+  },
+  {
+    "artist": "Green Day",
+    "milestone": 100,
+    "reachedAt": 1756340749798,
+    "daysSinceFirstListen": 238,
+    "playRate": 0.42016806722689076
+  },
+  {
+    "artist": "Ed Sheeran / Justin Bieber",
+    "milestone": 10,
+    "reachedAt": 1756410809551,
+    "daysSinceFirstListen": 235,
+    "playRate": 0.0425531914893617
+  },
+  {
+    "artist": "People R Ugly",
+    "milestone": 100,
+    "reachedAt": 1756487150533,
+    "daysSinceFirstListen": 93,
+    "playRate": 1.075268817204301
+  },
+  {
+    "artist": "Imagine Dragons",
+    "milestone": 10,
+    "reachedAt": 1756508290802,
+    "daysSinceFirstListen": 240,
+    "playRate": 0.041666666666666664
+  },
+  {
+    "artist": "Sabrina Carpenter",
+    "milestone": 50,
+    "reachedAt": 1756659460959,
+    "daysSinceFirstListen": 243,
+    "playRate": 0.205761316872428
+  },
+  {
+    "artist": "Jordan Harvey",
+    "milestone": 10,
+    "reachedAt": 1756667946461,
+    "daysSinceFirstListen": 4,
+    "playRate": 2.5
+  },
+  {
+    "artist": "George Michael",
+    "milestone": 10,
+    "reachedAt": 1756671296376,
+    "daysSinceFirstListen": 243,
+    "playRate": 0.0411522633744856
+  },
+  {
+    "artist": "Turnstile",
+    "milestone": 50,
+    "reachedAt": 1756770598905,
+    "daysSinceFirstListen": 20,
+    "playRate": 2.5
+  },
+  {
+    "artist": "Ye",
+    "milestone": 10,
+    "reachedAt": 1756771013133,
+    "daysSinceFirstListen": 25,
+    "playRate": 0.4
+  },
+  {
+    "artist": "LSD / Sia / Diplo / Labrinth",
+    "milestone": 25,
+    "reachedAt": 1756929655369,
+    "daysSinceFirstListen": 246,
+    "playRate": 0.1016260162601626
+  },
+  {
+    "artist": "Eric Clapton",
+    "milestone": 10,
+    "reachedAt": 1756949316116,
+    "daysSinceFirstListen": 246,
+    "playRate": 0.04065040650406504
+  },
+  {
+    "artist": "Jonas Brothers",
+    "milestone": 50,
+    "reachedAt": 1756991638563,
+    "daysSinceFirstListen": 159,
+    "playRate": 0.31446540880503143
+  },
+  {
+    "artist": "State Champs",
+    "milestone": 10,
+    "reachedAt": 1757009235101,
+    "daysSinceFirstListen": 179,
+    "playRate": 0.055865921787709494
+  },
+  {
+    "artist": "Life Between Sleep",
+    "milestone": 10,
+    "reachedAt": 1757011235482,
+    "daysSinceFirstListen": 7,
+    "playRate": 1.4285714285714286
+  },
+  {
+    "artist": "Free Friends / Ben DeHan / SUCKERPUNCH!",
+    "milestone": 10,
+    "reachedAt": 1757012335423,
+    "daysSinceFirstListen": 8,
+    "playRate": 1.25
+  },
+  {
+    "artist": "Alkaline Trio",
+    "milestone": 100,
+    "reachedAt": 1757013392726,
+    "daysSinceFirstListen": 47,
+    "playRate": 2.127659574468085
+  },
+  {
+    "artist": "Yellowcard",
+    "milestone": 100,
+    "reachedAt": 1757013797121,
+    "daysSinceFirstListen": 247,
+    "playRate": 0.4048582995951417
+  },
+  {
+    "artist": "The Used",
+    "milestone": 25,
+    "reachedAt": 1757029159406,
+    "daysSinceFirstListen": 227,
+    "playRate": 0.11013215859030837
+  },
+  {
+    "artist": "Khalid",
+    "milestone": 10,
+    "reachedAt": 1757031260253,
+    "daysSinceFirstListen": 66,
+    "playRate": 0.15151515151515152
+  },
+  {
+    "artist": "Elton John",
+    "milestone": 10,
+    "reachedAt": 1757032721696,
+    "daysSinceFirstListen": 240,
+    "playRate": 0.041666666666666664
+  },
+  {
+    "artist": "Jordan Harvey",
+    "milestone": 25,
+    "reachedAt": 1757085222044,
+    "daysSinceFirstListen": 8,
+    "playRate": 3.125
+  },
+  {
+    "artist": "Unknown Artist",
+    "milestone": 10,
+    "reachedAt": 1757105608916,
+    "daysSinceFirstListen": 87,
+    "playRate": 0.11494252873563218
+  },
+  {
+    "artist": "The Strike / Mitchell Tenpenny",
+    "milestone": 10,
+    "reachedAt": 1757289452128,
+    "daysSinceFirstListen": 39,
+    "playRate": 0.2564102564102564
+  },
+  {
+    "artist": "Life Between Sleep",
+    "milestone": 25,
+    "reachedAt": 1757982212472,
+    "daysSinceFirstListen": 19,
+    "playRate": 1.3157894736842106
+  },
+  {
+    "artist": "*NSYNC",
+    "milestone": 25,
+    "reachedAt": 1758030393091,
+    "daysSinceFirstListen": 249,
+    "playRate": 0.10040160642570281
+  },
+  {
+    "artist": "South Arcade",
+    "milestone": 10,
+    "reachedAt": 1758044460582,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "Stevie Wonder",
+    "milestone": 10,
+    "reachedAt": 1758124176963,
+    "daysSinceFirstListen": 251,
+    "playRate": 0.0398406374501992
+  },
+  {
+    "artist": "Iglu & Hartly",
+    "milestone": 50,
+    "reachedAt": 1758296877520,
+    "daysSinceFirstListen": 177,
+    "playRate": 0.2824858757062147
+  },
+  {
+    "artist": "Queen",
+    "milestone": 50,
+    "reachedAt": 1758326656215,
+    "daysSinceFirstListen": 263,
+    "playRate": 0.19011406844106463
+  },
+  {
+    "artist": "Maroon 5 / Lil Wayne",
+    "milestone": 10,
+    "reachedAt": 1758468302621,
+    "daysSinceFirstListen": 24,
+    "playRate": 0.4166666666666667
+  },
+  {
+    "artist": "Subtronics",
+    "milestone": 10,
+    "reachedAt": 1758474006862,
+    "daysSinceFirstListen": 4,
+    "playRate": 2.5
+  },
+  {
+    "artist": "South Arcade",
+    "milestone": 25,
+    "reachedAt": 1758501446829,
+    "daysSinceFirstListen": 5,
+    "playRate": 5
+  },
+  {
+    "artist": "Justin Bieber",
+    "milestone": 100,
+    "reachedAt": 1758589765250,
+    "daysSinceFirstListen": 263,
+    "playRate": 0.38022813688212925
+  },
+  {
+    "artist": "The Beatles",
+    "milestone": 50,
+    "reachedAt": 1758670829704,
+    "daysSinceFirstListen": 266,
+    "playRate": 0.18796992481203006
+  },
+  {
+    "artist": "The Allman Brothers Band",
+    "milestone": 10,
+    "reachedAt": 1758763752399,
+    "daysSinceFirstListen": 120,
+    "playRate": 0.08333333333333333
+  },
+  {
+    "artist": "mgk",
+    "milestone": 250,
+    "reachedAt": 1758847338201,
+    "daysSinceFirstListen": 269,
+    "playRate": 0.929368029739777
+  },
+  {
+    "artist": "Ed Sheeran / Travis Scott",
+    "milestone": 10,
+    "reachedAt": 1758848995694,
+    "daysSinceFirstListen": 268,
+    "playRate": 0.03731343283582089
+  },
+  {
+    "artist": "South Arcade",
+    "milestone": 50,
+    "reachedAt": 1758928697539,
+    "daysSinceFirstListen": 10,
+    "playRate": 5
+  },
+  {
+    "artist": "Ye",
+    "milestone": 25,
+    "reachedAt": 1758977176659,
+    "daysSinceFirstListen": 51,
+    "playRate": 0.49019607843137253
+  },
+  {
+    "artist": "Beck",
+    "milestone": 10,
+    "reachedAt": 1758988805833,
+    "daysSinceFirstListen": 270,
+    "playRate": 0.037037037037037035
+  },
+  {
+    "artist": "Nelly",
+    "milestone": 10,
+    "reachedAt": 1758989934347,
+    "daysSinceFirstListen": 240,
+    "playRate": 0.041666666666666664
+  },
+  {
+    "artist": "Fall Out Boy",
+    "milestone": 100,
+    "reachedAt": 1759027870817,
+    "daysSinceFirstListen": 271,
+    "playRate": 0.36900369003690037
+  },
+  {
+    "artist": "Led Zeppelin",
+    "milestone": 25,
+    "reachedAt": 1759104406568,
+    "daysSinceFirstListen": 271,
+    "playRate": 0.09225092250922509
+  },
+  {
+    "artist": "The Dangerous Summer",
+    "milestone": 25,
+    "reachedAt": 1759254178715,
+    "daysSinceFirstListen": 273,
+    "playRate": 0.09157509157509157
+  },
+  {
+    "artist": "Fatboy Slim",
+    "milestone": 10,
+    "reachedAt": 1759259512048,
+    "daysSinceFirstListen": 34,
+    "playRate": 0.29411764705882354
+  },
+  {
+    "artist": "inbalanceCA",
+    "milestone": 10,
+    "reachedAt": 1759277124443,
+    "daysSinceFirstListen": 15,
+    "playRate": 0.6666666666666666
+  },
+  {
+    "artist": "King Harvest",
+    "milestone": 10,
+    "reachedAt": 1759330194945,
+    "daysSinceFirstListen": 89,
+    "playRate": 0.11235955056179775
+  },
+  {
+    "artist": "South Arcade",
+    "milestone": 100,
+    "reachedAt": 1759357883463,
+    "daysSinceFirstListen": 15,
+    "playRate": 6.666666666666667
+  },
+  {
+    "artist": "Holiday Parade",
+    "milestone": 10,
+    "reachedAt": 1759713424928,
+    "daysSinceFirstListen": 261,
+    "playRate": 0.038314176245210725
+  },
+  {
+    "artist": "Sugarcult",
+    "milestone": 25,
+    "reachedAt": 1759979711898,
+    "daysSinceFirstListen": 282,
+    "playRate": 0.08865248226950355
+  },
+  {
+    "artist": "Bleachers",
+    "milestone": 250,
+    "reachedAt": 1760027382390,
+    "daysSinceFirstListen": 97,
+    "playRate": 2.577319587628866
+  },
+  {
+    "artist": "Backstreet Boys",
+    "milestone": 50,
+    "reachedAt": 1760133211223,
+    "daysSinceFirstListen": 282,
+    "playRate": 0.1773049645390071
+  },
+  {
+    "artist": "Mitchell Tenpenny",
+    "milestone": 10,
+    "reachedAt": 1760218003581,
+    "daysSinceFirstListen": 23,
+    "playRate": 0.43478260869565216
+  },
+  {
+    "artist": "Maroon 5",
+    "milestone": 25,
+    "reachedAt": 1760223553269,
+    "daysSinceFirstListen": 282,
+    "playRate": 0.08865248226950355
+  },
+  {
+    "artist": "Post Malone",
+    "milestone": 10,
+    "reachedAt": 1760318521568,
+    "daysSinceFirstListen": 283,
+    "playRate": 0.0353356890459364
+  },
+  {
+    "artist": "Talking Heads",
+    "milestone": 10,
+    "reachedAt": 1760409545226,
+    "daysSinceFirstListen": 285,
+    "playRate": 0.03508771929824561
+  },
+  {
+    "artist": "The Jacksons",
+    "milestone": 10,
+    "reachedAt": 1760444983206,
+    "daysSinceFirstListen": 280,
+    "playRate": 0.03571428571428571
+  },
+  {
+    "artist": "All Time Low / Jojo",
+    "milestone": 10,
+    "reachedAt": 1760848170288,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "All Time Low",
+    "milestone": 1000,
+    "reachedAt": 1761350426442,
+    "daysSinceFirstListen": 298,
+    "playRate": 3.3557046979865772
+  },
+  {
+    "artist": "Life Between Sleep",
+    "milestone": 50,
+    "reachedAt": 1762179514167,
+    "daysSinceFirstListen": 67,
+    "playRate": 0.746268656716418
+  },
+  {
+    "artist": "Player",
+    "milestone": 10,
+    "reachedAt": 1762189303911,
+    "daysSinceFirstListen": 16,
+    "playRate": 0.625
+  },
+  {
+    "artist": "South Arcade",
+    "milestone": 250,
+    "reachedAt": 1762459715281,
+    "daysSinceFirstListen": 51,
+    "playRate": 4.901960784313726
+  },
+  {
+    "artist": "All Time Low / Ruston Kelly",
+    "milestone": 10,
+    "reachedAt": 1762476435984,
+    "daysSinceFirstListen": 20,
+    "playRate": 0.5
+  },
+  {
+    "artist": "Turnstile",
+    "milestone": 100,
+    "reachedAt": 1762700276852,
+    "daysSinceFirstListen": 89,
+    "playRate": 1.1235955056179776
+  }
+]

@@ -5,7 +5,7 @@ export interface Track {
   duration: number;
   zone: string;
   seek_position: number;
-  state: 'playing' | 'paused' | 'loading' | 'stopped';
+  state: "playing" | "paused" | "loading" | "stopped";
   key: string;
   genres: string[];
   timestamp: number;
@@ -19,7 +19,7 @@ export interface NowPlayingTrack {
   artist: string;
   album: string;
   key: string;
-  state: Track['state'];
+  state: Track["state"];
   zone: string;
   seek_position: number;
   length: number;
@@ -47,8 +47,8 @@ export interface ImageData {
   timestamp: number;
 }
 
-export type RoonEvent = 
-  | { type: 'CORE_PAIRED'; core: any }
-  | { type: 'CORE_UNPAIRED' }
-  | { type: 'ZONES_UPDATED'; zones: any }
-  | { type: 'NOW_PLAYING_UPDATED'; tracks: NowPlayingTrack[] }; 
+export type RoonEvent =
+  | { type: "CORE_PAIRED"; core: any }
+  | { type: "CORE_UNPAIRED" }
+  | { type: "ZONES_UPDATED"; zones: any }
+  | { type: "NOW_PLAYING_UPDATED"; tracks: NowPlayingTrack[] };

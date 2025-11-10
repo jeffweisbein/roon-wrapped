@@ -1,4 +1,4 @@
-declare module 'node-roon-api' {
+declare module "node-roon-api" {
   interface RoonApiOptions {
     extension_id: string;
     display_name: string;
@@ -27,11 +27,11 @@ declare module 'node-roon-api' {
   export = RoonApi;
 }
 
-declare module 'node-roon-api-transport' {
+declare module "node-roon-api-transport" {
   interface Zone {
     zone_id: string;
     display_name: string;
-    state: 'playing' | 'paused' | 'stopped';
+    state: "playing" | "paused" | "stopped";
     now_playing?: {
       two_line: {
         line1: string;
@@ -50,21 +50,29 @@ declare module 'node-roon-api-transport' {
   }
 
   interface TransportApi {
-    subscribe_zones(callback: (response: string, data?: { zones: Record<string, Zone> }) => void): void;
+    subscribe_zones(
+      callback: (
+        response: string,
+        data?: { zones: Record<string, Zone> },
+      ) => void,
+    ): void;
   }
 
   const transport: { prototype: TransportApi };
   export = transport;
 }
 
-declare module 'node-roon-api-image' {
+declare module "node-roon-api-image" {
   interface ImageData {
     image: Buffer;
     content_type: string;
   }
 
   interface ImageApi {
-    get_image(key: string, cb: (error: Error | null, image: ImageData | null) => void): void;
+    get_image(
+      key: string,
+      cb: (error: Error | null, image: ImageData | null) => void,
+    ): void;
   }
 
   const image: { prototype: ImageApi };
@@ -83,8 +91,18 @@ interface WrappedData {
   };
   stats: {
     topArtists: Array<{ name: string; count: number; key: string }>;
-    topAlbums: Array<{ name: string; artist: string; count: number; key: string }>;
-    topTracks: Array<{ title: string; artist: string; count: number; key: string }>;
+    topAlbums: Array<{
+      name: string;
+      artist: string;
+      count: number;
+      key: string;
+    }>;
+    topTracks: Array<{
+      title: string;
+      artist: string;
+      count: number;
+      key: string;
+    }>;
     topGenres: Array<{ name: string; count: number }>;
   };
-} 
+}

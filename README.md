@@ -7,10 +7,10 @@ A beautiful visualization of your Roon music listening history, inspired by Spot
 ![Roon Wrapped (0)](https://github.com/user-attachments/assets/818c925b-53eb-4aff-b46b-8037ea467cae)
 ![Roon Wrapped (2)](https://github.com/user-attachments/assets/5c9ee491-5607-4039-8b8d-98256741472d)
 
-
 ## Features
 
 ### Core Features
+
 - **Real-time Roon Integration**: Connect to your Roon Core and track listening history across all zones
 - **Comprehensive Statistics**: View detailed analytics including total plays, unique artists/albums/tracks, and listening time
 - **Now Playing**: Real-time display of currently playing tracks with album art and progress
@@ -18,14 +18,27 @@ A beautiful visualization of your Roon music listening history, inspired by Spot
 - **Wrapped Insights**: Spotify Wrapped-style yearly summaries with listening patterns and trends
 - **Time Period Filtering**: View stats for different time periods (24 hours, 7 days, 30 days, 90 days, all time)
 
-### AI-Powered Features (NEW!)
+### AI-Powered Features
+
 - **Smart Recommendations**: Get personalized music suggestions based on your listening history
 - **Similar Track Discovery**: Find songs and artists similar to what you're currently playing
 - **Musical Taste Analysis**: Understand your listening diversity and genre preferences
 - **Discovery Tracking**: Monitor how adventurous your music exploration is
 - **Adaptive Learning**: Recommendations improve over time as the system learns your preferences
+- **User Preferences**: Customizable preference management for tailored recommendations
+
+### Artist Milestones (NEW!)
+
+- **Milestone Tracking**: Track listening milestones for your favorite artists (10, 25, 50, 100+ plays)
+- **Achievement Awards**: Earn badges and awards as you reach new milestones
+- **Artist Progress**: Visual progress bars showing how close you are to the next milestone
+- **Leaderboard**: See which artists you've listened to most with ranked milestone achievements
+- **Historical Processing**: Retroactively analyze your listening history to award past milestones
+- **Album Milestones**: Track progress across individual albums by each artist
+- **Trajectory Analysis**: View listening trends and growth patterns over time
 
 ### Design & UI
+
 - **Modern Dark Theme**: Beautiful dark mode interface with gradient accents
 - **Animated Headers**: Page titles with cycling gradient animations
 - **Custom Logo & Favicon**: Music note and analytics visualization branding
@@ -95,52 +108,64 @@ npm run stop
 
 ### Alternative Start Scripts
 
-The application includes a unified start script that can run in different modes:
+The application includes a unified start script for easy launching:
 
-\`\`\`bash
-# Start both frontend and backend
-./start-all.sh all
+```bash
+# Start the application with automatic setup
+./start-roon-wrapped.sh
+```
 
-# Start only the backend server
-./start-all.sh server
-
-# Start only the frontend
-./start-all.sh frontend
-
-# Start in minimal mode (reduced features)
-./start-all.sh minimal
-\`\`\`
+This script handles:
+- Environment validation
+- Dependency checks
+- Automatic port cleanup
+- PM2 process management
+- Frontend (port 8080) and backend (port 3003) startup
 
 ## Architecture
 
 ### Frontend (Next.js 15)
+
 - **App Router**: Modern Next.js architecture with server and client components
 - **UI Components**: Built with Radix UI primitives and shadcn/ui
 - **Styling**: Tailwind CSS with custom gradients and animations
 - **Data Visualization**: Chart.js for statistics and analytics
 
 ### Backend (Express + Node.js)
+
 - **Roon Integration**: Official node-roon-api for music system connection
 - **History Tracking**: JSON-based storage with automatic backups
 - **API Routes**: RESTful endpoints for stats, history, and real-time data
 - **Process Management**: PM2 for running multiple services
 
 ### Key Pages
+
 - **Home** (`/`): Dashboard with statistics, AI recommendations, and discovery insights
 - **Now Playing** (`/now-playing`): Real-time track display with similar track suggestions
 - **Wrapped** (`/wrapped`): Comprehensive listening insights and patterns
 - **Top 40** (`/top-40`): Charts for top artists, albums, and tracks
+- **Milestones** (`/milestones`): Artist achievement tracking and milestone progress
 
 ## Recent Updates
 
+### Latest Features (v2.0)
+
+- **Artist Milestones System**: Complete milestone tracking with achievements, awards, and progress visualization
+- **Enhanced Recommendation Engine**: Improved AI-powered music discovery with user preference management
+- **Historical Milestone Processing**: Retroactive analysis of listening history for milestone awards
+- **New API Endpoints**: 6 new milestone-focused API routes for comprehensive data access
+
 ### UI/UX Improvements
+
 - **Custom Logo & Favicon**: Created a unique logo combining a music note with analytics bars
 - **Animated Gradient Headers**: All page headers now feature cycling gradient animations
 - **Consistent Header Alignment**: Standardized header layout across all pages
 - **Connection Status Indicator**: Moved inline with header for better visibility
 - **Fixed Dropdown Behavior**: Time period selector no longer causes page jumps
+- **Milestone Progress Bars**: Visual tracking of artist listening achievements
 
 ### Technical Stack
+
 - **Next.js 15**: Latest version with App Router
 - **TypeScript**: Full type safety throughout the application
 - **Tailwind CSS**: Utility-first styling with custom theme
@@ -162,4 +187,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.

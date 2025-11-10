@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 interface NowPlayingTrack {
   title: string;
@@ -44,10 +44,14 @@ export function NowPlaying({ tracks }: NowPlayingProps) {
             )}
             <div className="flex-1 min-w-0">
               <h3 className="font-semibold text-lg truncate group-hover:text-yellow-400 transition-colors">
-                {track.title || 'Unknown Title'}
+                {track.title || "Unknown Title"}
               </h3>
-              <p className="text-neutral-400 truncate">{track.artist || 'Unknown Artist'}</p>
-              <p className="text-neutral-500 text-sm truncate mt-1">{track.album || 'Unknown Album'}</p>
+              <p className="text-neutral-400 truncate">
+                {track.artist || "Unknown Artist"}
+              </p>
+              <p className="text-neutral-500 text-sm truncate mt-1">
+                {track.album || "Unknown Album"}
+              </p>
               <div className="mt-3 flex items-center space-x-2">
                 <div className="h-1 flex-1 bg-white/10 rounded-full overflow-hidden">
                   <div
@@ -82,5 +86,5 @@ export function NowPlaying({ tracks }: NowPlayingProps) {
 function formatTime(seconds: number): string {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = Math.floor(seconds % 60);
-  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-} 
+  return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+}

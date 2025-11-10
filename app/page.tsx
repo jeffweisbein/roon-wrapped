@@ -1,26 +1,20 @@
 "use client";
 
-import {
-  Suspense,
-} from 'react';
+import { Suspense } from "react";
 
-import { PageHeader } from '@/components/ui/page-header';
-import { NowPlayingWidget } from '@/components/dashboard/now-playing-widget';
-import { QuickStatsWidget } from '@/components/dashboard/quick-stats-widget';
-import { TopArtistsWidget } from '@/components/dashboard/top-artists-widget';
-import { ListeningInsightsWidget } from '@/components/dashboard/listening-insights-widget';
-import { RecentActivityWidget } from '@/components/dashboard/recent-activity-widget';
-import RecommendationsWidget from '@/components/recommendations-widget';
-import DiscoveryInsightsWidget from '@/components/discovery-insights-widget';
-
+import { PageHeader } from "@/components/ui/page-header";
+import { NowPlayingWidget } from "@/components/dashboard/now-playing-widget";
+import { QuickStatsWidget } from "@/components/dashboard/quick-stats-widget";
+import { TopArtistsWidget } from "@/components/dashboard/top-artists-widget";
+import { ListeningInsightsWidget } from "@/components/dashboard/listening-insights-widget";
+import { RecentActivityWidget } from "@/components/dashboard/recent-activity-widget";
+import RecommendationsWidget from "@/components/recommendations-widget";
+import DiscoveryInsightsWidget from "@/components/discovery-insights-widget";
 
 function HomeContent() {
   return (
     <main className="container mx-auto p-4 max-w-7xl">
-      <PageHeader 
-        title="Dashboard"
-        subtitle="Your music command center"
-      />
+      <PageHeader title="Dashboard" subtitle="Your music command center" />
 
       {/* Main grid layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -65,16 +59,15 @@ function HomeContent() {
 
 export default function Home() {
   return (
-    <Suspense fallback={
-      <main className="container mx-auto p-4 max-w-7xl">
-        <PageHeader 
-          title="Dashboard"
-          subtitle="Your music command center"
-        />
-        <div className="text-center">Loading...</div>
-      </main>
-    }>
+    <Suspense
+      fallback={
+        <main className="container mx-auto p-4 max-w-7xl">
+          <PageHeader title="Dashboard" subtitle="Your music command center" />
+          <div className="text-center">Loading...</div>
+        </main>
+      }
+    >
       <HomeContent />
     </Suspense>
   );
-} 
+}

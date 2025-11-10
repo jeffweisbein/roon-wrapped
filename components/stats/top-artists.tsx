@@ -1,3 +1,5 @@
+import { formatNumber } from "@/lib/utils";
+
 interface Artist {
   name: string;
   count: number;
@@ -14,14 +16,10 @@ export function TopArtists({ artists, limit = 5 }: TopArtistsProps) {
   const displayArtists = artists.slice(0, limit);
 
   if (!displayArtists.length) {
-    return (
-      <div className="text-neutral-400">
-        No artists found
-      </div>
-    );
+    return <div className="text-neutral-400">No artists found</div>;
   }
 
-  const maxCount = Math.max(...displayArtists.map(artist => artist.count));
+  const maxCount = Math.max(...displayArtists.map((artist) => artist.count));
 
   return (
     <div className="space-y-4">
@@ -41,12 +39,16 @@ export function TopArtists({ artists, limit = 5 }: TopArtistsProps) {
                   onError={(e) => {
                     // If image fails to load, show fallback icon
                     const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    target.parentElement?.querySelector('.fallback-icon')?.classList.remove('hidden');
+                    target.style.display = "none";
+                    target.parentElement
+                      ?.querySelector(".fallback-icon")
+                      ?.classList.remove("hidden");
                   }}
                 />
               ) : null}
-              <div className={`w-full h-full bg-white/10 rounded-lg flex items-center justify-center fallback-icon ${artist.image_key ? 'hidden' : ''}`}>
+              <div
+                className={`w-full h-full bg-white/10 rounded-lg flex items-center justify-center fallback-icon ${artist.image_key ? "hidden" : ""}`}
+              >
                 <span className="text-2xl">👤</span>
               </div>
             </div>
@@ -64,7 +66,7 @@ export function TopArtists({ artists, limit = 5 }: TopArtistsProps) {
                   />
                 </div>
                 <span className="text-sm text-neutral-400 tabular-nums">
-                  {artist.count} tracks
+                  {formatNumber(artist.count)} tracks
                 </span>
               </div>
             </div>
@@ -73,4 +75,4 @@ export function TopArtists({ artists, limit = 5 }: TopArtistsProps) {
       ))}
     </div>
   );
-} 
+}

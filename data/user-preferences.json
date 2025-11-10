@@ -1,0 +1,1288 @@
+{
+  "artistPreferences": {
+    "Bleachers": {
+      "likes": 1,
+      "dislikes": 1,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-04T03:59:23.075Z"
+    },
+    "Inhaler": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-03T23:22:23.174Z"
+    },
+    "We the Kings": {
+      "likes": 5,
+      "dislikes": 0,
+      "dismissed": 2,
+      "lastFeedback": "2025-07-06T00:42:58.893Z"
+    },
+    "bleachers": {
+      "likes": 3,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-20T00:29:07.296Z"
+    },
+    "kansas": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-03T23:23:52.173Z"
+    },
+    "nf / fleurie": {
+      "likes": 2,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-04T14:56:22.607Z"
+    },
+    "The Summer Set": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-04T00:43:57.069Z"
+    },
+    "Rupert Holmes": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-04T03:17:13.818Z"
+    },
+    "Sugarcult": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-04T03:25:26.528Z"
+    },
+    "New Found Glory": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-04T03:25:28.236Z"
+    },
+    "The Ataris": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-04T03:25:30.231Z"
+    },
+    "The Starting Line": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-04T03:25:31.491Z"
+    },
+    "Story of the Year": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-04T03:25:33.050Z"
+    },
+    "Declan Mckenna": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-04T17:24:48.942Z"
+    },
+    "The Band CAMINO": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-04T17:25:01.497Z"
+    },
+    "Sabrina Carpenter": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-04T17:25:12.582Z"
+    },
+    "Taylor Swift": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-04T17:25:16.765Z"
+    },
+    "redbone": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-06T00:29:48.199Z"
+    },
+    "niall horan": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-06T00:33:07.268Z"
+    },
+    "The Mamas & the Papas": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-06T00:33:27.726Z"
+    },
+    "Redbone": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-06T00:33:38.140Z"
+    },
+    "elton john": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-06T00:46:55.239Z"
+    },
+    "the band camino": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-06T00:47:04.827Z"
+    },
+    "king harvest": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 1,
+      "lastFeedback": "2025-09-24T02:33:20.438Z"
+    },
+    "aerosmith": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-06T03:04:19.520Z"
+    },
+    "ac/dc": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-06T03:04:22.742Z"
+    },
+    "lynyrd skynyrd": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-06T03:04:29.101Z"
+    },
+    "creedence clearwater revival": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-06T03:04:45.245Z"
+    },
+    "crazy town": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-12T23:52:19.295Z"
+    },
+    "blink-182": {
+      "likes": 3,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-26T21:16:28.932Z"
+    },
+    "good charlotte": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-12T23:53:14.126Z"
+    },
+    "yellowcard": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-12T23:53:18.505Z"
+    },
+    "justin timberlake": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-07-27T23:06:56.880Z"
+    },
+    "the rascals": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0,
+      "lastFeedback": "2025-08-14T02:10:49.414Z"
+    },
+    "george michael": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-08-14T02:10:56.395Z"
+    },
+    "bon jovi": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-08-14T02:12:35.497Z"
+    },
+    "inhaler": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-08-18T22:38:14.300Z"
+    },
+    "the doobie brothers": {
+      "likes": 2,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-24T02:33:46.720Z"
+    },
+    "lou bega": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-08T00:07:07.387Z"
+    },
+    "amber pacific": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-08T00:07:11.708Z"
+    },
+    "mayday parade": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-08T00:09:54.863Z"
+    },
+    "all time low": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-08T00:09:57.545Z"
+    },
+    "state champs": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-08T00:09:59.494Z"
+    },
+    "simple creatures": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-08T00:10:00.771Z"
+    },
+    "the maine": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-08T00:10:02.316Z"
+    },
+    "we the kings": {
+      "likes": 2,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-19T23:23:38.682Z"
+    },
+    "angels & airwaves": {
+      "likes": 2,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-26T21:16:22.093Z"
+    },
+    "+44": {
+      "likes": 2,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-26T21:16:31.733Z"
+    },
+    "box car racer": {
+      "likes": 2,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-26T21:16:27.335Z"
+    },
+    "new found glory": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-09T23:16:33.585Z"
+    },
+    "life between sleep": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-19T23:23:24.841Z"
+    },
+    "queen / david bowie": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-19T23:24:06.298Z"
+    },
+    "fatboy slim": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-22T17:02:05.784Z"
+    },
+    "grandson": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-22T17:02:08.330Z"
+    },
+    "boston": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-23T22:28:24.390Z"
+    },
+    "journey": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-23T22:28:29.773Z"
+    },
+    "foreigner": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-23T22:28:39.575Z"
+    },
+    "rupert holmes": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-24T02:33:49.209Z"
+    },
+    "tom delonge": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0,
+      "lastFeedback": "2025-09-26T21:16:24.335Z"
+    }
+  },
+  "genrePreferences": {
+    "indie pop": {
+      "likes": 3,
+      "dislikes": 1,
+      "dismissed": 0
+    },
+    "alternative": {
+      "likes": 7,
+      "dislikes": 3,
+      "dismissed": 2
+    },
+    "indie rock": {
+      "likes": 2,
+      "dislikes": 5,
+      "dismissed": 0
+    },
+    "pop punk": {
+      "likes": 7,
+      "dislikes": 1,
+      "dismissed": 2
+    },
+    "powerpop": {
+      "likes": 6,
+      "dislikes": 1,
+      "dismissed": 2
+    },
+    "seen live": {
+      "likes": 2,
+      "dislikes": 1,
+      "dismissed": 0
+    },
+    "indie": {
+      "likes": 2,
+      "dislikes": 3,
+      "dismissed": 0
+    },
+    "classic rock": {
+      "likes": 2,
+      "dislikes": 2,
+      "dismissed": 1
+    },
+    "Progressive rock": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0
+    },
+    "rock": {
+      "likes": 4,
+      "dislikes": 2,
+      "dismissed": 0
+    },
+    "pop": {
+      "likes": 6,
+      "dislikes": 2,
+      "dismissed": 1
+    },
+    "dark ambient": {
+      "likes": 2,
+      "dislikes": 0,
+      "dismissed": 0
+    },
+    "dream pop": {
+      "likes": 2,
+      "dislikes": 0,
+      "dismissed": 0
+    },
+    "pop rock": {
+      "likes": 1,
+      "dislikes": 1,
+      "dismissed": 0
+    },
+    "70s": {
+      "likes": 1,
+      "dislikes": 1,
+      "dismissed": 1
+    },
+    "irish": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0
+    },
+    "folk": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0
+    },
+    "singer-songwriter": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0
+    },
+    "rapcore": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0
+    },
+    "Nu Metal": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0
+    },
+    "rnb": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0
+    },
+    "dance": {
+      "likes": 2,
+      "dislikes": 0,
+      "dismissed": 0
+    },
+    "british": {
+      "likes": 1,
+      "dislikes": 1,
+      "dismissed": 0
+    },
+    "80s": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0
+    },
+    "mambo": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0
+    },
+    "latin": {
+      "likes": 0,
+      "dislikes": 1,
+      "dismissed": 0
+    },
+    "punk rock": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0
+    },
+    "emo": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0
+    },
+    "post-hardcore": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0
+    },
+    "ambient": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0
+    },
+    "electronic": {
+      "likes": 2,
+      "dislikes": 0,
+      "dismissed": 0
+    },
+    "big beat": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0
+    },
+    "alternative rock": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0
+    },
+    "my top songs": {
+      "likes": 1,
+      "dislikes": 0,
+      "dismissed": 0
+    }
+  },
+  "feedbackHistory": [
+    {
+      "artist": "+44",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-26T21:16:31.733Z"
+    },
+    {
+      "artist": "blink-182",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-26T21:16:28.932Z"
+    },
+    {
+      "artist": "Box Car Racer",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-26T21:16:27.335Z"
+    },
+    {
+      "artist": "Tom DeLonge",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-26T21:16:24.335Z"
+    },
+    {
+      "artist": "Angels & Airwaves",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-26T21:16:22.093Z"
+    },
+    {
+      "artist": "Rupert Holmes",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-24T02:33:49.209Z"
+    },
+    {
+      "artist": "The Doobie Brothers",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-24T02:33:46.720Z"
+    },
+    {
+      "artist": "King Harvest",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-24T02:33:20.438Z"
+    },
+    {
+      "artist": "Foreigner",
+      "action": "disliked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-23T22:28:39.575Z"
+    },
+    {
+      "artist": "Journey",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-23T22:28:29.773Z"
+    },
+    {
+      "artist": "Boston",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-23T22:28:24.390Z"
+    },
+    {
+      "artist": "grandson",
+      "action": "liked",
+      "genres": [
+        "alternative rock",
+        "indie rock",
+        "my top songs"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-09-22T17:02:08.330Z"
+    },
+    {
+      "artist": "fatboy slim",
+      "action": "liked",
+      "genres": [
+        "electronic",
+        "big beat",
+        "dance"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-09-22T17:02:05.784Z"
+    },
+    {
+      "artist": "Bleachers",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-20T00:29:07.296Z"
+    },
+    {
+      "artist": "queen / david bowie",
+      "action": "liked",
+      "genres": [
+        "rock",
+        "electronic",
+        "pop"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-09-19T23:24:06.298Z"
+    },
+    {
+      "artist": "We the Kings",
+      "action": "liked",
+      "genres": [
+        "pop punk",
+        "powerpop",
+        "pop rock"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-09-19T23:23:38.682Z"
+    },
+    {
+      "artist": "life between sleep",
+      "action": "liked",
+      "genres": [
+        "post-hardcore",
+        "rock",
+        "ambient"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-09-19T23:23:24.841Z"
+    },
+    {
+      "artist": "New Found Glory",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-09T23:16:33.585Z"
+    },
+    {
+      "artist": "Box Car Racer",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-09T23:16:30.241Z"
+    },
+    {
+      "artist": "blink-182",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-09T23:16:28.802Z"
+    },
+    {
+      "artist": "+44",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-09T23:16:27.018Z"
+    },
+    {
+      "artist": "Angels & Airwaves",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-09T23:16:24.708Z"
+    },
+    {
+      "artist": "We the Kings",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-08T00:10:04.056Z"
+    },
+    {
+      "artist": "The Maine",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-08T00:10:02.316Z"
+    },
+    {
+      "artist": "Simple Creatures",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-08T00:10:00.771Z"
+    },
+    {
+      "artist": "State Champs",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-08T00:09:59.494Z"
+    },
+    {
+      "artist": "All Time Low",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-08T00:09:57.545Z"
+    },
+    {
+      "artist": "Mayday Parade",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-09-08T00:09:54.863Z"
+    },
+    {
+      "artist": "Amber Pacific",
+      "action": "liked",
+      "genres": [
+        "pop punk",
+        "punk rock",
+        "emo"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-09-08T00:07:11.708Z"
+    },
+    {
+      "artist": "lou bega",
+      "action": "disliked",
+      "genres": [
+        "pop",
+        "mambo",
+        "latin"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-09-08T00:07:07.387Z"
+    },
+    {
+      "artist": "the doobie brothers",
+      "action": "liked",
+      "genres": [
+        "classic rock",
+        "rock",
+        "70s"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-09-08T00:07:02.532Z"
+    },
+    {
+      "artist": "Inhaler",
+      "action": "liked",
+      "genres": [
+        "indie rock",
+        "rock",
+        "alternative"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-08-18T22:38:14.300Z"
+    },
+    {
+      "artist": "Bon Jovi",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-08-14T02:12:35.497Z"
+    },
+    {
+      "artist": "george michael",
+      "action": "liked",
+      "genres": [
+        "pop",
+        "80s",
+        "british"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-08-14T02:10:56.395Z"
+    },
+    {
+      "artist": "the rascals",
+      "action": "disliked",
+      "genres": [
+        "indie",
+        "indie rock",
+        "british"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-08-14T02:10:49.414Z"
+    },
+    {
+      "artist": "justin timberlake",
+      "action": "liked",
+      "genres": [
+        "pop",
+        "rnb",
+        "dance"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-27T23:06:56.880Z"
+    },
+    {
+      "artist": "Yellowcard",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-12T23:53:18.505Z"
+    },
+    {
+      "artist": "Good Charlotte",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-12T23:53:14.126Z"
+    },
+    {
+      "artist": "blink-182",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-12T23:52:47.740Z"
+    },
+    {
+      "artist": "crazy town",
+      "action": "disliked",
+      "genres": [
+        "rapcore",
+        "Nu Metal",
+        "alternative"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-12T23:52:19.295Z"
+    },
+    {
+      "artist": "Creedence Clearwater Revival",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-06T03:04:45.245Z"
+    },
+    {
+      "artist": "Lynyrd Skynyrd",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-06T03:04:29.101Z"
+    },
+    {
+      "artist": "AC/DC",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-06T03:04:22.742Z"
+    },
+    {
+      "artist": "Aerosmith",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-06T03:04:19.520Z"
+    },
+    {
+      "artist": "king harvest",
+      "action": "dismissed",
+      "genres": [
+        "classic rock",
+        "70s",
+        "pop"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-06T00:47:34.484Z"
+    },
+    {
+      "artist": "The Band CAMINO",
+      "action": "disliked",
+      "genres": [
+        "indie rock",
+        "alternative",
+        "indie"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-06T00:47:04.827Z"
+    },
+    {
+      "artist": "elton john",
+      "action": "liked",
+      "genres": [
+        "pop",
+        "classic rock",
+        "singer-songwriter"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-06T00:46:55.239Z"
+    },
+    {
+      "artist": "We the Kings",
+      "action": "dismissed",
+      "genres": [
+        "pop punk",
+        "powerpop",
+        "alternative"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-06T00:42:58.893Z"
+    },
+    {
+      "artist": "We the Kings",
+      "action": "dismissed",
+      "genres": [
+        "pop punk",
+        "powerpop",
+        "alternative"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-06T00:39:35.538Z"
+    },
+    {
+      "artist": "We the Kings",
+      "action": "liked",
+      "genres": [
+        "pop punk",
+        "powerpop",
+        "alternative"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-06T00:36:58.418Z"
+    },
+    {
+      "artist": "Redbone",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-06T00:33:38.140Z"
+    },
+    {
+      "artist": "The Mamas & the Papas",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-06T00:33:27.726Z"
+    },
+    {
+      "artist": "We the Kings",
+      "action": "liked",
+      "genres": [
+        "pop punk",
+        "powerpop",
+        "alternative"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-06T00:33:10.836Z"
+    },
+    {
+      "artist": "niall horan",
+      "action": "disliked",
+      "genres": [
+        "pop",
+        "irish",
+        "folk"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-06T00:33:07.268Z"
+    },
+    {
+      "artist": "We the Kings",
+      "action": "liked",
+      "genres": [
+        "pop punk",
+        "powerpop",
+        "alternative"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-06T00:30:31.634Z"
+    },
+    {
+      "artist": "redbone",
+      "action": "disliked",
+      "genres": [
+        "classic rock",
+        "70s",
+        "rock"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-06T00:29:48.199Z"
+    },
+    {
+      "artist": "bleachers",
+      "action": "liked",
+      "genres": [
+        "indie pop",
+        "seen live",
+        "indie"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-04T18:26:52.870Z"
+    },
+    {
+      "artist": "Taylor Swift",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-04T17:25:16.765Z"
+    },
+    {
+      "artist": "Sabrina Carpenter",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-04T17:25:12.582Z"
+    },
+    {
+      "artist": "The Band CAMINO",
+      "action": "disliked",
+      "genres": [
+        "indie rock",
+        "alternative",
+        "indie"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-04T17:25:01.497Z"
+    },
+    {
+      "artist": "Declan Mckenna",
+      "action": "disliked",
+      "genres": [
+        "seen live",
+        "indie pop",
+        "indie rock"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-04T17:24:48.942Z"
+    },
+    {
+      "artist": "nf / fleurie",
+      "action": "liked",
+      "genres": [
+        "pop",
+        "dark ambient",
+        "dream pop"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-04T14:56:22.607Z"
+    },
+    {
+      "artist": "Bleachers",
+      "action": "disliked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-04T03:59:23.075Z"
+    },
+    {
+      "artist": "Story of the Year",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-04T03:25:33.050Z"
+    },
+    {
+      "artist": "The Starting Line",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-04T03:25:31.491Z"
+    },
+    {
+      "artist": "The Ataris",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-04T03:25:30.231Z"
+    },
+    {
+      "artist": "New Found Glory",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-04T03:25:28.236Z"
+    },
+    {
+      "artist": "Sugarcult",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-04T03:25:26.528Z"
+    },
+    {
+      "artist": "Rupert Holmes",
+      "action": "liked",
+      "genres": [],
+      "context": "now-playing",
+      "timestamp": "2025-07-04T03:17:13.818Z"
+    },
+    {
+      "artist": "The Summer Set",
+      "action": "disliked",
+      "genres": [
+        "pop punk",
+        "powerpop",
+        "pop rock"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-04T00:43:57.069Z"
+    },
+    {
+      "artist": "We the Kings",
+      "action": "liked",
+      "genres": [
+        "pop punk",
+        "powerpop",
+        "alternative"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-03T23:39:30.462Z"
+    },
+    {
+      "artist": "nf / fleurie",
+      "action": "liked",
+      "genres": [
+        "pop",
+        "dark ambient",
+        "dream pop"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-03T23:23:56.239Z"
+    },
+    {
+      "artist": "kansas",
+      "action": "disliked",
+      "genres": [
+        "classic rock",
+        "Progressive rock",
+        "rock"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-03T23:23:52.173Z"
+    },
+    {
+      "artist": "bleachers",
+      "action": "liked",
+      "genres": [
+        "indie pop",
+        "seen live",
+        "indie"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-03T23:23:49.369Z"
+    },
+    {
+      "artist": "We the Kings",
+      "action": "liked",
+      "genres": [
+        "pop punk",
+        "powerpop",
+        "alternative"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-03T23:23:44.762Z"
+    },
+    {
+      "artist": "Inhaler",
+      "action": "disliked",
+      "genres": [
+        "indie rock"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-03T23:22:23.174Z"
+    },
+    {
+      "artist": "Bleachers",
+      "action": "liked",
+      "genres": [
+        "indie pop",
+        "alternative"
+      ],
+      "context": "personalized",
+      "timestamp": "2025-07-03T23:22:09.743Z"
+    }
+  ],
+  "stats": {
+    "totalLikes": 61,
+    "totalDislikes": 13,
+    "totalDismissed": 3,
+    "lastUpdated": "2025-09-26T21:16:31.733Z"
+  },
+  "cooldowns": {
+    "lou bega": {
+      "until": "2025-10-08T00:07:07.387Z",
+      "reason": "disliked"
+    },
+    "life between sleep": {
+      "until": "2025-09-26T23:23:24.841Z",
+      "reason": "liked"
+    },
+    "we the kings": {
+      "until": "2025-09-26T23:23:38.682Z",
+      "reason": "liked"
+    },
+    "queen / david bowie": {
+      "until": "2025-09-26T23:24:06.298Z",
+      "reason": "liked"
+    },
+    "bleachers": {
+      "until": "2025-09-27T00:29:07.296Z",
+      "reason": "liked"
+    },
+    "fatboy slim": {
+      "until": "2025-09-29T17:02:05.784Z",
+      "reason": "liked"
+    },
+    "grandson": {
+      "until": "2025-09-29T17:02:08.330Z",
+      "reason": "liked"
+    },
+    "boston": {
+      "until": "2025-09-30T22:28:24.390Z",
+      "reason": "liked"
+    },
+    "journey": {
+      "until": "2025-09-30T22:28:29.773Z",
+      "reason": "liked"
+    },
+    "foreigner": {
+      "until": "2025-10-23T22:28:39.575Z",
+      "reason": "disliked"
+    },
+    "king harvest": {
+      "until": "2025-10-01T02:33:20.438Z",
+      "reason": "liked"
+    },
+    "the doobie brothers": {
+      "until": "2025-10-01T02:33:46.720Z",
+      "reason": "liked"
+    },
+    "rupert holmes": {
+      "until": "2025-10-01T02:33:49.209Z",
+      "reason": "liked"
+    },
+    "angels & airwaves": {
+      "until": "2025-10-03T21:16:22.093Z",
+      "reason": "liked"
+    },
+    "tom delonge": {
+      "until": "2025-10-03T21:16:24.335Z",
+      "reason": "liked"
+    },
+    "box car racer": {
+      "until": "2025-10-03T21:16:27.335Z",
+      "reason": "liked"
+    },
+    "blink-182": {
+      "until": "2025-10-03T21:16:28.932Z",
+      "reason": "liked"
+    },
+    "+44": {
+      "until": "2025-10-03T21:16:31.733Z",
+      "reason": "liked"
+    }
+  }
+}

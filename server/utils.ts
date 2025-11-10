@@ -2,37 +2,37 @@ export class RoonError extends Error {
   constructor(
     message: string,
     public code: string,
-    public recoverable: boolean = true
+    public recoverable: boolean = true,
   ) {
     super(message);
-    this.name = 'RoonError';
+    this.name = "RoonError";
   }
 }
 
 export async function withRetry<T>(
   operation: () => Promise<T>,
   maxAttempts = 3,
-  delay = 1000
+  delay = 1000,
 ): Promise<T> {
   let lastError: Error;
-  
+
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
       return await operation();
     } catch (error) {
       lastError = error as Error;
-      
+
       // If it's a non-recoverable error, throw immediately
       if (error instanceof RoonError && !error.recoverable) {
         throw error;
       }
-      
+
       if (attempt < maxAttempts) {
-        await new Promise(resolve => setTimeout(resolve, delay * attempt));
+        await new Promise((resolve) => setTimeout(resolve, delay * attempt));
       }
     }
   }
-  
+
   throw lastError!;
 }
 
@@ -48,7 +48,7 @@ export class EventEmitter {
   }
 
   emit(event: string, data: any) {
-    this.handlers.get(event)?.forEach(handler => {
+    this.handlers.get(event)?.forEach((handler) => {
       try {
         handler(data);
       } catch (error) {
@@ -64,12 +64,15 @@ export class EventEmitter {
 
 // Image cache implementation
 export class ImageCache {
-  private cache = new Map<string, {
-    data: Buffer;
-    contentType: string;
-    timestamp: number;
-  }>();
-  
+  private cache = new Map<
+    string,
+    {
+      data: Buffer;
+      contentType: string;
+      timestamp: number;
+    }
+  >();
+
   private readonly maxAge = 3600000; // 1 hour in milliseconds
   private readonly maxSize = 100; // Maximum number of cached images
 
@@ -97,11 +100,11 @@ export class ImageCache {
     this.cache.set(key, {
       data,
       contentType,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     });
   }
 
   clear() {
     this.cache.clear();
   }
-} 
+}
