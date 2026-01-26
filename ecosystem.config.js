@@ -2,8 +2,8 @@ module.exports = {
   apps: [
     {
       name: "roon-wrapped-frontend",
-      script: "node_modules/next/dist/bin/next",
-      args: "dev",
+      script: "npx",
+      args: "next dev",
       cwd: __dirname,
       env: {
         NODE_ENV: "development",
