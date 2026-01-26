@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Play, Pause, SkipBack, SkipForward, Music } from "lucide-react";
 
 interface Track {
@@ -42,16 +41,13 @@ export function CDPlayer({
         <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-56 h-8 bg-black/40 rounded-full blur-xl" />
         
         {/* Spinning CD */}
-        <motion.div
-          className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-2xl"
-          animate={{ rotate: isPlaying ? 360 : 0 }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "linear",
-          }}
+        <div
+          className={`relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-2xl ${
+            isPlaying ? "animate-spin-slow" : ""
+          }`}
           style={{
             boxShadow: "0 0 0 3px rgba(80, 80, 80, 0.5), 0 25px 50px -12px rgba(0, 0, 0, 0.8)",
+            animation: isPlaying ? "spin 3s linear infinite" : "none",
           }}
         >
           {/* Album art fills the entire CD */}
@@ -129,7 +125,7 @@ export function CDPlayer({
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Track List & Info */}
