@@ -3,21 +3,20 @@ module.exports = {
     {
       name: "roon-wrapped-frontend",
       script: "node_modules/next/dist/bin/next",
-      args: "start",
+      args: "dev",
       cwd: __dirname,
       env: {
-        NODE_ENV: "production",
+        NODE_ENV: "development",
         PORT: 8080,
       },
       env_development: {
         NODE_ENV: "development",
         PORT: 8080,
-        args: "dev",
       },
       env_production: {
         NODE_ENV: "production",
         PORT: 8080,
-        args: "start",
+        script_args: "start",
       },
     },
     {

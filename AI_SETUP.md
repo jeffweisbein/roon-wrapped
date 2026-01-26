@@ -45,16 +45,19 @@ npm run dev
 ## How It Works
 
 ### Local-First Approach
+
 - All recommendations are generated locally using your Roon listening history
 - No data is sent to external services without anonymization
 - The system learns from your listening patterns over time
 
 ### Recommendation Engine
+
 - **Collaborative Filtering**: Finds patterns in your listening history
 - **Content-Based Filtering**: Analyzes musical attributes when available
 - **Hybrid Approach**: Combines both methods for best results
 
 ### Discovery Balance
+
 - The system automatically adjusts the ratio of familiar vs. new recommendations
 - Starts at 70% familiar, 30% discovery
 - Adapts based on your listening behavior
@@ -62,21 +65,25 @@ npm run dev
 ## Where to Find AI Features
 
 ### Home Dashboard
+
 - **AI Recommendations Widget**: Shows personalized suggestions and now-playing based recommendations
 - **Discovery Insights Widget**: Displays your musical diversity score and genre distribution
 
 ### Now Playing Page
+
 - **Similar Tracks Section**: Shows similar songs and artists to what's currently playing
 - Real-time recommendations update as you change tracks
 
 ## Privacy & Costs
 
 ### Privacy
+
 - Your listening data stays local
 - External API calls (if configured) only send artist/track names
 - No personal information is shared
 
 ### Costs
+
 - **Free Tier Usage**: The application is designed to work within free API limits
 - **Last.fm**: Free API with reasonable rate limits
 - **MusicBrainz**: Completely free, no API key required
@@ -85,16 +92,19 @@ npm run dev
 ## Troubleshooting
 
 ### No Recommendations Showing
+
 1. Ensure you have listening history data (check if other pages show data)
 2. Wait a few seconds for the recommendation engine to analyze your history
 3. Try refreshing the page
 
 ### Poor Recommendation Quality
+
 1. Add a Last.fm API key for better metadata
 2. The system improves over time as it learns your preferences
 3. Ensure you have diverse listening history for better recommendations
 
 ### API Errors
+
 1. Check your Last.fm API key is correct
 2. Ensure you're not exceeding rate limits (unlikely with normal usage)
 3. The system will fall back to local-only mode if APIs fail
@@ -102,6 +112,7 @@ npm run dev
 ## Future Enhancements
 
 While playlist export to Roon isn't currently possible due to API limitations, future updates may include:
+
 - M3U playlist file generation for manual import
 - More sophisticated mood detection
 - Time-of-day based recommendations

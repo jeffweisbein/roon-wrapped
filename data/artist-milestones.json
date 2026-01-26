@@ -2595,5 +2595,383 @@
     "reachedAt": 1762700276852,
     "daysSinceFirstListen": 89,
     "playRate": 1.1235955056179776
+  },
+  {
+    "artist": "Third Eye Blind",
+    "milestone": 100,
+    "reachedAt": 1762734644599,
+    "daysSinceFirstListen": 314,
+    "playRate": 0.3184713375796178
+  },
+  {
+    "artist": "LANY",
+    "milestone": 100,
+    "reachedAt": 1763335526624,
+    "daysSinceFirstListen": 320,
+    "playRate": 0.3125
+  },
+  {
+    "artist": "All Time Low / JoJo / Jojo",
+    "milestone": 10,
+    "reachedAt": 1763390940905,
+    "daysSinceFirstListen": 23,
+    "playRate": 0.43478260869565216
+  },
+  {
+    "artist": "DMX",
+    "milestone": 10,
+    "reachedAt": 1763775045922,
+    "daysSinceFirstListen": 325,
+    "playRate": 0.03076923076923077
+  },
+  {
+    "artist": "Mayday Parade",
+    "milestone": 250,
+    "reachedAt": 1763819735522,
+    "daysSinceFirstListen": 326,
+    "playRate": 0.7668711656441718
+  },
+  {
+    "artist": "Jordan Harvey",
+    "milestone": 50,
+    "reachedAt": 1763863794006,
+    "daysSinceFirstListen": 87,
+    "playRate": 0.5747126436781609
+  },
+  {
+    "artist": "Chronic Future",
+    "milestone": 10,
+    "reachedAt": 1764710252602,
+    "daysSinceFirstListen": 332,
+    "playRate": 0.030120481927710843
+  },
+  {
+    "artist": "Simple Minds",
+    "milestone": 10,
+    "reachedAt": 1764792320118,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "Seal",
+    "milestone": 10,
+    "reachedAt": 1764885236218,
+    "daysSinceFirstListen": 336,
+    "playRate": 0.02976190476190476
+  },
+  {
+    "artist": "Goo Goo Dolls",
+    "milestone": 50,
+    "reachedAt": 1764886797352,
+    "daysSinceFirstListen": 264,
+    "playRate": 0.1893939393939394
+  },
+  {
+    "artist": "SpacePimps",
+    "milestone": 10,
+    "reachedAt": 1764903786204,
+    "daysSinceFirstListen": 171,
+    "playRate": 0.05847953216374269
+  },
+  {
+    "artist": "Break Out Day",
+    "milestone": 10,
+    "reachedAt": 1764956091989,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "Justin Bieber",
+    "milestone": 250,
+    "reachedAt": 1765129998281,
+    "daysSinceFirstListen": 338,
+    "playRate": 0.7396449704142012
+  },
+  {
+    "artist": "Break Out Day",
+    "milestone": 25,
+    "reachedAt": 1765237577842,
+    "daysSinceFirstListen": 3,
+    "playRate": 8.333333333333334
+  },
+  {
+    "artist": "Average White Band",
+    "milestone": 10,
+    "reachedAt": 1765308253659,
+    "daysSinceFirstListen": 336,
+    "playRate": 0.02976190476190476
+  },
+  {
+    "artist": "+44",
+    "milestone": 25,
+    "reachedAt": 1765421496081,
+    "daysSinceFirstListen": 341,
+    "playRate": 0.07331378299120235
+  },
+  {
+    "artist": "Lucas Jack",
+    "milestone": 10,
+    "reachedAt": 1765463103138,
+    "daysSinceFirstListen": 3,
+    "playRate": 3.3333333333333335
+  },
+  {
+    "artist": "All Time Low / Pale Waves",
+    "milestone": 10,
+    "reachedAt": 1765505136832,
+    "daysSinceFirstListen": 1,
+    "playRate": 10
+  },
+  {
+    "artist": "Mr. Mister",
+    "milestone": 10,
+    "reachedAt": 1765561865880,
+    "daysSinceFirstListen": 79,
+    "playRate": 0.12658227848101267
+  },
+  {
+    "artist": "Justin Timberlake",
+    "milestone": 10,
+    "reachedAt": 1765652943011,
+    "daysSinceFirstListen": 339,
+    "playRate": 0.029498525073746312
+  },
+  {
+    "artist": "Blackstreet / Dr. Dre / Queen Pen",
+    "milestone": 10,
+    "reachedAt": 1765669011532,
+    "daysSinceFirstListen": 347,
+    "playRate": 0.02881844380403458
+  },
+  {
+    "artist": "Khalid",
+    "milestone": 25,
+    "reachedAt": 1765672960341,
+    "daysSinceFirstListen": 166,
+    "playRate": 0.15060240963855423
+  },
+  {
+    "artist": "isti",
+    "milestone": 10,
+    "reachedAt": 1765727940753,
+    "daysSinceFirstListen": 2,
+    "playRate": 5
+  },
+  {
+    "artist": "Sia",
+    "milestone": 10,
+    "reachedAt": 1765739572201,
+    "daysSinceFirstListen": 27,
+    "playRate": 0.37037037037037035
+  },
+  {
+    "artist": "isti",
+    "milestone": 25,
+    "reachedAt": 1765808929509,
+    "daysSinceFirstListen": 3,
+    "playRate": 8.333333333333334
+  },
+  {
+    "artist": "Late Night Thoughts",
+    "milestone": 10,
+    "reachedAt": 1765809749051,
+    "daysSinceFirstListen": 3,
+    "playRate": 3.3333333333333335
+  },
+  {
+    "artist": "NGHTMRE / SLANDER",
+    "milestone": 10,
+    "reachedAt": 1765840639607,
+    "daysSinceFirstListen": 329,
+    "playRate": 0.030395136778115502
+  },
+  {
+    "artist": "OutKast",
+    "milestone": 10,
+    "reachedAt": 1765840865499,
+    "daysSinceFirstListen": 349,
+    "playRate": 0.02865329512893983
+  },
+  {
+    "artist": "twocolors / Pia Mia",
+    "milestone": 25,
+    "reachedAt": 1765855079023,
+    "daysSinceFirstListen": 324,
+    "playRate": 0.07716049382716049
+  },
+  {
+    "artist": "Emotional Oranges / Vince Staples",
+    "milestone": 10,
+    "reachedAt": 1765855767009,
+    "daysSinceFirstListen": 349,
+    "playRate": 0.02865329512893983
+  },
+  {
+    "artist": "Simple Plan",
+    "milestone": 50,
+    "reachedAt": 1765935992394,
+    "daysSinceFirstListen": 348,
+    "playRate": 0.14367816091954022
+  },
+  {
+    "artist": "Simple Minds",
+    "milestone": 25,
+    "reachedAt": 1766058553530,
+    "daysSinceFirstListen": 16,
+    "playRate": 1.5625
+  },
+  {
+    "artist": "isti",
+    "milestone": 50,
+    "reachedAt": 1766093948684,
+    "daysSinceFirstListen": 6,
+    "playRate": 8.333333333333334
+  },
+  {
+    "artist": "Race the Sun",
+    "milestone": 25,
+    "reachedAt": 1766172515907,
+    "daysSinceFirstListen": 186,
+    "playRate": 0.13440860215053763
+  },
+  {
+    "artist": "Pierce the Veil",
+    "milestone": 50,
+    "reachedAt": 1766203743276,
+    "daysSinceFirstListen": 342,
+    "playRate": 0.14619883040935672
+  },
+  {
+    "artist": "All Time Low / JoJo / Jojo",
+    "milestone": 25,
+    "reachedAt": 1766217582766,
+    "daysSinceFirstListen": 56,
+    "playRate": 0.44642857142857145
+  },
+  {
+    "artist": "All Time Low / Ruston Kelly",
+    "milestone": 25,
+    "reachedAt": 1766223173567,
+    "daysSinceFirstListen": 63,
+    "playRate": 0.3968253968253968
+  },
+  {
+    "artist": "Paul McCartney",
+    "milestone": 10,
+    "reachedAt": 1766258618462,
+    "daysSinceFirstListen": 329,
+    "playRate": 0.030395136778115502
+  },
+  {
+    "artist": "JAY‐Z / Ye",
+    "milestone": 10,
+    "reachedAt": 1766375645053,
+    "daysSinceFirstListen": 325,
+    "playRate": 0.03076923076923077
+  },
+  {
+    "artist": "Jiwon / daphnie",
+    "milestone": 10,
+    "reachedAt": 1766497622419,
+    "daysSinceFirstListen": 5,
+    "playRate": 2
+  },
+  {
+    "artist": "The Knockaround Band",
+    "milestone": 10,
+    "reachedAt": 1766497874695,
+    "daysSinceFirstListen": 8,
+    "playRate": 1.25
+  },
+  {
+    "artist": "Boston",
+    "milestone": 25,
+    "reachedAt": 1766857537028,
+    "daysSinceFirstListen": 360,
+    "playRate": 0.06944444444444445
+  },
+  {
+    "artist": "mgk / Halsey",
+    "milestone": 25,
+    "reachedAt": 1767798119679,
+    "daysSinceFirstListen": 371,
+    "playRate": 0.0673854447439353
+  },
+  {
+    "artist": "Jiwon / daphnie",
+    "milestone": 25,
+    "reachedAt": 1767798684832,
+    "daysSinceFirstListen": 20,
+    "playRate": 1.25
+  },
+  {
+    "artist": "Ye",
+    "milestone": 50,
+    "reachedAt": 1768015331942,
+    "daysSinceFirstListen": 156,
+    "playRate": 0.32051282051282054
+  },
+  {
+    "artist": "Looking Glass",
+    "milestone": 50,
+    "reachedAt": 1768089418596,
+    "daysSinceFirstListen": 376,
+    "playRate": 0.13297872340425532
+  },
+  {
+    "artist": "Late Night Thoughts",
+    "milestone": 25,
+    "reachedAt": 1768158546573,
+    "daysSinceFirstListen": 30,
+    "playRate": 0.8333333333333334
+  },
+  {
+    "artist": "Losers Club",
+    "milestone": 10,
+    "reachedAt": 1768250602692,
+    "daysSinceFirstListen": 4,
+    "playRate": 2.5
+  },
+  {
+    "artist": "The Chainsmokers / GRACEY",
+    "milestone": 10,
+    "reachedAt": 1768343688102,
+    "daysSinceFirstListen": 377,
+    "playRate": 0.026525198938992044
+  },
+  {
+    "artist": "Loud Luxury / Two Friends / Bebe Rexha",
+    "milestone": 10,
+    "reachedAt": 1768344283912,
+    "daysSinceFirstListen": 378,
+    "playRate": 0.026455026455026454
+  },
+  {
+    "artist": "Bowling for Soup",
+    "milestone": 10,
+    "reachedAt": 1768345447319,
+    "daysSinceFirstListen": 205,
+    "playRate": 0.04878048780487805
+  },
+  {
+    "artist": "Taylor Swift",
+    "milestone": 250,
+    "reachedAt": 1768521740162,
+    "daysSinceFirstListen": 381,
+    "playRate": 0.6561679790026247
+  },
+  {
+    "artist": "The Format",
+    "milestone": 10,
+    "reachedAt": 1768615059735,
+    "daysSinceFirstListen": 5,
+    "playRate": 2
+  },
+  {
+    "artist": "Bruce Springsteen",
+    "milestone": 10,
+    "reachedAt": 1768707790066,
+    "daysSinceFirstListen": 154,
+    "playRate": 0.06493506493506493
   }
 ]
