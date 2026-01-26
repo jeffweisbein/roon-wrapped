@@ -38,78 +38,96 @@ export function CDPlayer({
     <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 lg:gap-12 p-6 lg:p-8 max-w-5xl mx-auto">
       {/* CD Disc */}
       <div className="relative flex-shrink-0">
-        {/* CD Case shadow */}
-        <div className="absolute -right-2 top-2 w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 bg-zinc-900/50 rounded-lg blur-sm" />
+        {/* Subtle shadow under disc */}
+        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-56 h-8 bg-black/40 rounded-full blur-xl" />
         
         {/* Spinning CD */}
         <motion.div
-          className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full shadow-2xl"
-          style={{
-            background: `
-              radial-gradient(circle at 50% 50%, 
-                transparent 15%, 
-                rgba(40, 40, 40, 0.8) 15%, 
-                rgba(40, 40, 40, 0.8) 16%, 
-                rgba(20, 20, 20, 0.9) 16%, 
-                rgba(20, 20, 20, 0.9) 100%
-              )
-            `,
-          }}
+          className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-2xl"
           animate={{ rotate: isPlaying ? 360 : 0 }}
           transition={{
-            duration: 4,
+            duration: 3,
             repeat: Infinity,
             ease: "linear",
           }}
+          style={{
+            boxShadow: "0 0 0 3px rgba(80, 80, 80, 0.5), 0 25px 50px -12px rgba(0, 0, 0, 0.8)",
+          }}
         >
-          {/* CD grooves/rings */}
-          {[...Array(12)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full border border-zinc-700/20"
-              style={{
-                inset: `${18 + i * 6}%`,
-              }}
+          {/* Album art fills the entire CD */}
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt={album}
+              className="w-full h-full object-cover"
             />
-          ))}
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+              <Music className="w-20 h-20 text-white/50" />
+            </div>
+          )}
           
-          {/* Reflective shimmer */}
+          {/* CD overlay effects */}
+          {/* Rainbow/holographic ring effect */}
           <div 
-            className="absolute inset-0 rounded-full opacity-30"
+            className="absolute inset-0 rounded-full pointer-events-none"
             style={{
               background: `
-                linear-gradient(
-                  135deg,
-                  transparent 0%,
-                  rgba(255,255,255,0.1) 25%,
-                  transparent 50%,
-                  rgba(255,255,255,0.05) 75%,
-                  transparent 100%
+                radial-gradient(circle at 30% 30%, 
+                  rgba(255,255,255,0.15) 0%, 
+                  transparent 30%
+                ),
+                radial-gradient(circle at 70% 70%, 
+                  rgba(255,255,255,0.1) 0%, 
+                  transparent 25%
                 )
               `,
             }}
           />
           
-          {/* Center label with album art */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-[35%] h-[35%] rounded-full overflow-hidden border-4 border-zinc-700 shadow-inner bg-zinc-800">
-              {imageUrl ? (
-                <img
-                  src={imageUrl}
-                  alt={album}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
-                  <Music className="w-8 h-8 text-white/80" />
-                </div>
-              )}
-            </div>
-          </div>
+          {/* Subtle circular grooves overlay */}
+          <div 
+            className="absolute inset-0 rounded-full pointer-events-none opacity-20"
+            style={{
+              background: `
+                repeating-radial-gradient(
+                  circle at center,
+                  transparent 0px,
+                  transparent 2px,
+                  rgba(0,0,0,0.3) 2px,
+                  rgba(0,0,0,0.3) 3px
+                )
+              `,
+            }}
+          />
           
-          {/* Center spindle hole */}
+          {/* Center hole with metallic ring */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-3 h-3 rounded-full bg-zinc-900 border-2 border-zinc-600" />
+            {/* Outer metallic ring */}
+            <div 
+              className="w-16 h-16 sm:w-18 sm:h-18 lg:w-20 lg:h-20 rounded-full flex items-center justify-center"
+              style={{
+                background: "linear-gradient(145deg, #d4d4d4 0%, #737373 50%, #a3a3a3 100%)",
+                boxShadow: "inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.3)",
+              }}
+            >
+              {/* Inner dark ring */}
+              <div 
+                className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center"
+                style={{
+                  background: "linear-gradient(145deg, #525252 0%, #262626 50%, #404040 100%)",
+                }}
+              >
+                {/* Center hole */}
+                <div 
+                  className="w-5 h-5 sm:w-6 sm:h-6 rounded-full"
+                  style={{
+                    background: "linear-gradient(145deg, #171717 0%, #0a0a0a 100%)",
+                    boxShadow: "inset 0 2px 4px rgba(0,0,0,0.8)",
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>
@@ -129,10 +147,16 @@ export function CDPlayer({
           <p className="text-zinc-400 text-sm mt-1">{artist}</p>
         </div>
 
+        {/* Now Playing indicator */}
+        <div className="mb-4 p-3 bg-zinc-800/30 rounded-lg border border-zinc-700/50">
+          <p className="text-xs text-zinc-500 uppercase tracking-wide mb-1">Now Playing</p>
+          <p className="text-white font-medium">{title}</p>
+        </div>
+
         {/* Track List */}
-        <div className="flex-1 overflow-y-auto max-h-64 lg:max-h-80 space-y-1 pr-2 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent">
-          {tracks.length > 0 ? (
-            tracks.map((track, index) => (
+        {tracks.length > 0 && (
+          <div className="flex-1 overflow-y-auto max-h-48 lg:max-h-56 space-y-1 pr-2 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent mb-4">
+            {tracks.map((track, index) => (
               <div
                 key={index}
                 className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
@@ -166,17 +190,12 @@ export function CDPlayer({
                   </div>
                 )}
               </div>
-            ))
-          ) : (
-            <div className="text-center py-8 text-zinc-500">
-              <p className="text-sm">Now Playing</p>
-              <p className="text-lg text-white mt-2">{title}</p>
-            </div>
-          )}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Playback Controls */}
-        <div className="flex items-center justify-center gap-6 mt-6 pt-4 border-t border-zinc-800">
+        <div className="flex items-center justify-center gap-6 pt-4 border-t border-zinc-800">
           <button
             onClick={onPrevious}
             className="p-2 text-zinc-400 hover:text-white transition-colors"
