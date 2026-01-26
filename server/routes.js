@@ -204,6 +204,62 @@ router.get("/api/roon/image/:key", async (req, res) => {
   }
 });
 
+// Get album tracks from history
+router.get("/api/roon/album-tracks", async (req, res) => {
+  try {
+    const { album, artist } = req.query;
+    
+    if (!album) {
+      return res.status(400).json({ error: "Album parameter required" });
+    }
+
+    // Initialize history service
+    await historyService.initialize();
+    const tracks = historyService.tracks;
+    
+    // Find all unique tracks from this album
+    const albumTracks = tracks.filter(t => 
+      t.album === album && (!artist || t.artist === artist)
+    );
+    
+    // Get unique tracks with play counts
+    const trackMap = new Map();
+    albumTracks.forEach(t => {
+      if (!trackMap.has(t.title)) {
+        trackMap.set(t.title, {
+          title: t.title,
+          artist: t.artist,
+          album: t.album,
+          duration: t.length || 0,
+          playCount: 1,
+          lastPlayed: t.timestamp
+        });
+      } else {
+        const existing = trackMap.get(t.title);
+        existing.playCount++;
+        if (t.timestamp > existing.lastPlayed) {
+          existing.lastPlayed = t.timestamp;
+        }
+      }
+    });
+    
+    // Convert to array and sort by title (approximates track order)
+    const uniqueTracks = Array.from(trackMap.values())
+      .sort((a, b) => a.title.localeCompare(b.title));
+    
+    res.json({ 
+      success: true, 
+      album,
+      artist,
+      tracks: uniqueTracks,
+      totalPlays: albumTracks.length
+    });
+  } catch (err) {
+    console.error("[Routes] Error getting album tracks:", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // Error handler
 router.use((err, req, res, next) => {
   console.error("[Routes] Unhandled error:", err);
