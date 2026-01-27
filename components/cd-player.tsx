@@ -52,11 +52,21 @@ export function CDPlayer({
         >
           {/* Album art fills the entire CD */}
           {imageUrl ? (
-            <img
-              src={imageUrl}
-              alt={album}
-              className="w-full h-full object-cover"
-            />
+            <div className="relative w-full h-full">
+              {/* Blurred background to fill gaps */}
+              <img
+                src={imageUrl}
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover scale-110 blur-md"
+                aria-hidden="true"
+              />
+              {/* Main album art - contained without stretching */}
+              <img
+                src={imageUrl}
+                alt={album}
+                className="relative w-full h-full object-contain"
+              />
+            </div>
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
               <Music className="w-20 h-20 text-white/50" />
