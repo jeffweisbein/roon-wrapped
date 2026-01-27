@@ -42,36 +42,22 @@ export function CDPlayer({
         
         {/* Spinning CD */}
         <div
-          className={`relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-2xl ${
+          className={`relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full shadow-2xl ${
             isPlaying ? "animate-spin-slow" : ""
           }`}
           style={{
             boxShadow: "0 0 0 3px rgba(80, 80, 80, 0.5), 0 25px 50px -12px rgba(0, 0, 0, 0.8)",
             animation: isPlaying ? "spin 3s linear infinite" : "none",
+            clipPath: "circle(50%)",
           }}
         >
           {/* Album art fills the entire CD */}
           {imageUrl ? (
-            <div className="absolute inset-0 rounded-full overflow-hidden">
-              {/* Blurred background to fill gaps */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  backgroundImage: `url(${imageUrl})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  filter: 'blur(8px)',
-                  transform: 'scale(1.1)',
-                }}
-                aria-hidden="true"
-              />
-              {/* Main album art - contained without stretching */}
-              <img
-                src={imageUrl}
-                alt={album}
-                className="absolute inset-0 w-full h-full object-contain"
-              />
-            </div>
+            <img
+              src={imageUrl}
+              alt={album}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
               <Music className="w-20 h-20 text-white/50" />
