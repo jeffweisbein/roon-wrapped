@@ -333,6 +333,61 @@ class RoonConnection {
     });
   }
 
+  // Transport control methods
+  playPause() {
+    if (!this.isConnected()) {
+      throw new Error("Roon not connected");
+    }
+    const zones = this.transport._zones || {};
+    const zoneIds = Object.keys(zones);
+    if (zoneIds.length === 0) {
+      throw new Error("No zones available");
+    }
+    // Find playing zone or use first zone
+    const playingZone = Object.values(zones).find(z => z.state === "playing");
+    const zone = playingZone || Object.values(zones)[0];
+    return new Promise((resolve, reject) => {
+      this.transport.control(zone.zone_id, "playpause", (err) => {
+        if (err) reject(new Error(err));
+        else resolve({ success: true, zone: zone.display_name });
+      });
+    });
+  }
+
+  next() {
+    if (!this.isConnected()) {
+      throw new Error("Roon not connected");
+    }
+    const zones = this.transport._zones || {};
+    const playingZone = Object.values(zones).find(z => z.state === "playing");
+    if (!playingZone) {
+      throw new Error("No zone is currently playing");
+    }
+    return new Promise((resolve, reject) => {
+      this.transport.control(playingZone.zone_id, "next", (err) => {
+        if (err) reject(new Error(err));
+        else resolve({ success: true, zone: playingZone.display_name });
+      });
+    });
+  }
+
+  previous() {
+    if (!this.isConnected()) {
+      throw new Error("Roon not connected");
+    }
+    const zones = this.transport._zones || {};
+    const playingZone = Object.values(zones).find(z => z.state === "playing");
+    if (!playingZone) {
+      throw new Error("No zone is currently playing");
+    }
+    return new Promise((resolve, reject) => {
+      this.transport.control(playingZone.zone_id, "previous", (err) => {
+        if (err) reject(new Error(err));
+        else resolve({ success: true, zone: playingZone.display_name });
+      });
+    });
+  }
+
   // Add method to get connection status for API
   getConnectionStatus() {
     const zones = this.transport?._zones || {};

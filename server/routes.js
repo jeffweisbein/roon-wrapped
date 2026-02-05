@@ -204,6 +204,37 @@ router.get("/api/roon/image/:key", async (req, res) => {
   }
 });
 
+// Transport controls
+router.post("/api/roon/transport/playpause", async (req, res) => {
+  try {
+    const result = await roonConnection.playPause();
+    res.json(result);
+  } catch (err) {
+    console.error("[Routes] Error toggling play/pause:", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+router.post("/api/roon/transport/next", async (req, res) => {
+  try {
+    const result = await roonConnection.next();
+    res.json(result);
+  } catch (err) {
+    console.error("[Routes] Error skipping to next:", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+router.post("/api/roon/transport/previous", async (req, res) => {
+  try {
+    const result = await roonConnection.previous();
+    res.json(result);
+  } catch (err) {
+    console.error("[Routes] Error going to previous:", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // Get album tracks from history
 router.get("/api/roon/album-tracks", async (req, res) => {
   try {

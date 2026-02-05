@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import {
   Pause,
   Play,
+  SkipBack,
+  SkipForward,
   Volume2,
   Sparkles,
   Music,
@@ -55,6 +57,35 @@ export default function NowPlayingPage() {
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [viewMode, setViewMode] = useState<ViewMode>("card");
   const [albumTracks, setAlbumTracks] = useState<AlbumTrack[]>([]);
+
+  // Transport control functions
+  const handlePlayPause = async () => {
+    try {
+      await fetch("/api/roon/transport/playpause", { method: "POST" });
+      // Immediately re-fetch to update UI
+      setTimeout(fetchNowPlaying, 300);
+    } catch (err) {
+      console.error("Error toggling play/pause:", err);
+    }
+  };
+
+  const handleNext = async () => {
+    try {
+      await fetch("/api/roon/transport/next", { method: "POST" });
+      setTimeout(fetchNowPlaying, 500);
+    } catch (err) {
+      console.error("Error skipping to next:", err);
+    }
+  };
+
+  const handlePrevious = async () => {
+    try {
+      await fetch("/api/roon/transport/previous", { method: "POST" });
+      setTimeout(fetchNowPlaying, 500);
+    } catch (err) {
+      console.error("Error going to previous:", err);
+    }
+  };
 
   // Function to fetch now playing data
   const fetchNowPlaying = async () => {
@@ -298,6 +329,9 @@ export default function NowPlayingPage() {
                   tracks={albumTracks}
                   currentTrackIndex={currentTrackIndex >= 0 ? currentTrackIndex : 0}
                   isPlaying={isPlaying}
+                  onPlayPause={handlePlayPause}
+                  onNext={handleNext}
+                  onPrevious={handlePrevious}
                 />
               </CardContent>
             </Card>
@@ -383,6 +417,35 @@ export default function NowPlayingPage() {
                         transition={{ duration: 0.5, ease: "easeOut" }}
                       />
                     </div>
+                  </div>
+
+                  {/* Playback Controls */}
+                  <div className="flex items-center justify-center gap-6">
+                    <button
+                      onClick={handlePrevious}
+                      className="w-12 h-12 flex items-center justify-center rounded-full bg-zinc-800/50 hover:bg-zinc-700/50 border border-zinc-700/50 transition-colors"
+                      aria-label="Previous track"
+                    >
+                      <SkipBack className="w-5 h-5 text-zinc-300" />
+                    </button>
+                    <button
+                      onClick={handlePlayPause}
+                      className="w-14 h-14 flex items-center justify-center rounded-full bg-white hover:bg-zinc-200 transition-colors"
+                      aria-label={isPlaying ? "Pause" : "Play"}
+                    >
+                      {isPlaying ? (
+                        <Pause className="w-6 h-6 text-black" />
+                      ) : (
+                        <Play className="w-6 h-6 text-black ml-0.5" />
+                      )}
+                    </button>
+                    <button
+                      onClick={handleNext}
+                      className="w-12 h-12 flex items-center justify-center rounded-full bg-zinc-800/50 hover:bg-zinc-700/50 border border-zinc-700/50 transition-colors"
+                      aria-label="Next track"
+                    >
+                      <SkipForward className="w-5 h-5 text-zinc-300" />
+                    </button>
                   </div>
 
                   {/* Additional Metadata */}
