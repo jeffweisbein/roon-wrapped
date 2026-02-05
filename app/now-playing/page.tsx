@@ -140,14 +140,63 @@ export default function NowPlayingPage() {
     }
   };
 
-  // Set up polling for real-time updates
+  // Set up SSE for real-time updates, with polling fallback
   useEffect(() => {
+    let eventSource: EventSource | null = null;
+    let pollInterval: NodeJS.Timeout | null = null;
+    let useSSE = true;
+
+    function startSSE() {
+      try {
+        eventSource = new EventSource("/api/roon/now-playing/sse");
+
+        eventSource.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.error) {
+              console.warn("[NowPlaying] SSE error:", data.error);
+              fallbackToPolling();
+              return;
+            }
+            if (data.state === "stopped") {
+              setNowPlaying(null);
+            } else if (data.title) {
+              setNowPlaying(data);
+              setError(null);
+            }
+            setIsLoading(false);
+          } catch (err) {
+            console.warn("[NowPlaying] SSE parse error:", err);
+          }
+        };
+
+        eventSource.onerror = () => {
+          console.warn("[NowPlaying] SSE connection error, falling back to polling");
+          eventSource?.close();
+          eventSource = null;
+          fallbackToPolling();
+        };
+      } catch (err) {
+        console.warn("[NowPlaying] SSE not available, using polling");
+        fallbackToPolling();
+      }
+    }
+
+    function fallbackToPolling() {
+      if (!useSSE) return; // already polling
+      useSSE = false;
+      fetchNowPlaying();
+      pollInterval = setInterval(fetchNowPlaying, 1000);
+    }
+
+    // Try SSE first, do an initial fetch regardless
     fetchNowPlaying();
+    startSSE();
 
-    // Poll every 1 second for real-time updates (more responsive)
-    const interval = setInterval(fetchNowPlaying, 1000);
-
-    return () => clearInterval(interval);
+    return () => {
+      eventSource?.close();
+      if (pollInterval) clearInterval(pollInterval);
+    };
   }, []);
 
   // Fetch recommendations when track changes

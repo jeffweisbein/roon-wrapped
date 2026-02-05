@@ -11,6 +11,8 @@ class RoonConnection {
     this.currentTrack = null;
     this.trackTimer = null;
     this.zoneSubscription = null;
+    // SSE clients
+    this.sseClients = new Set();
 
     // Initialize Roon API with required info
     this.roon = new RoonApi({
@@ -150,7 +152,45 @@ class RoonConnection {
     return { title, artist, album };
   }
 
+  // SSE methods
+  addSSEClient(res) {
+    this.sseClients.add(res);
+    // Send current state immediately
+    const nowPlaying = this.getNowPlaying();
+    if (nowPlaying) {
+      res.write(`data: ${JSON.stringify(nowPlaying)}\n\n`);
+    }
+    // Remove on disconnect
+    res.on("close", () => {
+      this.sseClients.delete(res);
+    });
+  }
+
+  broadcastSSE(data) {
+    const message = `data: ${JSON.stringify(data)}\n\n`;
+    for (const client of this.sseClients) {
+      try {
+        client.write(message);
+      } catch (err) {
+        this.sseClients.delete(client);
+      }
+    }
+  }
+
   handleZoneUpdate(msg) {
+    if (!msg.zones_changed && !msg.zones_seek_changed) {
+      return;
+    }
+
+    // Broadcast SSE for any zone change
+    const nowPlaying = this.getNowPlaying();
+    if (nowPlaying) {
+      this.broadcastSSE(nowPlaying);
+    } else {
+      // Broadcast null to indicate nothing is playing
+      this.broadcastSSE({ state: "stopped" });
+    }
+
     if (!msg.zones_changed) return;
 
     msg.zones_changed.forEach(async (zone) => {

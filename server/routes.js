@@ -44,6 +44,35 @@ router.post("/api/roon/connect", (req, res) => {
   }
 });
 
+// SSE endpoint for real-time now-playing updates
+router.get("/api/roon/now-playing/sse", (req, res) => {
+  res.writeHead(200, {
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache",
+    "Connection": "keep-alive",
+    "X-Accel-Buffering": "no",
+  });
+
+  // Send initial keepalive
+  res.write(":ok\n\n");
+
+  // Register this client for updates
+  roonConnection.addSSEClient(res);
+
+  // Send a heartbeat every 30 seconds to keep connection alive
+  const heartbeat = setInterval(() => {
+    try {
+      res.write(":heartbeat\n\n");
+    } catch {
+      clearInterval(heartbeat);
+    }
+  }, 30000);
+
+  req.on("close", () => {
+    clearInterval(heartbeat);
+  });
+});
+
 // Now playing with enhanced stats
 router.get("/api/roon/now-playing", async (req, res) => {
   try {
