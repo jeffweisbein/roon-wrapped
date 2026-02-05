@@ -30,7 +30,6 @@ export function WrappedCard({
 
     try {
       const width = format === "story" ? 1080 : 1080;
-      const height = format === "story" ? 1920 : 1080;
       const scale = width / cardRef.current.offsetWidth;
 
       const dataUrl = await toPng(cardRef.current, {

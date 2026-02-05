@@ -19,13 +19,13 @@ export function PageHeader({
 }: PageHeaderProps) {
   return (
     <div className={cn("mb-8", className)}>
-      <div className="flex justify-between items-start">
-        <div className="flex-1">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+        <div className="flex-1 min-w-0">
           {/* Logo on mobile, text on desktop */}
           <div className="block sm:hidden mb-4">
             <LogoWithText size={60} />
           </div>
-          <div className="flex items-center gap-3 mb-2">
+          <div className="flex items-center gap-3 mb-2 flex-wrap">
             <h1 className="text-3xl sm:text-4xl font-bold">
               <AnimatedGradientText>{title}</AnimatedGradientText>
             </h1>
@@ -36,7 +36,7 @@ export function PageHeader({
           )}
         </div>
         {rightContent && (
-          <div className="ml-4 flex-shrink-0">{rightContent}</div>
+          <div className="flex-shrink-0">{rightContent}</div>
         )}
       </div>
     </div>

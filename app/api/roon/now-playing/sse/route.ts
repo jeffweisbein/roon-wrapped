@@ -28,7 +28,6 @@ export async function GET(request: NextRequest) {
         }
 
         const reader = response.body.getReader();
-        const decoder = new TextDecoder();
 
         try {
           while (true) {

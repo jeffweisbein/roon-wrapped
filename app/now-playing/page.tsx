@@ -440,13 +440,13 @@ export default function NowPlayingPage() {
                 </div>
 
                 {/* Track Info Section */}
-                <div className="p-6 sm:p-8 space-y-6">
-                  <div className="text-center space-y-2">
-                    <h2 className="text-2xl font-bold text-white leading-tight">
+                <div className="p-5 sm:p-8 space-y-5 sm:space-y-6">
+                  <div className="text-center space-y-1.5 sm:space-y-2">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white leading-tight">
                       {nowPlaying.title}
                     </h2>
-                    <p className="text-lg text-zinc-300">{nowPlaying.artist}</p>
-                    <p className="text-zinc-400">{nowPlaying.album}</p>
+                    <p className="text-base sm:text-lg text-zinc-300">{nowPlaying.artist}</p>
+                    <p className="text-sm sm:text-base text-zinc-400">{nowPlaying.album}</p>
                   </div>
 
                   {/* Progress Bar */}
@@ -499,7 +499,7 @@ export default function NowPlayingPage() {
                   {(nowPlaying.genres?.length ||
                     nowPlaying.year ||
                     nowPlaying.bpm) && (
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
                       {nowPlaying.genres && nowPlaying.genres.length > 0 && (
                         <div className="bg-zinc-800/30 border border-zinc-700/50 rounded-lg p-3 text-center">
                           <p className="text-xs text-zinc-400 uppercase tracking-wide mb-1">

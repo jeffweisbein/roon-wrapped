@@ -18,7 +18,7 @@ export function SiteNav() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:top-0 sm:bottom-auto backdrop-blur-xl bg-gradient-to-b from-black/30 to-black/10 border-t sm:border-b border-zinc-800/30">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:top-0 sm:bottom-auto sm:py-4 sm:pb-4 backdrop-blur-xl bg-gradient-to-b from-black/30 to-black/10 border-t sm:border-b border-zinc-800/30">
       <div className="container mx-auto">
         <div className="flex items-center justify-between">
           {/* Logo on desktop, hidden on mobile */}
@@ -27,7 +27,7 @@ export function SiteNav() {
           </Link>
 
           {/* Navigation links */}
-          <ul className="flex items-center justify-center gap-8 flex-1 sm:flex-initial">
+          <ul className="flex items-center justify-around sm:justify-center gap-2 sm:gap-8 flex-1 sm:flex-initial">
             {links.map(({ href, label, icon: Icon }) => {
               const isActive = pathname === href;
 

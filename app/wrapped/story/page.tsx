@@ -15,7 +15,6 @@ import {
   Flame,
   Sparkles,
   Share2,
-  Download,
 } from "lucide-react";
 import Link from "next/link";
 import { formatDuration } from "@/src/lib/utils";
