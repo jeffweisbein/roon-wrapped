@@ -11,7 +11,8 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
-import { Loader2 } from "lucide-react";
+import { Loader2, Play } from "lucide-react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Bar } from "react-chartjs-2";
 
@@ -352,15 +353,24 @@ function WrappedPageContent() {
             </div>
           }
           rightContent={
-            <TimePeriodSelector
-              value={period}
-              onValueChange={(value) => {
-                const url = new URL(window.location.href);
-                url.searchParams.set("period", value);
-                window.history.pushState({}, "", url.toString());
-                loadData();
-              }}
-            />
+            <div className="flex items-center gap-3">
+              <Link
+                href="/wrapped/story"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white text-sm font-medium rounded-lg transition-all shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40"
+              >
+                <Play className="w-4 h-4 fill-current" />
+                View as Story
+              </Link>
+              <TimePeriodSelector
+                value={period}
+                onValueChange={(value) => {
+                  const url = new URL(window.location.href);
+                  url.searchParams.set("period", value);
+                  window.history.pushState({}, "", url.toString());
+                  loadData();
+                }}
+              />
+            </div>
           }
         />
 
