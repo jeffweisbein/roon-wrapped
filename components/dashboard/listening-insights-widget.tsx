@@ -83,7 +83,7 @@ export function ListeningInsightsWidget() {
     },
     {
       icon: Zap,
-      title: `Peak: ${pattern?.peakDay || "Loading..."}`,
+      title: pattern?.peakDay ? `Peak: ${pattern.peakDay}` : "Peak Day",
       description: `You listen most on ${pattern?.peakDay}s`,
       color: "from-blue-500 to-cyan-500",
     },

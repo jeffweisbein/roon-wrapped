@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { AlertCircle, Disc3, Mic2, Music2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { formatNumber } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface TopItem {
   name: string;
@@ -51,8 +52,23 @@ export function Top40List({ type }: Top40ListProps) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-48">
-        <Disc3 className="w-8 h-8 animate-spin text-neutral-400" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {Array.from({ length: 12 }).map((_, i) => (
+          <div
+            key={i}
+            className="bg-white/5 border border-white/10 p-4 rounded-xl"
+          >
+            <div className="flex items-center space-x-4">
+              <Skeleton className="w-16 h-16 rounded-lg flex-shrink-0" />
+              <div className="flex-1 space-y-2">
+                <Skeleton className="h-4 w-3/4" />
+                <Skeleton className="h-3 w-1/2" />
+                <Skeleton className="h-3 w-1/4" />
+              </div>
+              <Skeleton className="h-8 w-8" />
+            </div>
+          </div>
+        ))}
       </div>
     );
   }

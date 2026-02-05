@@ -8,6 +8,7 @@ import { useSearchParams } from "next/navigation";
 import { Top40List } from "@/components/top-40-list";
 import { Top40Nav } from "@/components/top-40-nav";
 import { PageHeader } from "@/components/ui/page-header";
+import { Top40Skeleton } from "@/components/ui/skeleton";
 
 function Top40PageContent() {
   const searchParams = useSearchParams();
@@ -48,7 +49,11 @@ export default function Top40Page() {
     <Suspense
       fallback={
         <main className="container mx-auto px-4 py-8">
-          <div className="text-center">Loading...</div>
+          <PageHeader
+            title="Your Top 40"
+            subtitle="Your most played music, ranked by play count"
+          />
+          <Top40Skeleton />
         </main>
       }
     >

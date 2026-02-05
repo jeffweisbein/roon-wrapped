@@ -19,6 +19,7 @@ import { Bar } from "react-chartjs-2";
 import { ListeningInsights } from "@/components/stats/listening-insights";
 import { TimePeriodSelector } from "@/components/ui/time-period-selector";
 import { PageHeader } from "@/components/ui/page-header";
+import { WrappedPageSkeleton } from "@/components/ui/skeleton";
 import { formatDuration } from "@/src/lib/utils";
 import { formatNumber } from "@/lib/utils";
 
@@ -308,16 +309,7 @@ function WrappedPageContent() {
       : null;
 
   if (isLoading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="mx-auto h-8 w-8 animate-spin" />
-          <p className="mt-2 text-sm text-muted-foreground">
-            Loading your Wrapped data...
-          </p>
-        </div>
-      </div>
-    );
+    return <WrappedPageSkeleton />;
   }
 
   if (error) {
@@ -658,15 +650,7 @@ function WrappedPageContent() {
 
 export default function WrappedPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 text-white">
-          <div className="container mx-auto px-4 py-8">
-            <div className="text-center">Loading...</div>
-          </div>
-        </div>
-      }
-    >
+    <Suspense fallback={<WrappedPageSkeleton />}>
       <WrappedPageContent />
     </Suspense>
   );

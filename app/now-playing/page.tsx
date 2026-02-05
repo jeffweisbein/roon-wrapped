@@ -18,6 +18,7 @@ import {
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PageHeader } from "@/components/ui/page-header";
+import { NowPlayingSkeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { CDPlayer } from "@/components/cd-player";
 
@@ -267,10 +268,7 @@ export default function NowPlayingPage() {
             title="Now Playing"
             subtitle="Real-time music from your Roon system"
           />
-
-          <div className="flex justify-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-400"></div>
-          </div>
+          <NowPlayingSkeleton />
         </motion.div>
       </main>
     );

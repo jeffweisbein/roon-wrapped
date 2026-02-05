@@ -3,6 +3,7 @@
 import { Suspense } from "react";
 
 import { PageHeader } from "@/components/ui/page-header";
+import { DashboardSkeleton } from "@/components/ui/skeleton";
 import { NowPlayingWidget } from "@/components/dashboard/now-playing-widget";
 import { QuickStatsWidget } from "@/components/dashboard/quick-stats-widget";
 import { TopArtistsWidget } from "@/components/dashboard/top-artists-widget";
@@ -63,7 +64,7 @@ export default function Home() {
       fallback={
         <main className="container mx-auto p-4 max-w-7xl">
           <PageHeader title="Dashboard" subtitle="Your music command center" />
-          <div className="text-center">Loading...</div>
+          <DashboardSkeleton />
         </main>
       }
     >
