@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
           {
             headers: { Accept: "text/event-stream" },
             cache: "no-store",
-            // @ts-ignore - Next.js specific
+            // @ts-expect-error - Next.js request extends standard Request
             signal: request.signal,
           }
         );
