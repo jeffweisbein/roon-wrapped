@@ -11,7 +11,7 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
-import { Loader2, Play } from "lucide-react";
+import { Loader2, Play, Share2 } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Bar } from "react-chartjs-2";
@@ -360,6 +360,13 @@ function WrappedPageContent() {
               >
                 <Play className="w-4 h-4 fill-current" />
                 View as Story
+              </Link>
+              <Link
+                href="/wrapped/share"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/15 border border-white/10 text-white text-sm font-medium rounded-lg transition-all"
+              >
+                <Share2 className="w-4 h-4" />
+                Share Cards
               </Link>
               <TimePeriodSelector
                 value={period}

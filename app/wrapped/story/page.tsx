@@ -1056,9 +1056,19 @@ export default function WrappedStoryPage() {
         )}
       </div>
 
-      {/* Slide counter */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 text-white/30 text-xs">
-        {currentSlide + 1} / {totalSlides}
+      {/* Bottom bar: counter + share link */}
+      <div className="absolute bottom-6 left-0 right-0 z-50 flex items-center justify-center gap-4">
+        <span className="text-white/30 text-xs">
+          {currentSlide + 1} / {totalSlides}
+        </span>
+        <Link
+          href="/wrapped/share"
+          onClick={(e) => e.stopPropagation()}
+          className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-full text-white/60 hover:text-white/80 text-xs transition-colors"
+        >
+          <Share2 className="w-3 h-3" />
+          Share
+        </Link>
       </div>
     </div>
   );

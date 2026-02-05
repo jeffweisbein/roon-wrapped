@@ -57,6 +57,7 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "framer-motion": "^12.4.1",
+    "html-to-image": "^1.11.13",
     "lucide-react": "^0.303.0",
     "motion-utils": "^12.0.0",
     "next": "^15.1.6",
